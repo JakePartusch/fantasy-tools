@@ -7,6 +7,21 @@ import { getPowerRankings, getUserData } from './FantasyFootballApi';
 import { Segment, Table, Header, Image, Grid, Container, Form, Button, Loader, Menu, Modal, Icon } from 'semantic-ui-react';
 import '../node_modules/semantic-ui-css/semantic.min.css';
 
+const getParams = query => {
+  if (!query) {
+    return { };
+  }
+
+  return (query
+    .split('?')[1]
+    .split('&')
+    .reduce((params, param) => {
+      let [ key, value ] = param.split('=');
+      params[key] = value ? decodeURIComponent(value.replace(/\+/g, ' ')) : '';
+      return params;
+    }, { }));
+};
+
 class App extends Component {
   
   constructor() {
@@ -19,10 +34,11 @@ class App extends Component {
     }
   }
 
-  async onSubmit(e) {
+  async onSubmit() {
+    let params = getParams(this.state.leagueUrl);
     this.setState({rankings: [], loading: true, modalOpen: false})
-    let rankings = await getPowerRankings(this.state.leagueId, '2017', 13);
-    const userData = await getUserData(this.state.leagueId, '2017');
+    let rankings = await getPowerRankings(params.leagueId, params.seasonId);
+    const userData = await getUserData(params.leagueId, params.seasonId);
     rankings = rankings.map(team => ({
       ...userData.find(user => user.id === team.id),
       ...team
@@ -30,8 +46,8 @@ class App extends Component {
     this.setState({rankings, loading: false});
   }
 
-  handleLeagueIdChange = e => {
-    this.setState({leagueId: e.target.value})
+  handleLeagueUrlChange = e => {
+    this.setState({leagueUrl: e.target.value})
   }
 
   handleOpen = () => this.setState({ modalOpen: true })
@@ -48,14 +64,14 @@ class App extends Component {
           basic
           size='tiny'
         >
-          <Header icon='write' content='Enter ESPN League ID' />
+          <Header icon='write' content='Enter ESPN League URL' />
           <Modal.Content>
             <Form onSubmit={this.onSubmit.bind(this)}>
               <Form.Field>
                 <input 
-                  placeholder='ex: 123456' 
-                  value={this.state.leagueId} 
-                  onChange={this.handleLeagueIdChange}/>
+                  placeholder='http://games.espn.com/ffl/leagueoffice?leagueId=123456&seasonId=2017' 
+                  value={this.state.leagueUrl} 
+                  onChange={this.handleLeagueUrlChange}/>
               </Form.Field>
             </Form>
           </Modal.Content>
