@@ -4,7 +4,7 @@ import logo from './logo.svg';
 import './App.css';
 import axios from 'axios';
 import { getPowerRankings, getUserData } from './FantasyFootballApi';
-import { Segment, Table, Header, Image, Grid, Container, Form, Button, Loader, Menu, Modal, Icon } from 'semantic-ui-react';
+import { Segment, Table, Header, Image, Grid, Container, Form, Button, Loader, Menu, Modal, Icon, Message } from 'semantic-ui-react';
 import '../node_modules/semantic-ui-css/semantic.min.css';
 
 const getParams = query => {
@@ -30,20 +30,25 @@ class App extends Component {
       rankings: [],
       leagueId: "",
       loading: false,
-      modalOpen: true
+      modalOpen: true,
+      error: false
     }
   }
 
   async onSubmit() {
     let params = getParams(this.state.leagueUrl);
     this.setState({rankings: [], loading: true, modalOpen: false})
-    let rankings = await getPowerRankings(params.leagueId, params.seasonId);
-    const userData = await getUserData(params.leagueId, params.seasonId);
-    rankings = rankings.map(team => ({
-      ...userData.find(user => user.id === team.id),
-      ...team
-    }))
-    this.setState({rankings, loading: false});
+    try {
+      let rankings = await getPowerRankings(params.leagueId, params.seasonId);
+      const userData = await getUserData(params.leagueId, params.seasonId);
+      rankings = rankings.map(team => ({
+        ...userData.find(user => user.id === team.id),
+        ...team
+      }));
+      this.setState({rankings, loading: false, error: false});
+    } catch(e) {
+      this.setState({rankings: [], loading: false, modalOpen: true, error: true})
+    }
   }
 
   handleLeagueUrlChange = e => {
@@ -66,6 +71,9 @@ class App extends Component {
         >
           <Header icon='write' content='Enter ESPN League URL' />
           <Modal.Content>
+            {this.state.error && <Message negative>
+              <Message.Header>We're sorry, something went wrong. Please try again.</Message.Header>
+            </Message>}
             <Form onSubmit={this.onSubmit.bind(this)}>
               <Form.Field>
                 <input 
