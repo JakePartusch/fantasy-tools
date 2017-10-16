@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
-import { arrayOf, object } from 'prop-types';
-import logo from './logo.svg';
 import './App.css';
-import axios from 'axios';
-import { getPowerRankings, getUserData } from './FantasyFootballApi';
-import { Segment, Table, Header, Image, Grid, Container, Form, Button, Loader, Menu, Modal, Icon, Message } from 'semantic-ui-react';
+import { FantasyFootballApi } from './FantasyFootballApi';
+import { Segment, Table, Header, Image, Grid, Container, Form, Button, Loader, Modal, Icon, Message } from 'semantic-ui-react';
 import '../node_modules/semantic-ui-css/semantic.min.css';
 
 const getParams = query => {
@@ -33,20 +30,22 @@ class App extends Component {
       modalOpen: true,
       error: false
     }
+    this.api = new FantasyFootballApi();
   }
 
   async onSubmit() {
     let params = getParams(this.state.leagueUrl);
     this.setState({rankings: [], loading: true, modalOpen: false})
     try {
-      let rankings = await getPowerRankings(params.leagueId, params.seasonId);
-      const userData = await getUserData(params.leagueId, params.seasonId);
+      let rankings = await this.api.getPowerRankings(params.leagueId, params.seasonId);
+      const userData = await this.api.getUserData(params.leagueId, params.seasonId);
       rankings = rankings.map(team => ({
         ...userData.find(user => user.id === team.id),
         ...team
       }));
       this.setState({rankings, loading: false, error: false});
     } catch(e) {
+      console.log(e);
       this.setState({rankings: [], loading: false, modalOpen: true, error: true})
     }
   }
@@ -95,7 +94,7 @@ class App extends Component {
           <Grid.Row>
           </Grid.Row>
           {this.state.rankings.length > 0 && <Grid.Row>
-          <Grid.Column computer={6} largeScreen={5} tablet={8} mobile={16}>
+          <Grid.Column computer={8} tablet={8} mobile={16}>
             <a href="#" onClick={this.handleOpen}>Switch to a different League</a>
             <Segment>
               <Header>Power Rankings 2017</Header>
