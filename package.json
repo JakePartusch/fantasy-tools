@@ -3,13 +3,15 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@3846masa/axios-cookiejar-support": "^0.1.1",
     "axios": "^0.16.2",
     "cheerio": "^1.0.0-rc.2",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "react-scripts": "1.0.14",
     "semantic-ui-css": "^2.2.12",
-    "semantic-ui-react": "^0.74.2"
+    "semantic-ui-react": "^0.74.2",
+    "tough-cookie": "^2.3.3"
   },
   "scripts": {
     "start": "react-scripts start",
