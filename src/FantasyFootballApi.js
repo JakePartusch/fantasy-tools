@@ -2,8 +2,8 @@ import axios from 'axios';
 import cheerio from 'cheerio';
 
 
-export const getPowerRankings = async (leagueId, seasonId, weeksInSeason) => {
-    const weeklyScoreDataForSeason = await getWeeklyScoreDataForSeason(leagueId, seasonId, weeksInSeason);
+export const getPowerRankings = async (leagueId, seasonId) => {
+    const weeklyScoreDataForSeason = await getWeeklyScoreDataForSeason(leagueId, seasonId);
     const weeklyWinsForSeason = calculateWeeklyWinsForSeason(weeklyScoreDataForSeason);
     return calculateSeasonWinTotal(weeklyWinsForSeason);
 }
@@ -51,9 +51,11 @@ const calculateWeeklyWinsForSeason = (weeklyScoreDataForSeason) => {
                 })))
 }
 
-const getWeeklyScoreDataForSeason = async (leagueId, seasonId, weeksInSeason) => {
+const getWeeklyScoreDataForSeason = async (leagueId, seasonId) => {
     let seasonData = [];
-    for (let i = 1; i<= weeksInSeason; i++) {
+    var response = await axios.get(`http://games.espn.com/ffl/api/v2/leagueSettings?leagueId=${leagueId}&seasonId=${seasonId}`);
+    const weeksInSeason = response.data.leaguesettings.regularSeasonMatchupPeriodCount;
+    for (let i = 1; i <= weeksInSeason; i++) {
         const weekScores = await getWeekScores(leagueId, seasonId, i)
         weekScores.sort((a, b) => { 
             return a.score - b.score;
@@ -67,12 +69,13 @@ const getWeekScores = async (leagueId, seasonId, week) => {
     var response = await axios.get(`http://games.espn.com/ffl/api/v2/scoreboard?leagueId=${leagueId}&seasonId=${seasonId}&matchupPeriodId=${week}`);
     let matchups = response.data.scoreboard.matchups;
     return matchups
+        .filter(matchup => matchup.winner !== 'undecided' || matchup.bye )
         .reduce((acc, matchup) => acc.concat(matchup.teams), [])
         .map(team => ({
             id: team.teamId, 
             score: team.score,
             name: `${team.team.teamLocation} ${team.team.teamNickname}`
         }))
-        .filter(team => team.score != 0);
+        .filter(team => team.score !== 0);
 }
 
