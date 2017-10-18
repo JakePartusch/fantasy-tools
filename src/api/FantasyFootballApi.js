@@ -18,11 +18,11 @@ export class FantasyFootballApi {
     }
 
     getUserData = async (leagueId, seasonId) => {
-        var response = await axios.get(`http://games.espn.com/ffl/api/v2/leagueSettings?leagueId=${leagueId}&seasonId=${seasonId}`);
+        var response = await axios.get(`https://games.espn.com/ffl/api/v2/leagueSettings?leagueId=${leagueId}&seasonId=${seasonId}`);
         return Object.values(response.data.leaguesettings.teams).map(team => (
             {
                 id: team.teamId,
-                logoUrl: team.logoUrl ? team.logoUrl: "http://www.freeiconspng.com/uploads/clipart--person-icon--cliparts-15.png",
+                logoUrl: team.logoUrl ? team.logoUrl: "https://www.freeiconspng.com/uploads/clipart--person-icon--cliparts-15.png",
                 owner: `${team.owners[0].firstName} ${team.owners[0].lastName}`,
                 name: `${team.teamLocation} ${team.teamNickname}`
             }
@@ -62,7 +62,7 @@ export class FantasyFootballApi {
 
     getWeeklyScoreDataForSeason = async (leagueId, seasonId) => {
         let seasonData = [];
-        var response = await axios.get(`http://games.espn.com/ffl/api/v2/leagueSettings?leagueId=${leagueId}&seasonId=${seasonId}`);
+        var response = await axios.get(`https://games.espn.com/ffl/api/v2/leagueSettings?leagueId=${leagueId}&seasonId=${seasonId}`);
         const weeksInSeason = response.data.leaguesettings.regularSeasonMatchupPeriodCount;
         for (let i = 1; i <= weeksInSeason; i++) {
             const weekScores = await this.getWeekScores(leagueId, seasonId, i)
@@ -75,7 +75,7 @@ export class FantasyFootballApi {
     }
 
     getWeekScores = async (leagueId, seasonId, week) => {
-        var response = await axios.get(`http://games.espn.com/ffl/api/v2/scoreboard?leagueId=${leagueId}&seasonId=${seasonId}&matchupPeriodId=${week}`);
+        var response = await axios.get(`https://games.espn.com/ffl/api/v2/scoreboard?leagueId=${leagueId}&seasonId=${seasonId}&matchupPeriodId=${week}`);
         let matchups = response.data.scoreboard.matchups;
         return matchups
             .filter(matchup => matchup.winner !== 'undecided' || matchup.bye )
