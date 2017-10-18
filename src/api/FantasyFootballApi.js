@@ -75,7 +75,7 @@ export class FantasyFootballApi {
     }
 
     getWeekScores = async (leagueId, seasonId, week) => {
-        var response = await axios.get(`http:s//games.espn.com/ffl/api/v2/scoreboard?leagueId=${leagueId}&seasonId=${seasonId}&matchupPeriodId=${week}`);
+        var response = await axios.get(`https://games.espn.com/ffl/api/v2/scoreboard?leagueId=${leagueId}&seasonId=${seasonId}&matchupPeriodId=${week}`);
         let matchups = response.data.scoreboard.matchups;
         return matchups
             .filter(matchup => matchup.winner !== 'undecided' || matchup.bye )
