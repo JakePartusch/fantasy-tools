@@ -22,7 +22,7 @@ export class FantasyFootballApi {
         return Object.values(response.data.leaguesettings.teams).map(team => (
             {
                 id: team.teamId,
-                logoUrl: team.logoUrl ? team.logoUrl: "https://www.freeiconspng.com/uploads/clipart--person-icon--cliparts-15.png",
+                logoUrl: team.logoUrl ? team.logoUrl: "https://openclipart.org/image/2400px/svg_to_png/202776/pawn.png",
                 owner: `${team.owners[0].firstName} ${team.owners[0].lastName}`,
                 name: `${team.teamLocation} ${team.teamNickname}`
             }
