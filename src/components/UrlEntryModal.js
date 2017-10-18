@@ -1,17 +1,9 @@
 import React, { Component } from 'react';
-import { func, bool } from 'prop-types';
 import { Modal, Header, Message, Form, Icon, Button } from 'semantic-ui-react';
 import { getParams } from '../util/utils';
+import {withRouter} from 'react-router-dom'
 
-export default class UrlEntryModal extends Component {
-
-    static propTypes = {
-        modalOpen: bool.isRequired,
-        handleClose: func.isRequired,
-        error: bool.isRequired,
-        onSubmit: func.isRequired
-    }
-    static defaultProps = {}
+class UrlEntryModal extends Component {
 
     constructor() {
         super();
@@ -26,15 +18,15 @@ export default class UrlEntryModal extends Component {
 
     onSubmit() {
         let params = getParams(this.state.leagueUrl);
-        this.props.onSubmit(params);
+        const {leagueId, seasonId} = params;
+        this.props.history.push(`/espn/${leagueId}/${seasonId}`);
     }
 
     render() {
-        const { modalOpen, handleClose, error, onSubmit } = this.props;
+        const { error } = this.props.match.params;
         return (
             <Modal
-            open={modalOpen}
-            onClose={handleClose}
+            open={true}
             closeOnDimmerClick={false}
             basic
             size='tiny'
@@ -44,7 +36,7 @@ export default class UrlEntryModal extends Component {
                 {error && <Message negative>
                 <Message.Header>We're sorry, something went wrong. Please try again.</Message.Header>
                 </Message>}
-                <Form onSubmit={onSubmit.bind(this)}>
+                <Form onSubmit={this.onSubmit.bind(this)}>
                 <Form.Field>
                     <input 
                     placeholder='http://games.espn.com/ffl/leagueoffice?leagueId=123456&seasonId=2017' 
@@ -62,3 +54,4 @@ export default class UrlEntryModal extends Component {
         )
     }
 }
+export default withRouter(UrlEntryModal);
