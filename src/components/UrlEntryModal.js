@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Modal, Header, Message, Form, Icon, Button } from 'semantic-ui-react';
 import { getParams } from '../util/utils';
 import {withRouter} from 'react-router-dom'
+import validUrl from 'valid-url';
 
 class UrlEntryModal extends Component {
 
@@ -17,9 +18,13 @@ class UrlEntryModal extends Component {
     }
 
     onSubmit() {
-        let params = getParams(this.state.leagueUrl);
-        const {leagueId, seasonId} = params;
-        this.props.history.push(`/espn/${leagueId}/${seasonId}`);
+        if(validUrl.isUri(this.state.leagueUrl)) {
+            let params = getParams(this.state.leagueUrl);
+            const {leagueId, seasonId} = params;
+            this.props.history.push(`/espn/${leagueId}/${seasonId}`);
+        } else {
+            this.props.history.push(`/error`);
+        }
     }
 
     render() {

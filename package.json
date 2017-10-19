@@ -13,12 +13,17 @@
     "react-scripts": "1.0.14",
     "semantic-ui-css": "^2.2.12",
     "semantic-ui-react": "^0.74.2",
-    "tough-cookie": "^2.3.3"
+    "tough-cookie": "^2.3.3",
+    "valid-url": "^1.0.9"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "cypress:open": "cypress open"
+  },
+  "devDependencies": {
+    "cypress": "^1.0.2"
   }
 }
