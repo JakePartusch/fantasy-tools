@@ -1,0 +1,14 @@
+language: node_js
+node_js:
+- stable
+cache:
+  yarn: true
+
+install:
+  - yarn
+
+before_script:
+  - yarn start -- --silent &
+
+script:
+  - cypress run
