@@ -6,6 +6,7 @@
     "@3846masa/axios-cookiejar-support": "^0.1.1",
     "axios": "^0.16.2",
     "cheerio": "^1.0.0-rc.2",
+    "lodash": "^4.17.4",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "react-router": "^4.2.0",
@@ -22,9 +23,9 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "cypress:open": "cypress open",
-    "cypress:run": "cypress run"
+    "cypress:run": "cypress run --record --key 43d3a003-12be-4dd0-b195-3afc8bac9cc8"
   },
   "devDependencies": {
-    "cypress": "^1.0.2"
+    "cypress": "1.0.2"
   }
 }

@@ -1,0 +1,528 @@
+{
+  "scoreboard": {
+    "proGamesInProgress": false,
+    "scoringPeriodId": 1,
+    "matchups": [
+      {
+        "teams": [
+          {
+            "home": true,
+            "score": 89.34,
+            "team": {
+              "record": {
+                "awayPercentage": 0,
+                "divisionStanding": 6,
+                "overallStanding": 9,
+                "divisionLosses": 3,
+                "homePercentage": 0,
+                "awayTies": 0,
+                "divisionWins": 2,
+                "streakType": 2,
+                "overallTies": 0,
+                "homeTies": 0,
+                "homeWins": 2,
+                "divisionTies": 0,
+                "overallPercentage": 0.33333,
+                "overallWins": 2,
+                "overallLosses": 4,
+                "streakLength": 2,
+                "pointsAgainst": 534.38,
+                "awayWins": 0,
+                "divisionPercentage": 0.4,
+                "homeLosses": 2,
+                "pointsFor": 492.6,
+                "awayLosses": 2
+              },
+              "waiverRank": 10,
+              "division": {
+                "divisionName": "East",
+                "divisionId": 0,
+                "size": 6
+              },
+              "teamAbbrev": "JAKE",
+              "teamNickname": "Nebraska",
+              "logoUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Nebraska_Cornhuskers_logo.svg/2000px-Nebraska_Cornhuskers_logo.svg.png",
+              "teamLocation": "Aksarben",
+              "teamId": 1,
+              "logoType": "customValid"
+            },
+            "teamId": 1
+          },
+          {
+            "home": false,
+            "score": 77.44,
+            "team": {
+              "record": {
+                "awayPercentage": 0,
+                "divisionStanding": 4,
+                "overallStanding": 7,
+                "divisionLosses": 3,
+                "homePercentage": 0,
+                "awayTies": 0,
+                "divisionWins": 2,
+                "streakType": 2,
+                "overallTies": 0,
+                "homeTies": 0,
+                "homeWins": 1,
+                "divisionTies": 0,
+                "overallPercentage": 0.33333,
+                "overallWins": 2,
+                "overallLosses": 4,
+                "streakLength": 2,
+                "pointsAgainst": 512.84,
+                "awayWins": 1,
+                "divisionPercentage": 0.4,
+                "homeLosses": 2,
+                "pointsFor": 506.24,
+                "awayLosses": 2
+              },
+              "waiverRank": 3,
+              "division": {
+                "divisionName": "East",
+                "divisionId": 0,
+                "size": 6
+              },
+              "teamAbbrev": "IVER",
+              "teamNickname": "Terriers",
+              "logoUrl": "http://g.espncdn.com/s/ffllm/logos/CreepShow-ToddDetwiler/CreepShow-18.svg",
+              "teamLocation": "Fighting",
+              "teamId": 9,
+              "logoType": "vector"
+            },
+            "teamId": 9
+          }
+        ],
+        "winner": "home",
+        "bye": false
+      },
+      {
+        "teams": [
+          {
+            "home": true,
+            "score": 60.4,
+            "team": {
+              "record": {
+                "awayPercentage": 0,
+                "divisionStanding": 3,
+                "overallStanding": 5,
+                "divisionLosses": 2,
+                "homePercentage": 0,
+                "awayTies": 0,
+                "divisionWins": 3,
+                "streakType": 1,
+                "overallTies": 0,
+                "homeTies": 0,
+                "homeWins": 2,
+                "divisionTies": 0,
+                "overallPercentage": 0.6,
+                "overallWins": 3,
+                "overallLosses": 2,
+                "streakLength": 3,
+                "pointsAgainst": 395.56,
+                "awayWins": 1,
+                "divisionPercentage": 0.6,
+                "homeLosses": 1,
+                "pointsFor": 428.72,
+                "awayLosses": 1
+              },
+              "waiverRank": 5,
+              "division": {
+                "divisionName": "East",
+                "divisionId": 0,
+                "size": 6
+              },
+              "teamAbbrev": "PART",
+              "teamNickname": " Nicole",
+              "teamLocation": "Team",
+              "teamId": 11
+            },
+            "teamId": 11
+          },
+          {
+            "home": false,
+            "score": 73.48,
+            "team": {
+              "record": {
+                "awayPercentage": 0,
+                "divisionStanding": 2,
+                "overallStanding": 4,
+                "divisionLosses": 2,
+                "homePercentage": 0,
+                "awayTies": 0,
+                "divisionWins": 3,
+                "streakType": 1,
+                "overallTies": 0,
+                "homeTies": 0,
+                "homeWins": 2,
+                "divisionTies": 0,
+                "overallPercentage": 0.66667,
+                "overallWins": 4,
+                "overallLosses": 2,
+                "streakLength": 1,
+                "pointsAgainst": 522.82,
+                "awayWins": 2,
+                "divisionPercentage": 0.6,
+                "homeLosses": 0,
+                "pointsFor": 584.86,
+                "awayLosses": 2
+              },
+              "waiverRank": 6,
+              "division": {
+                "divisionName": "East",
+                "divisionId": 0,
+                "size": 6
+              },
+              "teamAbbrev": "PART",
+              "teamNickname": "Chiefs",
+              "logoUrl": "http://g.espncdn.com/s/ffllm/logos/AtTheStadium-RobbHarskamp/At_The_Stadium_05.svg",
+              "teamLocation": "Team",
+              "teamId": 3,
+              "logoType": "vector"
+            },
+            "teamId": 3
+          }
+        ],
+        "winner": "away",
+        "bye": false
+      },
+      {
+        "teams": [
+          {
+            "home": true,
+            "score": 76.14,
+            "team": {
+              "record": {
+                "awayPercentage": 0,
+                "divisionStanding": 5,
+                "overallStanding": 8,
+                "divisionLosses": 3,
+                "homePercentage": 0,
+                "awayTies": 0,
+                "divisionWins": 2,
+                "streakType": 2,
+                "overallTies": 0,
+                "homeTies": 0,
+                "homeWins": 2,
+                "divisionTies": 0,
+                "overallPercentage": 0.33333,
+                "overallWins": 2,
+                "overallLosses": 4,
+                "streakLength": 1,
+                "pointsAgainst": 590.26,
+                "awayWins": 0,
+                "divisionPercentage": 0.4,
+                "homeLosses": 2,
+                "pointsFor": 503.5,
+                "awayLosses": 2
+              },
+              "waiverRank": 8,
+              "division": {
+                "divisionName": "East",
+                "divisionId": 0,
+                "size": 6
+              },
+              "teamAbbrev": "TAY",
+              "teamNickname": "Rodgers",
+              "logoUrl": "http://g.espncdn.com/s/ffllm/logos/SmackTalk-LeoEspinosa/GOAT-08.svg",
+              "teamLocation": "Mrs.",
+              "teamId": 2,
+              "logoType": "vector"
+            },
+            "teamId": 2
+          },
+          {
+            "home": false,
+            "score": 79.18,
+            "team": {
+              "record": {
+                "awayPercentage": 0,
+                "divisionStanding": 1,
+                "overallStanding": 2,
+                "divisionLosses": 2,
+                "homePercentage": 0,
+                "awayTies": 0,
+                "divisionWins": 3,
+                "streakType": 1,
+                "overallTies": 0,
+                "homeTies": 0,
+                "homeWins": 3,
+                "divisionTies": 0,
+                "overallPercentage": 0.66667,
+                "overallWins": 4,
+                "overallLosses": 2,
+                "streakLength": 2,
+                "pointsAgainst": 501.74,
+                "awayWins": 1,
+                "divisionPercentage": 0.6,
+                "homeLosses": 1,
+                "pointsFor": 529.92,
+                "awayLosses": 1
+              },
+              "waiverRank": 11,
+              "division": {
+                "divisionName": "East",
+                "divisionId": 0,
+                "size": 6
+              },
+              "teamAbbrev": "SCHL",
+              "teamNickname": "BILL$ BUCK$",
+              "logoUrl": "http://g.espncdn.com/s/ffllm/logos/HelmetAlphabet-ESPN/Helmet-B.svg",
+              "teamLocation": "Team",
+              "teamId": 7,
+              "logoType": "vector"
+            },
+            "teamId": 7
+          }
+        ],
+        "winner": "away",
+        "bye": false
+      },
+      {
+        "teams": [
+          {
+            "home": true,
+            "score": 89.12,
+            "team": {
+              "record": {
+                "awayPercentage": 0,
+                "divisionStanding": 2,
+                "overallStanding": 3,
+                "divisionLosses": 1,
+                "homePercentage": 0,
+                "awayTies": 0,
+                "divisionWins": 3,
+                "streakType": 1,
+                "overallTies": 0,
+                "homeTies": 0,
+                "homeWins": 2,
+                "divisionTies": 0,
+                "overallPercentage": 0.8,
+                "overallWins": 4,
+                "overallLosses": 1,
+                "streakLength": 1,
+                "pointsAgainst": 393.2,
+                "awayWins": 2,
+                "divisionPercentage": 0.75,
+                "homeLosses": 0,
+                "pointsFor": 490.94,
+                "awayLosses": 1
+              },
+              "waiverRank": 9,
+              "division": {
+                "divisionName": "West",
+                "divisionId": 1,
+                "size": 5
+              },
+              "teamAbbrev": "SCH",
+              "teamNickname": "Schlange",
+              "logoUrl": "http://g.espncdn.com/s/ffllm/logos/MickeyAndDonald-Disney/Disney-09.svg",
+              "teamLocation": "Team",
+              "teamId": 6,
+              "logoType": "vector"
+            },
+            "teamId": 6
+          },
+          {
+            "home": false,
+            "score": 48.54,
+            "team": {
+              "record": {
+                "awayPercentage": 0,
+                "divisionStanding": 3,
+                "overallStanding": 6,
+                "divisionLosses": 2,
+                "homePercentage": 0,
+                "awayTies": 0,
+                "divisionWins": 2,
+                "streakType": 1,
+                "overallTies": 0,
+                "homeTies": 0,
+                "homeWins": 1,
+                "divisionTies": 0,
+                "overallPercentage": 0.6,
+                "overallWins": 3,
+                "overallLosses": 2,
+                "streakLength": 1,
+                "pointsAgainst": 390.84,
+                "awayWins": 2,
+                "divisionPercentage": 0.5,
+                "homeLosses": 1,
+                "pointsFor": 405.14,
+                "awayLosses": 1
+              },
+              "waiverRank": 4,
+              "division": {
+                "divisionName": "West",
+                "divisionId": 1,
+                "size": 5
+              },
+              "teamAbbrev": "HAN",
+              "teamNickname": "Hannimal",
+              "logoUrl": "http://g.espncdn.com/s/ffllm/logos/Marvel-75thAnnivSuperHeroIcons/CaptainMarvel-01.svg",
+              "teamLocation": "Killer",
+              "teamId": 8,
+              "logoType": "vector"
+            },
+            "teamId": 8
+          }
+        ],
+        "winner": "home",
+        "bye": false
+      },
+      {
+        "teams": [
+          {
+            "home": true,
+            "score": 56.2,
+            "team": {
+              "record": {
+                "awayPercentage": 0,
+                "divisionStanding": 4,
+                "overallStanding": 10,
+                "divisionLosses": 3,
+                "homePercentage": 0,
+                "awayTies": 0,
+                "divisionWins": 1,
+                "streakType": 2,
+                "overallTies": 0,
+                "homeTies": 0,
+                "homeWins": 0,
+                "divisionTies": 0,
+                "overallPercentage": 0.2,
+                "overallWins": 1,
+                "overallLosses": 4,
+                "streakLength": 1,
+                "pointsAgainst": 507.26,
+                "awayWins": 1,
+                "divisionPercentage": 0.25,
+                "homeLosses": 1,
+                "pointsFor": 450.1,
+                "awayLosses": 3
+              },
+              "waiverRank": 2,
+              "division": {
+                "divisionName": "West",
+                "divisionId": 1,
+                "size": 5
+              },
+              "teamAbbrev": "Ride",
+              "teamNickname": "Riders",
+              "logoUrl": "http://g.espncdn.com/s/ffllm/logos/Marvel-75thAnnivSuperHeroIcons/MsMarvel-01.svg",
+              "teamLocation": "Storm",
+              "teamId": 10,
+              "logoType": "vector"
+            },
+            "teamId": 10
+          }
+        ],
+        "winner": "undecided",
+        "bye": true
+      },
+      {
+        "teams": [
+          {
+            "home": true,
+            "score": 76.84,
+            "team": {
+              "record": {
+                "awayPercentage": 0,
+                "divisionStanding": 1,
+                "overallStanding": 1,
+                "divisionLosses": 0,
+                "homePercentage": 0,
+                "awayTies": 0,
+                "divisionWins": 4,
+                "streakType": 1,
+                "overallTies": 0,
+                "homeTies": 0,
+                "homeWins": 2,
+                "divisionTies": 0,
+                "overallPercentage": 1,
+                "overallWins": 5,
+                "overallLosses": 0,
+                "streakLength": 5,
+                "pointsAgainst": 370.34,
+                "awayWins": 3,
+                "divisionPercentage": 1,
+                "homeLosses": 0,
+                "pointsFor": 472.12,
+                "awayLosses": 0
+              },
+              "waiverRank": 7,
+              "division": {
+                "divisionName": "West",
+                "divisionId": 1,
+                "size": 5
+              },
+              "teamAbbrev": "Luke",
+              "teamNickname": "Lukers",
+              "logoUrl": "http://g.espncdn.com/s/ffllm/logos/CrazyHelmets-ToddDetwiler/Helmets_05.svg",
+              "teamLocation": "The",
+              "teamId": 5,
+              "logoType": "vector"
+            },
+            "teamId": 5
+          },
+          {
+            "home": false,
+            "score": 53.02,
+            "team": {
+              "record": {
+                "awayPercentage": 0,
+                "divisionStanding": 5,
+                "overallStanding": 11,
+                "divisionLosses": 4,
+                "homePercentage": 0,
+                "awayTies": 0,
+                "divisionWins": 0,
+                "streakType": 2,
+                "overallTies": 0,
+                "homeTies": 0,
+                "homeWins": 0,
+                "divisionTies": 0,
+                "overallPercentage": 0,
+                "overallWins": 0,
+                "overallLosses": 5,
+                "streakLength": 5,
+                "pointsAgainst": 488.1,
+                "awayWins": 0,
+                "divisionPercentage": 0,
+                "homeLosses": 3,
+                "pointsFor": 343.2,
+                "awayLosses": 2
+              },
+              "waiverRank": 1,
+              "division": {
+                "divisionName": "West",
+                "divisionId": 1,
+                "size": 5
+              },
+              "teamAbbrev": "PART",
+              "teamNickname": "G-Force",
+              "logoUrl": "http://g.espncdn.com/s/ffllm/logos/CoachGruden-ChipWass/gruden-03.svg",
+              "teamLocation": "Team",
+              "teamId": 4,
+              "logoType": "vector"
+            },
+            "teamId": 4
+          }
+        ],
+        "winner": "home",
+        "bye": false
+      }
+    ],
+    "matchupPeriodId": 1,
+    "dateFirstProGameOfScoringPeriod": "2017-09-08T00:30:00.000Z"
+  },
+  "metadata": {
+    "leagueId": "1122686",
+    "defaults": {
+      
+    },
+    "status": "regular-season",
+    "dateModifiedLeague": "2017-10-18T23:24:39.520Z",
+    "seasonId": "2017",
+    "serverDate": "2017-10-19T03:38:18.229Z",
+    "dateModifiedUser": "2017-10-17T11:43:03.620Z"
+  }
+}

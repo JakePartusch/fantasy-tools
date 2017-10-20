@@ -1,6 +1,7 @@
 import axios from 'axios';
 import axiosCookieJarSupport from '@3846masa/axios-cookiejar-support';
 import tough from 'tough-cookie';
+import { values } from 'lodash';
 
 export class FantasyFootballApi {
     constructor() {
@@ -19,7 +20,7 @@ export class FantasyFootballApi {
 
     getUserData = async (leagueId, seasonId) => {
         var response = await axios.get(`https://games.espn.com/ffl/api/v2/leagueSettings?leagueId=${leagueId}&seasonId=${seasonId}`);
-        return Object.values(response.data.leaguesettings.teams).map(team => (
+        return values(response.data.leaguesettings.teams).map(team => (
             {
                 id: team.teamId,
                 logoUrl: team.logoUrl ? team.logoUrl: "https://openclipart.org/image/2400px/svg_to_png/202776/pawn.png",

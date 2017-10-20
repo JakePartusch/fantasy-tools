@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { func, arrayOf, object } from 'prop-types';
 import { Grid, Segment, Header, Table, Image, Loader } from 'semantic-ui-react';
 import { FantasyFootballApi } from '../api/FantasyFootballApi';
 import { withRouter, Link } from 'react-router-dom';
@@ -27,6 +26,7 @@ class PowerRankingsGrid extends Component {
             }));
             this.setState({rankings, loading:false})
         } catch(e) {
+            console.log(e);
             this.props.history.push("/error");
         }
     }
@@ -83,7 +83,7 @@ class PowerRankingsGrid extends Component {
                 </Grid.Column>
                 </Grid.Row>}
             </Grid>
-            </div>
+        </div>
         )
     }
 }

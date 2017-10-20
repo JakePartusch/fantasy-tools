@@ -23,6 +23,7 @@ class UrlEntryModal extends Component {
             const {leagueId, seasonId} = params;
             this.props.history.push(`/espn/${leagueId}/${seasonId}`);
         } else {
+            console.log('invalid URI')
             this.props.history.push(`/error`);
         }
     }
