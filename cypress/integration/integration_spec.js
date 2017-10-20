@@ -8,9 +8,9 @@ describe('Test basic functionality', function() {
     cy.server()
     cy.route('GET', 'https://games.espn.com/ffl/api/v2/leagueSettings*', 'fixture:leagueSettings.json')
     cy.route('GET', 'https://games.espn.com/ffl/api/v2/scoreboard*', 'fixture:scoreboard.json')
-    cy.get('input').type("http://games.espn.com/ffl/clubhouse?leagueId=1122686&teamId=1&seasonId=2017");
+    cy.get('input').type("http://games.espn.com/ffl/clubhouse?leagueId=1122686&teamId=1&seasonId=2016");
     cy.get('button').click();
-    cy.get(".header").contains('Power Rankings 2017');
+    cy.get(".header").contains('Power Rankings 2016');
   });
   it('should contain 11 teams', function() {
     cy.get('tr')
@@ -41,6 +41,6 @@ describe('Test basic functionality', function() {
     cy.route('GET', 'https://games.espn.com/ffl/api/v2/leagueSettings*', 'fixture:leagueSettings.json')
     cy.route('GET', 'https://games.espn.com/ffl/api/v2/scoreboard*', 'fixture:scoreboard.json')
     cy.visit('http://localhost:3000/espn/1122686/2016');
-    cy.get(".header").contains('Power Rankings 2017');
+    cy.get(".header").contains('Power Rankings 2016');
   })
 });

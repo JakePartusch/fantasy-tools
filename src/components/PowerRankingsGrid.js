@@ -47,7 +47,7 @@ class PowerRankingsGrid extends Component {
                 <Grid.Column computer={8} tablet={8} mobile={16}>
                     <Link to="/">Switch to a different League</Link>
                     <Segment>
-                    <Header>Power Rankings 2017</Header>
+                    <Header>Power Rankings {this.props.match.params.seasonId}</Header>
                     <Table basic='very' celled unstackable>
                         <Table.Header>
                         <Table.Row>
