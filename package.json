@@ -11,7 +11,7 @@
     "react-dom": "^16.0.0",
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
-    "react-scripts": "1.0.14",
+    "react-scripts": "1.0.15",
     "semantic-ui-css": "^2.2.12",
     "semantic-ui-react": "^0.75.1",
     "tough-cookie": "^2.3.3",
