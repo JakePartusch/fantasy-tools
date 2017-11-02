@@ -17,6 +17,11 @@ export class FantasyFootballApi {
         const weeklyWinsForSeason = this.calculateWeeklyWinsForSeason(weeklyScoreDataForSeason);
         return this.calculateSeasonWinTotal(weeklyWinsForSeason);
     }
+    
+    getWeeklyWinsForSeason = async (leagueId, seasonId) => {
+        const weeklyScoreDataForSeason = await this.getWeeklyScoreDataForSeason(leagueId, seasonId);
+        return this.calculateWeeklyWinsForSeason(weeklyScoreDataForSeason);
+    }
 
     getUserData = async (leagueId, seasonId) => {
         var response = await axios.get(`https://games.espn.com/ffl/api/v2/leagueSettings?leagueId=${leagueId}&seasonId=${seasonId}`);

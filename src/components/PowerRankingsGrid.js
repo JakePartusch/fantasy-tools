@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Grid, Segment, Header, Table, Image, Loader } from 'semantic-ui-react';
 import { FantasyFootballApi } from '../api/FantasyFootballApi';
 import { withRouter, Link } from 'react-router-dom';
+import { cloneDeep } from 'lodash';
 
 class PowerRankingsGrid extends Component {
     static propTypes = {};
@@ -18,12 +19,23 @@ class PowerRankingsGrid extends Component {
     async componentWillMount() {
         this.setState({loading: true})
         try {
-            let rankings = await this.api.getPowerRankings(this.props.match.params.leagueId, this.props.match.params.seasonId);
             const userData = await this.api.getUserData(this.props.match.params.leagueId, this.props.match.params.seasonId);
+            let weeklyWins = await this.api.getWeeklyWinsForSeason(this.props.match.params.leagueId, this.props.match.params.seasonId)
+            let rankings = this.api.calculateSeasonWinTotal(cloneDeep(weeklyWins));
             rankings = rankings.map(team => ({
                 ...userData.find(user => user.id === team.id),
-                ...team
+                ...team,
+                weeklyWinData: []
             }));
+            weeklyWins = weeklyWins.filter(week => week.length);
+            weeklyWins.forEach(week => {
+                rankings = rankings.map(team => {
+                    return {
+                        weeklyWinData : team.weeklyWinData.push(week.find(user => user.id === team.id)),
+                        ...team
+                    }
+                })
+            })
             this.setState({rankings, loading:false})
         } catch(e) {
             console.log(e);
@@ -44,16 +56,16 @@ class PowerRankingsGrid extends Component {
                 <Grid.Row>
                 </Grid.Row>
                 {rankings.length > 0 && <Grid.Row>
-                <Grid.Column computer={8} tablet={8} mobile={16}>
+                <Grid.Column computer={14} tablet={16} mobile={16}>
                     <Link to="/">Switch to a different League</Link>
                     <Segment>
                     <Header>Power Rankings {this.props.match.params.seasonId}</Header>
-                    <Table basic='very' celled unstackable>
+                    <Table basic='very' celled striped>
                         <Table.Header>
                         <Table.Row>
                             <Table.HeaderCell>Team</Table.HeaderCell>
-                            <Table.HeaderCell>Wins</Table.HeaderCell>
-                            <Table.HeaderCell>Losses</Table.HeaderCell>
+                            {rankings[0].weeklyWinData.map((data, i) => <Table.HeaderCell>{i+1}</Table.HeaderCell>)}
+                            <Table.HeaderCell>Total</Table.HeaderCell>
                         </Table.Row>
                         </Table.Header>
 
@@ -69,11 +81,11 @@ class PowerRankingsGrid extends Component {
                                 </Header.Content>
                             </Header>
                             </Table.Cell>
+                            {team.weeklyWinData.map(data => <Table.Cell positive={data.wins >= data.losses} negative={data.wins < data.losses}>
+                                {data.wins} - {data.losses}
+                            </Table.Cell>)}
                             <Table.Cell>
-                                {team.wins}
-                            </Table.Cell>
-                            <Table.Cell>
-                                {team.losses}
+                                <strong>{team.wins} - {team.losses}</strong>
                             </Table.Cell>
                         </Table.Row>
                         )}
