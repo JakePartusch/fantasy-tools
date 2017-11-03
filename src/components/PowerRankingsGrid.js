@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Grid, Segment, Header, Table, Image, Loader } from 'semantic-ui-react';
+import { Grid, Segment, Header, Table, Image, Loader, Button, Responsive } from 'semantic-ui-react';
 import { FantasyFootballApi } from '../api/FantasyFootballApi';
 import { withRouter, Link } from 'react-router-dom';
 import { cloneDeep } from 'lodash';
@@ -12,7 +12,8 @@ class PowerRankingsGrid extends Component {
         super();
         this.api = new FantasyFootballApi();
         this.state = {
-            rankings: []
+            rankings: [],
+            showDetailedView: false
         }
     }
 
@@ -43,8 +44,30 @@ class PowerRankingsGrid extends Component {
         }
     }
 
+    onDetailedViewClick() {
+        this.setState((prevState) => ({
+            showDetailedView: !prevState.showDetailedView
+        }));
+    }
+
     switchLeague() {
         this.props.history.push("/");
+    }
+
+    displayWeeklyHeaders(rankings) {
+        return rankings[0].weeklyWinData.map((data, i) => <Table.HeaderCell>{i+1}</Table.HeaderCell>)
+    }
+
+    displayWeeklyRecords(team) {
+        return team.weeklyWinData.map(data => 
+            <Table.Cell positive={data.wins >= data.losses} negative={data.wins < data.losses}>
+                {data.wins} - {data.losses}
+            </Table.Cell>)
+    }
+
+    tableHeader(rankings) {
+        return                         
+
     }
 
     render() {
@@ -56,19 +79,28 @@ class PowerRankingsGrid extends Component {
                 <Grid.Row>
                 </Grid.Row>
                 {rankings.length > 0 && <Grid.Row>
-                <Grid.Column computer={14} tablet={16} mobile={16}>
-                    <Link to="/">Switch to a different League</Link>
+                <Grid.Column 
+                    computer={this.state.showDetailedView ? 14 : 6} 
+                    mobile={15}
+                >
+                    <Grid.Row>
+                        <Link to="/">Switch to a different League</Link>
+                        <Button 
+                            floated='right' 
+                            onClick={() => this.onDetailedViewClick()}
+                            content={this.state.showDetailedView ? "Show Simple View" : "Show Detailed View" }
+                        ></Button>
+                    </Grid.Row>
                     <Segment>
                     <Header>Power Rankings {this.props.match.params.seasonId}</Header>
                     <Table basic='very' celled striped>
                         <Table.Header>
-                        <Table.Row>
-                            <Table.HeaderCell>Team</Table.HeaderCell>
-                            {rankings[0].weeklyWinData.map((data, i) => <Table.HeaderCell>{i+1}</Table.HeaderCell>)}
-                            <Table.HeaderCell>Total</Table.HeaderCell>
-                        </Table.Row>
+                            <Table.Row>
+                                <Table.HeaderCell>Team</Table.HeaderCell>
+                                {this.state.showDetailedView && this.displayWeeklyHeaders(rankings)}
+                                <Table.HeaderCell>Total</Table.HeaderCell>
+                            </Table.Row>
                         </Table.Header>
-
                         <Table.Body>
                         { rankings.map(team =>
                         <Table.Row>
@@ -81,9 +113,7 @@ class PowerRankingsGrid extends Component {
                                 </Header.Content>
                             </Header>
                             </Table.Cell>
-                            {team.weeklyWinData.map(data => <Table.Cell positive={data.wins >= data.losses} negative={data.wins < data.losses}>
-                                {data.wins} - {data.losses}
-                            </Table.Cell>)}
+                            {this.state.showDetailedView && this.displayWeeklyRecords(team)}
                             <Table.Cell>
                                 <strong>{team.wins} - {team.losses}</strong>
                             </Table.Cell>
