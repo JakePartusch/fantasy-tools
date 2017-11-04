@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Grid, Segment, Header, Table, Image, Loader, Button, Responsive } from 'semantic-ui-react';
+import { Grid, Segment, Header, Table, Image, Loader, Button, Responsive, Icon, Popup } from 'semantic-ui-react';
 import { FantasyFootballApi } from '../api/FantasyFootballApi';
 import { withRouter, Link } from 'react-router-dom';
 import { cloneDeep } from 'lodash';
@@ -31,8 +31,9 @@ class PowerRankingsGrid extends Component {
             weeklyWins = weeklyWins.filter(week => week.length);
             weeklyWins.forEach(week => {
                 rankings = rankings.map(team => {
+                    const winData = week.find(user => user.id === team.id);
                     return {
-                        weeklyWinData : team.weeklyWinData.push(week.find(user => user.id === team.id)),
+                        weeklyWinData : winData && winData.wins + winData.losses > 0 ? team.weeklyWinData.push(winData): team.weeklyWinData,
                         ...team
                     }
                 })
@@ -65,9 +66,16 @@ class PowerRankingsGrid extends Component {
             </Table.Cell>)
     }
 
-    tableHeader(rankings) {
-        return                         
-
+    getDiff(overallStanding, calculatedStanding) {
+        const diff = overallStanding - calculatedStanding;
+        if(diff > 0) {
+            return <div><Icon name="arrow circle up" color="green"/>{diff}</div>
+        } else if (diff < 0) {
+            return <div><Icon name="arrow circle down" color="red"/>{diff}</div>
+        } else {
+            return <div>-</div>
+        }
+        
     }
 
     render() {
@@ -80,9 +88,8 @@ class PowerRankingsGrid extends Component {
                 </Grid.Row>
                 {rankings.length > 0 && <Grid.Row>
                 <Grid.Column 
-                    computer={this.state.showDetailedView ? 14 : 6} 
-                    mobile={15}
-                >
+                    computer={this.state.showDetailedView ? 14 : 8} 
+                    mobile={15}>
                     <Grid.Row>
                         <Link to="/">Switch to a different League</Link>
                         <Button 
@@ -93,16 +100,24 @@ class PowerRankingsGrid extends Component {
                     </Grid.Row>
                     <Segment>
                     <Header>Power Rankings {this.props.match.params.seasonId}</Header>
-                    <Table basic='very' celled striped>
+                    <Table celled striped>
                         <Table.Header>
                             <Table.Row>
                                 <Table.HeaderCell>Team</Table.HeaderCell>
                                 {this.state.showDetailedView && this.displayWeeklyHeaders(rankings)}
-                                <Table.HeaderCell>Total</Table.HeaderCell>
+                                <Table.HeaderCell>
+                                    <span style={{paddingRight: "0.5rem"}}>Total</span>
+                                    <Popup
+                                        trigger={<Icon name='info' circular size="small"/>}
+                                        content='A simulation of every possible matchup this season.'
+                                    />
+                                </Table.HeaderCell>
+                                <Table.HeaderCell>Actual</Table.HeaderCell>
+                                <Table.HeaderCell>Diff</Table.HeaderCell>
                             </Table.Row>
                         </Table.Header>
                         <Table.Body>
-                        { rankings.map(team =>
+                        { rankings.map((team, index) =>
                         <Table.Row>
                             <Table.Cell>
                             <Header as='h4' image>
@@ -117,6 +132,12 @@ class PowerRankingsGrid extends Component {
                             <Table.Cell>
                                 <strong>{team.wins} - {team.losses}</strong>
                             </Table.Cell>
+                            <Table.Cell>
+                                {team.overallWins} - {team.overallLosses}
+                            </Table.Cell>
+                            <Table.Cell>
+                                {this.getDiff(team.overallStanding, index +1 )}
+                            </Table.Cell> 
                         </Table.Row>
                         )}
                         </Table.Body>

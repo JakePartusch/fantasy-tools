@@ -30,7 +30,10 @@ export class FantasyFootballApi {
                 id: team.teamId,
                 logoUrl: team.logoUrl ? team.logoUrl: "https://openclipart.org/image/2400px/svg_to_png/202776/pawn.png",
                 owner: `${team.owners[0].firstName} ${team.owners[0].lastName}`,
-                name: `${team.teamLocation} ${team.teamNickname}`
+                name: `${team.teamLocation} ${team.teamNickname}`,
+                overallWins: team.record.overallWins,
+                overallLosses: team.record.overallLosses,
+                overallStanding: team.overallStanding
             }
         ))
     }
