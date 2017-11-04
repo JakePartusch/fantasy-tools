@@ -93,14 +93,15 @@ class PowerRankingsGrid extends Component {
                     <Grid.Row>
                         <Link to="/">Switch to a different League</Link>
                         <Button 
-                            floated='right' 
+                            floated='right'
+                            className="mobile-hide" 
                             onClick={() => this.onDetailedViewClick()}
                             content={this.state.showDetailedView ? "Show Simple View" : "Show Detailed View" }
                         ></Button>
                     </Grid.Row>
                     <Segment>
                     <Header>Power Rankings {this.props.match.params.seasonId}</Header>
-                    <Table celled striped>
+                    <Table celled unstackable definition striped size="small">
                         <Table.Header>
                             <Table.Row>
                                 <Table.HeaderCell>Team</Table.HeaderCell>
@@ -121,7 +122,7 @@ class PowerRankingsGrid extends Component {
                         <Table.Row>
                             <Table.Cell>
                             <Header as='h4' image>
-                                <Image src={team.logoUrl} shape='rounded' size='mini' />
+                                <Image className="mobile-hide" src={team.logoUrl} shape='rounded' size='mini' />
                                 <Header.Content>
                                     {team.name}
                                 <Header.Subheader>{team.owner}</Header.Subheader>
