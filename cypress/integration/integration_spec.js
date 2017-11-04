@@ -12,16 +12,33 @@ describe('Test basic functionality', function() {
     cy.get('button').click();
     cy.get(".header").contains('Power Rankings 2016');
   });
-  it('should contain 11 teams', function() {
-    cy.get('tr')
-      .should(($p) => {
-        var texts = $p.map((i, el) => {
-        return Cypress.$(el).text()
-        })
-        var texts = texts.get()
-        expect(texts).to.have.length(12)
+  describe('default view', () => {
+    it('should contain 11 teams', function() {
+      cy.get('tr').should('have.length', 12)
+    });
+    it('should contain 4 columns per row', () => {
+      cy.get('td').should('have.length', 44)
+    });
+    it('should contain data in the first cell', () => {
+      cy.get('td').first().contains("Nebraska")
     });
   });
+
+  describe('detailed view', () => {
+    it('should click the button', () => {
+      cy.get('button').click();
+    });
+    it('should still contain 11 teams', () => {
+      cy.get('tr').should('have.length', 12)
+    });
+    it('should contain 17 columns per row', () => {
+      cy.get('td').should('have.length', 187)
+    });
+    it('should contain data in the first cell', () => {
+      cy.get('td').first().contains("Nebraska")
+    });
+  });
+
   it('should allow user to go back to the landing page', function() {
     cy.get('a').click();
     cy.get('.header').contains('Enter ESPN League URL');
