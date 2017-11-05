@@ -17,6 +17,11 @@ export class FantasyFootballApi {
         const weeklyWinsForSeason = this.calculateWeeklyWinsForSeason(weeklyScoreDataForSeason);
         return this.calculateSeasonWinTotal(weeklyWinsForSeason);
     }
+    
+    getWeeklyWinsForSeason = async (leagueId, seasonId) => {
+        const weeklyScoreDataForSeason = await this.getWeeklyScoreDataForSeason(leagueId, seasonId);
+        return this.calculateWeeklyWinsForSeason(weeklyScoreDataForSeason);
+    }
 
     getUserData = async (leagueId, seasonId) => {
         var response = await axios.get(`https://games.espn.com/ffl/api/v2/leagueSettings?leagueId=${leagueId}&seasonId=${seasonId}`);
@@ -25,7 +30,10 @@ export class FantasyFootballApi {
                 id: team.teamId,
                 logoUrl: team.logoUrl ? team.logoUrl: "https://openclipart.org/image/2400px/svg_to_png/202776/pawn.png",
                 owner: `${team.owners[0].firstName} ${team.owners[0].lastName}`,
-                name: `${team.teamLocation} ${team.teamNickname}`
+                name: `${team.teamLocation} ${team.teamNickname}`,
+                overallWins: team.record.overallWins,
+                overallLosses: team.record.overallLosses,
+                overallStanding: team.overallStanding
             }
         ))
     }
