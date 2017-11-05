@@ -1,7 +1,7 @@
 import axios from 'axios';
 import axiosCookieJarSupport from '@3846masa/axios-cookiejar-support';
 import tough from 'tough-cookie';
-import { values } from 'lodash';
+import { values, cloneDeep } from 'lodash';
 
 export class FantasyFootballApi {
     constructor() {
@@ -13,9 +13,25 @@ export class FantasyFootballApi {
     }
 
     getPowerRankings = async (leagueId, seasonId) => {
-        const weeklyScoreDataForSeason = await this.getWeeklyScoreDataForSeason(leagueId, seasonId);
-        const weeklyWinsForSeason = this.calculateWeeklyWinsForSeason(weeklyScoreDataForSeason);
-        return this.calculateSeasonWinTotal(weeklyWinsForSeason);
+        const userData = await this.getUserData(leagueId, seasonId);
+        let weeklyWins = await this.getWeeklyWinsForSeason(leagueId, seasonId)
+        let rankings = this.calculateSeasonWinTotal(cloneDeep(weeklyWins));
+        rankings = rankings.map(team => ({
+            ...userData.find(user => user.id === team.id),
+            ...team,
+            weeklyWinData: []
+        }));
+        weeklyWins = weeklyWins.filter(week => week.length);
+        weeklyWins.forEach(week => {
+            rankings = rankings.map(team => {
+                const winData = week.find(user => user.id === team.id);
+                return {
+                    weeklyWinData : winData && winData.wins + winData.losses > 0 ? team.weeklyWinData.push(winData): team.weeklyWinData,
+                    ...team
+                }
+            })
+        });
+        return rankings;
     }
     
     getWeeklyWinsForSeason = async (leagueId, seasonId) => {

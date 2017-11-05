@@ -4,6 +4,8 @@ import { FantasyFootballApi } from '../api/FantasyFootballApi';
 import { withRouter, Link } from 'react-router-dom';
 import { cloneDeep } from 'lodash';
 import TableHeader from './grid/TableHeader';
+import TableTotals from './grid/TableTotals';
+import TeamHeaderCell from './grid/TeamHeaderCell';
 
 class PowerRankingsGrid extends Component {
     static propTypes = {};
@@ -21,29 +23,19 @@ class PowerRankingsGrid extends Component {
     async componentWillMount() {
         this.setState({loading: true})
         try {
-            const userData = await this.api.getUserData(this.props.match.params.leagueId, this.props.match.params.seasonId);
-            let weeklyWins = await this.api.getWeeklyWinsForSeason(this.props.match.params.leagueId, this.props.match.params.seasonId)
-            let rankings = this.api.calculateSeasonWinTotal(cloneDeep(weeklyWins));
-            rankings = rankings.map(team => ({
-                ...userData.find(user => user.id === team.id),
-                ...team,
-                weeklyWinData: []
-            }));
-            weeklyWins = weeklyWins.filter(week => week.length);
-            weeklyWins.forEach(week => {
-                rankings = rankings.map(team => {
-                    const winData = week.find(user => user.id === team.id);
-                    return {
-                        weeklyWinData : winData && winData.wins + winData.losses > 0 ? team.weeklyWinData.push(winData): team.weeklyWinData,
-                        ...team
-                    }
-                })
-            })
+            const rankings = await this.api.getPowerRankings(this.props.match.params.leagueId, this.props.match.params.seasonId)
             this.setState({rankings, loading:false})
         } catch(e) {
             console.log(e);
             this.props.history.push("/error");
         }
+    }
+
+    displayWeeklyRecords(team) {
+        return team.weeklyWinData.map(data => 
+            <Table.Cell positive={data.wins >= data.losses} negative={data.wins < data.losses}>
+                {data.wins} - {data.losses}
+            </Table.Cell>)
     }
 
     onDetailedViewClick() {
@@ -56,85 +48,52 @@ class PowerRankingsGrid extends Component {
         this.props.history.push("/");
     }
 
-    displayWeeklyRecords(team) {
-        return team.weeklyWinData.map(data => 
-            <Table.Cell positive={data.wins >= data.losses} negative={data.wins < data.losses}>
-                {data.wins} - {data.losses}
-            </Table.Cell>)
-    }
-
-    getDiff(overallStanding, calculatedStanding) {
-        const diff = overallStanding - calculatedStanding;
-        if(diff > 0) {
-            return <div><Icon name="arrow circle up" color="green"/>{diff}</div>
-        } else if (diff < 0) {
-            return <div><Icon name="arrow circle down" color="red"/>{diff}</div>
-        } else {
-            return <div>-</div>
-        }
-        
-    }
-
     render() {
         const { rankings } = this.state;
-        return (
-        <div>
-            <Loader active={this.state.loading}/>
+        return ([
+            <Loader active={this.state.loading}/>,
             <Grid centered>
-                <Grid.Row>
-                </Grid.Row>
-                {rankings.length > 0 && <Grid.Row>
-                <Grid.Column 
-                    computer={this.state.showDetailedView ? 14 : 8} 
-                    mobile={15}>
+                {rankings.length > 0 && 
                     <Grid.Row>
-                        <Link to="/">Switch to a different League</Link>
-                        <Button 
-                            floated='right'
-                            className="mobile-hide" 
-                            onClick={() => this.onDetailedViewClick()}
-                            content={this.state.showDetailedView ? "Show Simple View" : "Show Detailed View" }
-                        />
+                        <Grid.Column 
+                            computer={this.state.showDetailedView ? 14 : 8} 
+                            mobile={15}>
+                            <Grid.Row>
+                                <Link to="/">Switch to a different League</Link>
+                                <Button 
+                                    floated='right'
+                                    className="mobile-hide" 
+                                    onClick={() => this.onDetailedViewClick()}
+                                    content={this.state.showDetailedView ? "Show Simple View" : "Show Detailed View" }
+                                />
+                            </Grid.Row>
+                            <Segment>
+                                <Header>Power Rankings {this.props.match.params.seasonId}</Header>
+                                <Table celled unstackable definition striped size="small">
+                                    <TableHeader
+                                        showDetailedView={this.state.showDetailedView}
+                                        rankings={rankings}
+                                    />
+                                    <Table.Body>
+                                        { rankings.map((team, index) =>
+                                            <Table.Row>
+                                                <TeamHeaderCell team={team} />
+                                                {this.state.showDetailedView && this.displayWeeklyRecords(team)}
+                                                <TableTotals 
+                                                    showDetailedView={this.state.showDetailedView}
+                                                    team={team}
+                                                    index={index}
+                                                />
+                                            </Table.Row>
+                                        )}
+                                    </Table.Body>
+                                </Table>
+                            </Segment>
+                        </Grid.Column>
                     </Grid.Row>
-                    <Segment>
-                    <Header>Power Rankings {this.props.match.params.seasonId}</Header>
-                    <Table celled unstackable definition striped size="small">
-                        <TableHeader
-                            showDetailedView={this.state.showDetailedView}
-                            rankings={rankings}
-                        />
-                        <Table.Body>
-                        { rankings.map((team, index) =>
-                        <Table.Row>
-                            <Table.Cell>
-                            <Header as='h4' image>
-                                <Image className="mobile-hide" src={team.logoUrl} shape='rounded' size='mini' />
-                                <Header.Content>
-                                    {team.name}
-                                <Header.Subheader>{team.owner}</Header.Subheader>
-                                </Header.Content>
-                            </Header>
-                            </Table.Cell>
-                            {this.state.showDetailedView && this.displayWeeklyRecords(team)}
-                            <Table.Cell>
-                                <strong>{team.wins} - {team.losses}</strong>
-                            </Table.Cell>
-                            <Table.Cell>
-                                {team.overallWins} - {team.overallLosses}
-                            </Table.Cell>
-                            <Table.Cell>
-                                {this.getDiff(team.overallStanding, index +1 )}
-                            </Table.Cell> 
-                        </Table.Row>
-                        )}
-                        </Table.Body>
-                    </Table>
-                    </Segment>
-                </Grid.Column>
-                </Grid.Row>}
+                }
             </Grid>
-        </div>
-        )
+        ])
     }
 }
 export default withRouter(PowerRankingsGrid)
