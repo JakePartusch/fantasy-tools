@@ -3,6 +3,7 @@ import { Grid, Segment, Header, Table, Image, Loader, Button, Responsive, Icon, 
 import { FantasyFootballApi } from '../api/FantasyFootballApi';
 import { withRouter, Link } from 'react-router-dom';
 import { cloneDeep } from 'lodash';
+import TableHeader from './grid/TableHeader';
 
 class PowerRankingsGrid extends Component {
     static propTypes = {};
@@ -55,10 +56,6 @@ class PowerRankingsGrid extends Component {
         this.props.history.push("/");
     }
 
-    displayWeeklyHeaders(rankings) {
-        return rankings[0].weeklyWinData.map((data, i) => <Table.HeaderCell>{i+1}</Table.HeaderCell>)
-    }
-
     displayWeeklyRecords(team) {
         return team.weeklyWinData.map(data => 
             <Table.Cell positive={data.wins >= data.losses} negative={data.wins < data.losses}>
@@ -97,26 +94,15 @@ class PowerRankingsGrid extends Component {
                             className="mobile-hide" 
                             onClick={() => this.onDetailedViewClick()}
                             content={this.state.showDetailedView ? "Show Simple View" : "Show Detailed View" }
-                        ></Button>
+                        />
                     </Grid.Row>
                     <Segment>
                     <Header>Power Rankings {this.props.match.params.seasonId}</Header>
                     <Table celled unstackable definition striped size="small">
-                        <Table.Header>
-                            <Table.Row>
-                                <Table.HeaderCell>Team</Table.HeaderCell>
-                                {this.state.showDetailedView && this.displayWeeklyHeaders(rankings)}
-                                <Table.HeaderCell>
-                                    <span style={{paddingRight: "0.5rem"}}>Total</span>
-                                    <Popup
-                                        trigger={<Icon name='info' circular size="small"/>}
-                                        content='A simulation of every possible matchup this season.'
-                                    />
-                                </Table.HeaderCell>
-                                <Table.HeaderCell>Actual</Table.HeaderCell>
-                                <Table.HeaderCell>Diff</Table.HeaderCell>
-                            </Table.Row>
-                        </Table.Header>
+                        <TableHeader
+                            showDetailedView={this.state.showDetailedView}
+                            rankings={rankings}
+                        />
                         <Table.Body>
                         { rankings.map((team, index) =>
                         <Table.Row>
