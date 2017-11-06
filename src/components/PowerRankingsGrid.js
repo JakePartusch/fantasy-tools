@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { Grid, Segment, Header, Table, Image, Loader, Button, Responsive, Icon, Popup } from 'semantic-ui-react';
+import { Grid, Segment, Header, Table, Loader, Button } from 'semantic-ui-react';
 import { FantasyFootballApi } from '../api/FantasyFootballApi';
 import { withRouter, Link } from 'react-router-dom';
-import { cloneDeep } from 'lodash';
 import TableHeader from './grid/TableHeader';
 import TableTotals from './grid/TableTotals';
 import TeamHeaderCell from './grid/TeamHeaderCell';
@@ -23,7 +22,12 @@ class PowerRankingsGrid extends Component {
     async componentWillMount() {
         this.setState({loading: true})
         try {
-            const rankings = await this.api.getPowerRankings(this.props.match.params.leagueId, this.props.match.params.seasonId)
+            const { leagueId, seasonId } = this.props.match.params;
+            const rankings = await this.api.getPowerRankings(leagueId, seasonId)
+            let recentRankings = window.localStorage.getItem('recent-rankings');
+            recentRankings = recentRankings ? JSON.parse(recentRankings) : {};
+            recentRankings[`${leagueId}&${seasonId}`] = rankings;
+            window.localStorage.setItem('recent-rankings', JSON.stringify(recentRankings));
             this.setState({rankings, loading:false})
         } catch(e) {
             console.log(e);
@@ -76,7 +80,7 @@ class PowerRankingsGrid extends Component {
                                     />
                                     <Table.Body>
                                         { rankings.map((team, index) =>
-                                            <Table.Row>
+                                            <Table.Row key={team.id}>
                                                 <TeamHeaderCell team={team} />
                                                 {this.state.showDetailedView && this.displayWeeklyRecords(team)}
                                                 <TableTotals 

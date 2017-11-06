@@ -54,6 +54,13 @@ export class FantasyFootballApi {
         ))
     }
 
+    getLeagueData = async (leagueId, seasonId) => {
+        var response = await axios.get(`https://games.espn.com/ffl/api/v2/leagueSettings?leagueId=${leagueId}&seasonId=${seasonId}`);
+        return {
+            name: response.data.leaguesettings.name
+        }
+    }
+
     calculateSeasonWinTotal = (weeklyWinsForSeason) => {
         let seasonTotal = [];
         weeklyWinsForSeason.forEach(weekWins => {
