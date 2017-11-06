@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { bool, object, number } from 'prop-types';
+import { object, number } from 'prop-types';
 import { Table, Icon } from 'semantic-ui-react';
 
 export default class TableTotals extends Component {

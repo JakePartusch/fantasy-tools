@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { Grid, Segment, Header, Table, Image, Loader, Button, Responsive, Icon, Popup } from 'semantic-ui-react';
+import { Grid, Segment, Header, Table, Loader, Button } from 'semantic-ui-react';
 import { FantasyFootballApi } from '../api/FantasyFootballApi';
 import { withRouter, Link } from 'react-router-dom';
-import { cloneDeep } from 'lodash';
 import TableHeader from './grid/TableHeader';
 import TableTotals from './grid/TableTotals';
 import TeamHeaderCell from './grid/TeamHeaderCell';

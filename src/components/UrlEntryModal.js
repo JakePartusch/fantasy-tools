@@ -4,7 +4,6 @@ import { getParams } from '../util/utils';
 import {withRouter} from 'react-router-dom'
 import validUrl from 'valid-url';
 import { keys } from 'lodash';
-import axios from 'axios';
 import { FantasyFootballApi } from '../api/FantasyFootballApi';
 
 class UrlEntryModal extends Component {
