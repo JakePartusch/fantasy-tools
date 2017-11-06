@@ -80,7 +80,7 @@ class PowerRankingsGrid extends Component {
                                     />
                                     <Table.Body>
                                         { rankings.map((team, index) =>
-                                            <Table.Row>
+                                            <Table.Row key={team.id}>
                                                 <TeamHeaderCell team={team} />
                                                 {this.state.showDetailedView && this.displayWeeklyRecords(team)}
                                                 <TableTotals 

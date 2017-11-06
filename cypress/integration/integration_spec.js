@@ -43,6 +43,29 @@ describe('Test basic functionality', function() {
     cy.get('a').click();
     cy.get('.header').contains('Enter ESPN League URL');
   });
+  describe('recent searches', () => {
+    it('should do it', () => {
+      //Start @ home
+      cy.visit('http://localhost:3000');
+
+      //Search so that local storage gets populated
+      cy.server()
+      cy.route('GET', 'https://games.espn.com/ffl/api/v2/leagueSettings*', 'fixture:leagueSettings.json')
+      cy.route('GET', 'https://games.espn.com/ffl/api/v2/scoreboard*', 'fixture:scoreboard.json')
+      cy.get('input').type("http://games.espn.com/ffl/clubhouse?leagueId=1122686&teamId=1&seasonId=2016");
+      cy.get('button').click();
+
+      //Go back to home
+      cy.get('a').click();
+
+      //Click on first item in dropdown
+      cy.get('.dropdown').contains('Recent Searches')
+      cy.get('.dropdown').click();
+      cy.get('.item').first().click();
+
+      cy.get(".header").contains('Power Rankings 2016');
+    })
+  })
   it('should handle a bad input url', () => {
     cy.get('input').type("http://games.espn.com/ffl/clubhouse?leagueId=12345&teamId=5&seasonId=2017");
     cy.get('button').click();
