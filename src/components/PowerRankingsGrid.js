@@ -35,9 +35,24 @@ class PowerRankingsGrid extends Component {
         }
     }
 
+    /*
+     Should return a dark red for bad record and dark green for a good record,
+     mediocre records should be light red/green
+    */
+    getHslCellColor(wins, losses) {
+        const totalGames = losses + wins
+        if(wins < losses) {
+            const winPercentage = wins / totalGames;
+            return `hsl(0, 65%,${(winPercentage + 0.5) * 100}%)`
+        } else {
+            const lossPercentage = losses / totalGames;
+            return `hsl(100, 65%,${(lossPercentage + 0.4) * 100}%)`
+        }
+    }
+
     displayWeeklyRecords(team) {
         return team.weeklyWinData.map(data => 
-            <Table.Cell positive={data.wins >= data.losses} negative={data.wins < data.losses}>
+            <Table.Cell style={{backgroundColor: this.getHslCellColor(data.wins, data.losses)}}>
                 {data.wins} - {data.losses}
             </Table.Cell>)
     }
