@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "@3846masa/axios-cookiejar-support": "^0.1.1",
-    "axios": "^0.16.2",
+    "axios": "^0.17.0",
     "cheerio": "^1.0.0-rc.2",
     "lodash": "^4.17.4",
     "react": "^16.0.0",
