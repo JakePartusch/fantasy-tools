@@ -26,6 +26,6 @@
     "cypress:run": "cypress run --record --key 43d3a003-12be-4dd0-b195-3afc8bac9cc8"
   },
   "devDependencies": {
-    "cypress": "1.0.3"
+    "cypress": "1.1.1"
   }
 }
