@@ -3,17 +3,17 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@3846masa/axios-cookiejar-support": "^0.1.1",
-    "axios": "^0.16.2",
+    "@3846masa/axios-cookiejar-support": "^0.4.2",
+    "axios": "^0.18.0",
     "cheerio": "^1.0.0-rc.2",
     "lodash": "^4.17.4",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
-    "react-scripts": "1.0.14",
+    "react-scripts": "2.0.4",
     "semantic-ui-css": "^2.2.12",
-    "semantic-ui-react": "^0.75.1",
+    "semantic-ui-react": "^0.82.5",
     "tough-cookie": "^2.3.3",
     "valid-url": "^1.0.9"
   },
@@ -26,6 +26,6 @@
     "cypress:run": "cypress run --record --key 43d3a003-12be-4dd0-b195-3afc8bac9cc8"
   },
   "devDependencies": {
-    "cypress": "1.0.3"
+    "cypress": "3.1.0"
   }
 }
