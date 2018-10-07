@@ -101,13 +101,12 @@ export class FantasyFootballApi {
             allWeekScoresPromises.push(this.getWeekScores(leagueId, seasonId, i)) 
         }
         const allWeekScores = await Promise.all(allWeekScoresPromises);
-        for (let i = 0; i < weeksInSeason; i++) {
-            const weekScores = allWeekScores[i];
+        allWeekScores.forEach(weekScores => {
             weekScores.sort((a, b) => { 
                 return a.score - b.score;
             });
             seasonData.push(weekScores);
-        }
+        })
         return seasonData;
     }
 
