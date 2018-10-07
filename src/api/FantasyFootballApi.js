@@ -96,8 +96,13 @@ export class FantasyFootballApi {
         let seasonData = [];
         var response = await axios.get(`https://games.espn.com/ffl/api/v2/leagueSettings?leagueId=${leagueId}&seasonId=${seasonId}`);
         const weeksInSeason = response.data.leaguesettings.regularSeasonMatchupPeriodCount;
+        let allWeekScoresPromises = [];
         for (let i = 1; i <= weeksInSeason; i++) {
-            const weekScores = await this.getWeekScores(leagueId, seasonId, i)
+            allWeekScoresPromises.push(this.getWeekScores(leagueId, seasonId, i)) 
+        }
+        const allWeekScores = await Promise.all(allWeekScoresPromises);
+        for (let i = 0; i < weeksInSeason; i++) {
+            const weekScores = allWeekScores[i];
             weekScores.sort((a, b) => { 
                 return a.score - b.score;
             });
