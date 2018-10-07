@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Grid, Segment, Header, Table, Loader, Button } from 'semantic-ui-react';
+import axios from 'axios';
 import { FantasyFootballApi } from '../api/FantasyFootballApi';
 import { withRouter, Link } from 'react-router-dom';
 import TableHeader from './grid/TableHeader';
@@ -23,7 +24,14 @@ class PowerRankingsGrid extends Component {
         this.setState({loading: true})
         try {
             const { leagueId, seasonId } = this.props.match.params;
-            const rankings = await this.api.getPowerRankings(leagueId, seasonId)
+            let rankings;
+            try {
+                const response = await axios.get(`/.netlify/functions/powerRankings?leagueId=${leagueId}&seasonId=${seasonId}`)
+                rankings = response.data;
+            } catch(e) {
+                console.error(e);
+                rankings = await this.api.getPowerRankings(leagueId, seasonId);
+            }
             let recentRankings = window.localStorage.getItem('recent-rankings');
             recentRankings = recentRankings ? JSON.parse(recentRankings) : {};
             recentRankings[`${leagueId}&${seasonId}`] = rankings;
