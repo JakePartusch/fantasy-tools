@@ -5,6 +5,6 @@ body {
 }
 
 @media screen and (min-width: 0px) and (max-width: 720px) {
-  .ui.mini.rounded.image.mobile-hide { display: none; }
+  img.ui.mini.image.mobile-hide { display: none; }
   .ui.button.mobile-hide { display: none; }
 }
