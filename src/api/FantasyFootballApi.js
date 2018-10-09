@@ -123,5 +123,15 @@ export class FantasyFootballApi {
             }))
             .filter(team => team.score !== 0);
     }
+
+    addCookies = cookies => {
+        axios.interceptors.request.use(
+            config => {
+              config.headers.Cookie = cookies;
+              return config;
+            },
+            error => Promise.reject(error)
+          );
+      }
 }
 

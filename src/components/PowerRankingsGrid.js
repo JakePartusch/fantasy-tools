@@ -26,7 +26,11 @@ class PowerRankingsGrid extends Component {
             const { leagueId, seasonId } = this.props.match.params;
             let rankings;
             try {
-                const response = await axios.get(`/.netlify/functions/powerRankings?leagueId=${leagueId}&seasonId=${seasonId}`)
+                const body = {
+                    leagueId,
+                    seasonId
+                }
+                const response = await axios.post(`/.netlify/functions/powerRankings`, body)
                 rankings = response.data;
             } catch(e) {
                 console.error(e);
