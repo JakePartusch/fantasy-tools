@@ -1,0 +1,11 @@
+{
+  "editor.formatOnSave": true,
+  "[javascript]": {
+    // eslint will be handling the formatting throught prettier
+    "editor.formatOnSave": false
+  },
+  "prettier.disableLanguages": ["js"],
+  // This does the prettier formatting
+  "eslint.autoFixOnSave": true,
+  "eslint.alwaysShowStatus": true
+}

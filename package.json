@@ -26,12 +26,24 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "cypress:open": "cypress open",
-    "cypress:run": "cypress run --record --key 43d3a003-12be-4dd0-b195-3afc8bac9cc8"
+    "cypress:run": "cypress run --record --key 43d3a003-12be-4dd0-b195-3afc8bac9cc8",
+    "precommit": "lint-staged"
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx,json,css}": [
+      "prettier --write",
+      "git add"
+    ]
   },
   "devDependencies": {
     "@babel/plugin-proposal-class-properties": "^7.1.0",
     "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
-    "cypress": "3.1.0"
+    "cypress": "3.1.0",
+    "husky": "^1.1.1",
+    "lint-staged": "^7.3.0",
+    "eslint-config-prettier": "^3.1.0",
+    "eslint-plugin-prettier": "^3.0.0",
+    "prettier": "^1.14.3"
   },
   "browserslist": [
     ">0.2%",
