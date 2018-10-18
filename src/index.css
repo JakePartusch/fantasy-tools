@@ -8,3 +8,7 @@ body {
   img.ui.mini.image.mobile-hide { display: none; }
   .ui.button.mobile-hide { display: none; }
 }
+
+.ui.basic.modal > .actions {
+  text-align: left
+}

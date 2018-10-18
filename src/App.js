@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PowerRankingsGrid from './components/PowerRankingsGrid';
 import UrlEntryModal from './components/UrlEntryModal';
+import LoginModal from './components/LoginModal';
 import {
   BrowserRouter as Router,
   Route
@@ -17,7 +18,8 @@ class App extends Component {
         <Router>
           <div>
             <Route exact path="/" component={UrlEntryModal}/>
-            <Route exact path="/:error" component={UrlEntryModal}/>
+            <Route exact path="/login" component={LoginModal}/>
+            <Route exact path="/error" component={UrlEntryModal}/>
             <Route exact path="/espn/:leagueId/:seasonId" component={PowerRankingsGrid}/>
           </div>
         </Router>

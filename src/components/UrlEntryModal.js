@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Modal, Header, Message, Form, Icon, Button, Dropdown } from 'semantic-ui-react';
+import { Modal, Header, Message, Form, Icon, Button, Dropdown, Input } from 'semantic-ui-react';
 import { getParams } from '../util/utils';
 import {withRouter} from 'react-router-dom'
 import validUrl from 'valid-url';
@@ -27,6 +27,7 @@ class UrlEntryModal extends Component {
 
     async parseLocalStorage() {
         const recentRankings = this.getRecentTeams();
+        const authentication = this.getAuthentication();
         const leagueKeys = keys(recentRankings);
         const leagueDatas = await Promise.all(leagueKeys.map(async key => {
             const leagueId = key.split('&')[0];
@@ -39,6 +40,7 @@ class UrlEntryModal extends Component {
             }    
         }));
         this.setState({recentRankings: leagueDatas});
+        this.setState({authentication})
     }
 
     handleLeagueUrlChange = e => {
@@ -57,7 +59,17 @@ class UrlEntryModal extends Component {
     }
 
     navigateToRankings(leagueId, seasonId) {
-        this.props.history.push(`/espn/${leagueId}/${seasonId}`);
+        this.props.history.push(`/espn/${leagueId}/${seasonId}`, { authentication: this.state.authentication });
+    }
+
+    navigateToLogin = () => {
+        this.props.history.push(`/login`);
+    }
+
+    getAuthentication() {
+        let authentication = window.localStorage.getItem('authentication');
+        return authentication ? JSON.parse(authentication) : undefined;
+
     }
 
     getRecentTeams() {
@@ -87,12 +99,14 @@ class UrlEntryModal extends Component {
                     </Message>}
                     <Form onSubmit={this.onSubmit.bind(this)}>
                         <Form.Field>
-                            <input 
+                            <Input 
+                            icon={<Icon name='search' inverted circular link onClick={this.onSubmit.bind(this)}/>}
                             placeholder='http://games.espn.com/ffl/leagueoffice?leagueId=123456&seasonId=2017' 
                             value={this.state.leagueUrl} 
                             onChange={this.handleLeagueUrlChange}/>
                         </Form.Field>
                     </Form>
+                    <Header inverted content='OR' />
                 </Modal.Content>
                 <Modal.Actions>
                     { !isEmpty(this.state.recentRankings) && 
@@ -108,8 +122,8 @@ class UrlEntryModal extends Component {
                             </Dropdown.Menu>
                         </Dropdown>
                     }
-                    <Button color='green' type='submit' onClick={this.onSubmit.bind(this)} inverted>
-                        <Icon name='checkmark' /> Submit
+                    <Button primary type='button' onClick={this.navigateToLogin}>
+                        Login
                     </Button>
                 </Modal.Actions>
             </Modal>

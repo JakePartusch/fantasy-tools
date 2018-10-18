@@ -21,14 +21,17 @@ class PowerRankingsGrid extends Component {
     }
 
     async componentWillMount() {
+        console.log(this.props)
         this.setState({loading: true})
         try {
             const { leagueId, seasonId } = this.props.match.params;
+            const { authentication } = this.props.location.state || {};
             let rankings;
             try {
                 const body = {
                     leagueId,
-                    seasonId
+                    seasonId,
+                    ...authentication
                 }
                 const response = await axios.post(`/.netlify/functions/powerRankings`, body)
                 rankings = response.data;
