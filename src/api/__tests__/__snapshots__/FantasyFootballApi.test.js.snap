@@ -1,0 +1,86 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FantasyFootballApi Tests ESPN API parse week 1 scoreboard 1`] = `
+Array [
+  Object {
+    "id": 5,
+    "name": "Team Partusch",
+    "outcome": "BYE",
+    "score": 111.54,
+  },
+  Object {
+    "id": 2,
+    "name": "Team Haynssen",
+    "outcome": "LOSE",
+    "score": 125.52,
+  },
+  Object {
+    "id": 8,
+    "name": "Team Ramrod",
+    "outcome": "WIN",
+    "score": 127.04,
+  },
+  Object {
+    "id": 9,
+    "name": "Team NUMBER 9",
+    "outcome": "LOSE",
+    "score": 84.6,
+  },
+  Object {
+    "id": 1,
+    "name": "The Grail Marys",
+    "outcome": "WIN",
+    "score": 125.66,
+  },
+  Object {
+    "id": 13,
+    "name": "Boo Birds",
+    "outcome": "WIN",
+    "score": 106.76,
+  },
+  Object {
+    "id": 7,
+    "name": "Elite Brown Team",
+    "outcome": "LOSE",
+    "score": 69.24,
+  },
+  Object {
+    "id": 3,
+    "name": "Team Code Monkeys",
+    "outcome": "LOSE",
+    "score": 101.4,
+  },
+  Object {
+    "id": 11,
+    "name": "Guano All-Stars",
+    "outcome": "WIN",
+    "score": 124.12,
+  },
+  Object {
+    "id": 4,
+    "name": "Team Schlachter",
+    "outcome": "WIN",
+    "score": 121.42,
+  },
+  Object {
+    "id": 12,
+    "name": "Team Kuhl",
+    "outcome": "LOSE",
+    "score": 101.16,
+  },
+  Object {
+    "id": 6,
+    "name": "Team Juberian",
+    "outcome": "WIN",
+    "score": 85.68,
+  },
+  Object {
+    "id": 10,
+    "name": "St. Paul Russell",
+    "outcome": "LOSE",
+    "score": 59.82,
+  },
+]
+`;
+
+exports[`FantasyFootballApi Tests ESPN API parse week scoreboard (not played yet - all undecided 1`] = `Array []`;
