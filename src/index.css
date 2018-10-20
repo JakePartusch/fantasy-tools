@@ -4,7 +4,15 @@ body {
   font-family: sans-serif;
 }
 
+.outcome {
+  font-size: x-small;
+}
+
 @media screen and (min-width: 0px) and (max-width: 720px) {
-  img.ui.mini.image.mobile-hide { display: none; }
-  .ui.button.mobile-hide { display: none; }
+  img.ui.mini.image.mobile-hide {
+    display: none;
+  }
+  .ui.button.mobile-hide {
+    display: none;
+  }
 }
