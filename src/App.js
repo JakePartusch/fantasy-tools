@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Home from './pages/home/Home';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import './App.css';
-import '../node_modules/semantic-ui-css/semantic.min.css';
 
 class App extends Component {
   render() {
