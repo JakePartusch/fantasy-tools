@@ -36,7 +36,7 @@ const displayWeeklyRecords = (team, totalTeams) => {
     return (
       <TableCell
         align="center"
-        css={{ padding: '14px', minWidth: '87px', backgroundColor: getHslCellColor(wins, losses) }}
+        css={{ padding: '10px', backgroundColor: getHslCellColor(wins, losses) }}
         key={`record-${index}`}
       >
         {wins} - {losses}
@@ -91,10 +91,10 @@ export default function TrueRankinsTable(props) {
           <TableRow>
             <TableCell css={{ minWidth: '250px' }}>Team</TableCell>
             {isLargeScreen && displayWeeklyHeaders(rankings)}
-            <TableCell align="right" css={{ minWidth: '125px' }}>
+            <TableCell align="right" css={{ minWidth: '100px' }}>
               Simulated Record
             </TableCell>
-            <TableCell align="right" css={{ minWidth: '125px' }}>
+            <TableCell align="right" css={{ minWidth: '100px' }}>
               ESPN Record
             </TableCell>
           </TableRow>
