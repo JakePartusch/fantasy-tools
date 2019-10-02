@@ -5,6 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Table, TableBody, TableCell, TableHead, TableRow, Paper, Avatar, Typography } from '@material-ui/core';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { getPowerRankings } from '../../api/FantasyFootballApiv2';
+import styled from '@emotion/styled';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -56,6 +57,21 @@ const displayWeeklyHeaders = rankings => {
   ));
 };
 
+const TeamName = ({ name, isLargeScreen }) => {
+  return (
+    <Typography
+      css={{ marginLeft: isLargeScreen ? '15px' : '', fontSize: isLargeScreen ? '1.25rem' : '0.85rem' }}
+      variant="subtitle1"
+    >
+      {name}
+    </Typography>
+  );
+};
+
+const StyledTableCell = styled(TableCell)({
+  padding: '14px'
+});
+
 export default function TrueRankinsTable(props) {
   const classes = useStyles();
 
@@ -89,38 +105,36 @@ export default function TrueRankinsTable(props) {
       <Table>
         <TableHead>
           <TableRow>
-            <TableCell css={{ minWidth: '250px' }}>Team</TableCell>
+            <StyledTableCell css={{ minWidth: isLargeScreen ? '250px' : undefined }}>Team</StyledTableCell>
             {isLargeScreen && displayWeeklyHeaders(rankings)}
-            <TableCell align="right" css={{ minWidth: '100px' }}>
+            <StyledTableCell align="center" css={{ minWidth: isLargeScreen ? '100px' : undefined }}>
               Simulated Record
-            </TableCell>
-            <TableCell align="right" css={{ minWidth: '100px' }}>
+            </StyledTableCell>
+            <StyledTableCell align="center" css={{ minWidth: isLargeScreen ? '100px' : undefined }}>
               ESPN Record
-            </TableCell>
+            </StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {rankings.map(row => (
             <TableRow key={row.name}>
-              <TableCell component="th" scope="row">
+              <StyledTableCell>
                 <div css={{ display: 'flex', alignItems: 'center' }}>
-                  <Avatar alt={row.name} src={row.logo} />
-                  <Typography css={{ marginLeft: '15px', fontSize: '1.25rem' }} variant="subtitle1">
-                    {row.name}
-                  </Typography>
+                  {isLargeScreen && <Avatar alt={row.name} src={row.logo} />}
+                  <TeamName name={row.name} isLargeScreen={isLargeScreen} />
                 </div>
-              </TableCell>
+              </StyledTableCell>
               {isLargeScreen && displayWeeklyRecords(row, rankings.length)}
-              <TableCell align="right">
+              <StyledTableCell align="center">
                 <Typography variant="body1" css={{ fontWeight: '600' }}>
                   {row.totalWins} - {row.totalLosses}
                 </Typography>
-              </TableCell>
-              <TableCell align="right">
+              </StyledTableCell>
+              <StyledTableCell align="center">
                 <Typography variant="body1">
                   {row.actualRecord.wins} - {row.actualRecord.losses}
                 </Typography>
-              </TableCell>
+              </StyledTableCell>
             </TableRow>
           ))}
         </TableBody>
