@@ -6,6 +6,7 @@ import { Table, TableBody, TableCell, TableHead, TableRow, Paper, Avatar, Typogr
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { getPowerRankings } from '../../api/FantasyFootballApiv2';
 import styled from '@emotion/styled';
+import AlertDialog from './AlertDialog';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -50,11 +51,7 @@ const displayWeeklyHeaders = rankings => {
   if (rankings.length === 0) {
     return null;
   }
-  return rankings[0].wins.map((win, i) => (
-    <TableCell key={`rankings-${i}`} textAlign="center">
-      {i + 1}
-    </TableCell>
-  ));
+  return rankings[0].wins.map((win, i) => <TableCell key={`rankings-${i}`}>{i + 1}</TableCell>);
 };
 
 const TeamName = ({ name, isLargeScreen }) => {
@@ -79,17 +76,20 @@ export default function TrueRankinsTable(props) {
 
   const [rankings, setRankings] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
   const { leagueId, seasonId = 2019 } = props;
 
   useEffect(() => {
     const fetchRankings = async () => {
       setLoading(true);
       try {
-        let rankings = await getPowerRankings(leagueId, seasonId);
-        setRankings(rankings);
-        console.log(rankings);
+        if (leagueId && seasonId) {
+          let rankings = await getPowerRankings(leagueId, seasonId);
+          setRankings(rankings);
+        }
       } catch (e) {
         console.error(e);
+        setShowAlert(true);
       }
       setLoading(false);
     };
@@ -102,43 +102,46 @@ export default function TrueRankinsTable(props) {
 
   return (
     <Paper className={classes.root}>
-      <Table>
-        <TableHead>
-          <TableRow>
-            <StyledTableCell css={{ minWidth: isLargeScreen ? '250px' : undefined }}>Team</StyledTableCell>
-            {isLargeScreen && displayWeeklyHeaders(rankings)}
-            <StyledTableCell align="center" css={{ minWidth: isLargeScreen ? '100px' : undefined }}>
-              Simulated Record
-            </StyledTableCell>
-            <StyledTableCell align="center" css={{ minWidth: isLargeScreen ? '100px' : undefined }}>
-              ESPN Record
-            </StyledTableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rankings.map(row => (
-            <TableRow key={row.name}>
-              <StyledTableCell>
-                <div css={{ display: 'flex', alignItems: 'center' }}>
-                  {isLargeScreen && <Avatar alt={row.name} src={row.logo} />}
-                  <TeamName name={row.name} isLargeScreen={isLargeScreen} />
-                </div>
+      <AlertDialog open={showAlert} handleClose={() => setShowAlert(false)} />
+      {rankings.length > 0 && (
+        <Table>
+          <TableHead>
+            <TableRow>
+              <StyledTableCell css={{ minWidth: isLargeScreen ? '250px' : undefined }}>Team</StyledTableCell>
+              {isLargeScreen && displayWeeklyHeaders(rankings)}
+              <StyledTableCell align="center" css={{ minWidth: isLargeScreen ? '100px' : undefined }}>
+                Simulated Record
               </StyledTableCell>
-              {isLargeScreen && displayWeeklyRecords(row, rankings.length)}
-              <StyledTableCell align="center">
-                <Typography variant="body1" css={{ fontWeight: '600' }}>
-                  {row.totalWins} - {row.totalLosses}
-                </Typography>
-              </StyledTableCell>
-              <StyledTableCell align="center">
-                <Typography variant="body1">
-                  {row.actualRecord.wins} - {row.actualRecord.losses}
-                </Typography>
+              <StyledTableCell align="center" css={{ minWidth: isLargeScreen ? '100px' : undefined }}>
+                ESPN Record
               </StyledTableCell>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
+          </TableHead>
+          <TableBody>
+            {rankings.map(row => (
+              <TableRow key={row.name}>
+                <StyledTableCell>
+                  <div css={{ display: 'flex', alignItems: 'center' }}>
+                    {isLargeScreen && <Avatar alt={row.name} src={row.logo} />}
+                    <TeamName name={row.name} isLargeScreen={isLargeScreen} />
+                  </div>
+                </StyledTableCell>
+                {isLargeScreen && displayWeeklyRecords(row, rankings.length)}
+                <StyledTableCell align="center">
+                  <Typography variant="body1" css={{ fontWeight: '600' }}>
+                    {row.totalWins} - {row.totalLosses}
+                  </Typography>
+                </StyledTableCell>
+                <StyledTableCell align="center">
+                  <Typography variant="body1">
+                    {row.actualRecord.wins} - {row.actualRecord.losses}
+                  </Typography>
+                </StyledTableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      )}
     </Paper>
   );
 }
