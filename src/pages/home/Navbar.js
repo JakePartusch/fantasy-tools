@@ -9,7 +9,7 @@ const Navbar = () => {
     <AppBar position="static">
       <Toolbar css={{ display: 'flex', justifyContent: 'space-between' }}>
         <div css={{ display: 'flex', alignItems: 'center' }}>
-          <Typography variant="h5">True Fantasy Rankings</Typography>
+          <Typography variant="h5">Fantasy Football Power Rankings</Typography>
         </div>
       </Toolbar>
     </AppBar>
