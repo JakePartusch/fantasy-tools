@@ -58,14 +58,15 @@ const Home = () => {
           >
             <div>
               <Typography variant="h1" css={{ fontWeight: 600 }}>
-                True Fantasy Rankings
+                Power Rankings
               </Typography>
               <Typography
                 css={{ padding: '20px', maxWidth: 600, fontSize: '18px', margin: 'auto' }}
                 variant="subtitle1"
               >
-                Tired of losing games due to random matchup bad luck? We'll simulate every possible matchup to see how
-                your team truly stacks up against the competition.
+                Tired of losing your matchup while scoring the second most points in your league? Do you always seem to
+                be paired against one of the top scoring teams? We'll eliminate the luck of the draw by simulating every
+                possible matchup for each week, so you can see how your team truly stacks up.
               </Typography>
             </div>
             <img css={{ maxWidth: '300px' }} alt="Game day illustration" src={GameDayImg} />
