@@ -17,7 +17,7 @@ export default function AlertDialog({ open, handleClose }) {
       <DialogTitle id="alert-dialog-title">Unable to fetch League Data</DialogTitle>
       <DialogContent>
         <DialogContentText id="alert-dialog-description">
-          Is this a private league? If so, try logging into your league in a new tab in the same browser window.
+          Make sure that you are logged into your league in a new tab in the same browser window.
         </DialogContentText>
         <DialogContentText>
           Still having trouble? Make sure that the URL contains the League ID (ex. leagueId=12345)
