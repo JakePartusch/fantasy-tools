@@ -1,105 +1,92 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
-import styled from '@emotion/styled';
-import qs from 'query-string';
-import Navbar from './Navbar';
-import Table from './TrueRankingsTable';
-import { StylesProvider, ThemeProvider } from '@material-ui/styles';
-import { Typography, TextField, Button, createMuiTheme } from '@material-ui/core';
-import GameDayImg from './game-day.svg';
-import WaveImg from './wave.svg';
-import { useState } from 'react';
-
-const theme = createMuiTheme({
-  typography: {
-    h1: {
-      fontSize: '3rem'
-    }
-  }
-});
-
-const SubmitButton = styled(Button)({
-  marginTop: '16px',
-  marginBottom: '8px',
-  marginLeft: '16px',
-  height: '53px',
-  '@media(max-width: 600px)': {
-    margin: 0,
-    width: '100%'
-  }
-});
+import React from 'react';
+import { useHistory } from 'react-router-dom';
+import { Typography, Card, CardContent, Button, Grid } from '@material-ui/core';
+import FansImg from './fans.svg';
+import ListIcon from '@material-ui/icons/List';
+import GearIcon from '@material-ui/icons/Settings';
+import ThumbsUpDownIcon from '@material-ui/icons/ThumbsUpDown';
 
 const Home = () => {
-  const [espnUrl, setEspnUrl] = useState();
-  const [leagueId, setLeagueId] = useState();
-  const [seasonId, setSeasonId] = useState(2019);
-
-  const onSubmit = e => {
-    e.preventDefault();
-    const parsed = qs.parse(espnUrl.substring(espnUrl.indexOf('?'), espnUrl.length));
-    setLeagueId(parsed.leagueId);
-    setSeasonId(parsed.seasonId);
-  };
-
+  const history = useHistory();
   return (
-    <ThemeProvider theme={theme}>
-      <StylesProvider injectFirst>
-        <div css={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', minHeight: '100vh' }}>
-          <Navbar />
-          <header
-            css={{
-              minHeight: 288,
-              padding: '48px 32px',
-              display: 'flex',
-              flexWrap: 'wrap',
-              justifyContent: 'center',
-              alignItems: 'center'
-            }}
+    <>
+      <header
+        css={{
+          minHeight: 288,
+          padding: '48px 32px',
+          display: 'flex',
+          flexWrap: 'wrap',
+          justifyContent: 'center',
+          alignItems: 'center'
+        }}
+      >
+        <div>
+          <Typography variant="h1" css={{ fontWeight: 600 }}>
+            Fantasy Tools
+          </Typography>
+          <Typography
+            css={{ padding: '20px', maxWidth: 600, fontSize: '18px', margin: 'auto' }}
+            component="p"
+            variant="subtitle1"
           >
-            <div>
-              <Typography variant="h1" css={{ fontWeight: 600 }}>
-                Power Rankings
-              </Typography>
-              <Typography
-                css={{ padding: '20px', maxWidth: 600, fontSize: '18px', margin: 'auto' }}
-                variant="subtitle1"
-              >
-                Tired of losing your matchup while scoring the second most points in your league? Do you always seem to
-                be paired against one of the top scoring teams? We'll eliminate the luck of the draw by simulating every
-                possible matchup for each week, so you can see how your team truly stacks up.
-              </Typography>
-            </div>
-            <img css={{ maxWidth: '300px' }} alt="Game day illustration" src={GameDayImg} />
-          </header>
-          <section css={{ background: '#f8f9fa' }}>
-            <div css={{ maxWidth: 960, padding: '32px', margin: 'auto' }}>
-              <form onSubmit={onSubmit}>
-                <div css={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center' }}>
-                  <TextField
-                    css={{ backgroundColor: '#fff', flexGrow: 1 }}
-                    id="outlined-required"
-                    label="ESPN League Homepage URL"
-                    placeholder="https://fantasy.espn.com/football/league?leagueId=1234567"
-                    onChange={e => setEspnUrl(e.target.value)}
-                    margin="normal"
-                    variant="outlined"
-                  />
-                  <SubmitButton type="submit" variant="contained" color="primary">
-                    Calculate
-                  </SubmitButton>
-                </div>
-              </form>
-            </div>
-          </section>
-          <section>
-            <Table leagueId={leagueId} seasonId={seasonId} />
-          </section>
-          <footer>
-            <img alt="Wave footer" src={WaveImg} />
-          </footer>
+            We strive to bring fantasy sports players a suite of tools to evaluate past performance and improve future
+            results with unique data-driven simulations.
+          </Typography>
         </div>
-      </StylesProvider>
-    </ThemeProvider>
+        <img css={{ maxWidth: '300px' }} alt="Football fans on coach" src={FansImg} />
+      </header>
+      <section css={{ maxWidth: 960, margin: '3rem auto 0 auto' }}>
+        <Grid container spacing={2}>
+          <Grid item md={4} xs={12}>
+            <Button css={{ textTransform: 'none' }} onClick={() => history.push('/rankings')}>
+              <Card css={{ minHeight: 250 }}>
+                <CardContent>
+                  <ListIcon color="primary" fontSize="large" />
+                  <Typography css={{ marginBottom: '0.5rem' }} variant="h6" component="h2">
+                    Rankings Simulator
+                  </Typography>
+                  <Typography>
+                    We remove the randomness out of weekly matchups to give a better performance picture.
+                  </Typography>
+                </CardContent>
+              </Card>
+            </Button>
+          </Grid>
+          <Grid item md={4} xs={12}>
+            <Card css={{ minHeight: 250 }}>
+              <CardContent>
+                <GearIcon color="primary" fontSize="large" />
+                <Typography variant="h6" component="h2">
+                  Playoff Machine
+                </Typography>
+                <Typography css={{ marginBottom: '0.5rem' }} component="div" variant="subtitle1">
+                  (Coming Soon)
+                </Typography>
+                <Typography>
+                  We'll let you know exactly which games you need to win to get into the big dance.
+                </Typography>
+              </CardContent>
+            </Card>
+          </Grid>
+          <Grid item md={4} xs={12}>
+            <Card css={{ minHeight: 250 }}>
+              <CardContent>
+                <ThumbsUpDownIcon color="primary" fontSize="large" />
+                <Typography variant="h6" component="h2">
+                  Trade Analyzer
+                </Typography>
+                <Typography css={{ marginBottom: '0.5rem' }} component="div" variant="subtitle1">
+                  (Coming Soon)
+                </Typography>
+                <Typography>Optimize your trades with our AI tool</Typography>
+              </CardContent>
+            </Card>
+          </Grid>
+        </Grid>
+      </section>
+    </>
   );
 };
 
