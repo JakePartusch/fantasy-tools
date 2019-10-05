@@ -59,6 +59,7 @@ const TeamName = ({ name, isLargeScreen }) => {
     <Typography
       css={{ marginLeft: isLargeScreen ? '15px' : '', fontSize: isLargeScreen ? '1.25rem' : '0.85rem' }}
       variant="subtitle1"
+      component="span"
     >
       {name}
     </Typography>
