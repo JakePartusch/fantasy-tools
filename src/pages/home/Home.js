@@ -2,7 +2,7 @@
 import { jsx } from '@emotion/core';
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import { Typography, Card, CardContent, Button } from '@material-ui/core';
+import { Typography, Card, CardContent, Button, Grid } from '@material-ui/core';
 import FansImg from './fans.svg';
 import ListIcon from '@material-ui/icons/List';
 import GearIcon from '@material-ui/icons/Settings';
@@ -38,45 +38,53 @@ const Home = () => {
         <img css={{ maxWidth: '300px' }} alt="Football fans on coach" src={FansImg} />
       </header>
       <section css={{ maxWidth: 960, margin: '3rem auto 0 auto' }}>
-        <div css={{ display: 'flex', justifyContent: 'space-between' }}>
-          <Button css={{ textTransform: 'none' }} onClick={() => history.push('/rankings')}>
-            <Card css={{ width: 250, height: 250 }}>
+        <Grid container spacing={2}>
+          <Grid item md={4} xs={12}>
+            <Button css={{ textTransform: 'none' }} onClick={() => history.push('/rankings')}>
+              <Card css={{ minHeight: 250 }}>
+                <CardContent>
+                  <ListIcon color="primary" fontSize="large" />
+                  <Typography css={{ marginBottom: '0.5rem' }} variant="h6" component="h2">
+                    Rankings Simulator
+                  </Typography>
+                  <Typography>
+                    We remove the randomness out of weekly matchups to give a better performance picture.
+                  </Typography>
+                </CardContent>
+              </Card>
+            </Button>
+          </Grid>
+          <Grid item md={4} xs={12}>
+            <Card css={{ minHeight: 250 }}>
               <CardContent>
-                <ListIcon color="primary" fontSize="large" />
-                <Typography css={{ marginBottom: '0.5rem' }} variant="h6" component="h2">
-                  Rankings Simulator
+                <GearIcon color="primary" fontSize="large" />
+                <Typography variant="h6" component="h2">
+                  Playoff Machine
+                </Typography>
+                <Typography css={{ marginBottom: '0.5rem' }} component="div" variant="subtitle1">
+                  (Coming Soon)
                 </Typography>
                 <Typography>
-                  We remove the randomness out of weekly matchups to give a better performance picture.
+                  We'll let you know exactly which games you need to win to get into the big dance.
                 </Typography>
               </CardContent>
             </Card>
-          </Button>
-          <Card css={{ width: 250, height: 250 }}>
-            <CardContent>
-              <GearIcon color="primary" fontSize="large" />
-              <Typography variant="h6" component="h2">
-                Playoff Machine
-              </Typography>
-              <Typography css={{ marginBottom: '0.5rem' }} component="div" variant="subtitle1">
-                (Coming Soon)
-              </Typography>
-              <Typography>We'll let you know exactly which games you need to win to get into the big dance.</Typography>
-            </CardContent>
-          </Card>
-          <Card css={{ width: 250, height: 250 }}>
-            <CardContent>
-              <ThumbsUpDownIcon color="primary" fontSize="large" />
-              <Typography variant="h6" component="h2">
-                Trade Analyzer
-              </Typography>
-              <Typography css={{ marginBottom: '0.5rem' }} component="div" variant="subtitle1">
-                (Coming Soon)
-              </Typography>
-              <Typography>Optimize your trades with our AI tool</Typography>
-            </CardContent>
-          </Card>
-        </div>
+          </Grid>
+          <Grid item md={4} xs={12}>
+            <Card css={{ minHeight: 250 }}>
+              <CardContent>
+                <ThumbsUpDownIcon color="primary" fontSize="large" />
+                <Typography variant="h6" component="h2">
+                  Trade Analyzer
+                </Typography>
+                <Typography css={{ marginBottom: '0.5rem' }} component="div" variant="subtitle1">
+                  (Coming Soon)
+                </Typography>
+                <Typography>Optimize your trades with our AI tool</Typography>
+              </CardContent>
+            </Card>
+          </Grid>
+        </Grid>
       </section>
     </>
   );
