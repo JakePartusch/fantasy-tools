@@ -40,8 +40,8 @@ const Home = () => {
       <section css={{ maxWidth: 960, margin: '3rem auto 0 auto' }}>
         <Grid container spacing={2}>
           <Grid item md={4} xs={12}>
-            <Button css={{ textTransform: 'none' }} onClick={() => history.push('/rankings')}>
-              <Card css={{ minHeight: 250 }}>
+            <Button css={{ textTransform: 'none', padding: 0 }} onClick={() => history.push('/rankings')}>
+              <Card css={{ minHeight: 250 }} elevation={5}>
                 <CardContent>
                   <ListIcon color="primary" fontSize="large" />
                   <Typography css={{ marginBottom: '0.5rem' }} variant="h6" component="h2">
@@ -55,7 +55,7 @@ const Home = () => {
             </Button>
           </Grid>
           <Grid item md={4} xs={12}>
-            <Card css={{ minHeight: 250 }}>
+            <Card css={{ minHeight: 250 }} elevation={4}>
               <CardContent>
                 <GearIcon color="primary" fontSize="large" />
                 <Typography variant="h6" component="h2">
@@ -71,7 +71,7 @@ const Home = () => {
             </Card>
           </Grid>
           <Grid item md={4} xs={12}>
-            <Card css={{ minHeight: 250 }}>
+            <Card css={{ minHeight: 250 }} elevation={4}>
               <CardContent>
                 <ThumbsUpDownIcon color="primary" fontSize="large" />
                 <Typography variant="h6" component="h2">
