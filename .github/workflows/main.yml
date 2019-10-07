@@ -21,6 +21,8 @@ jobs:
       - name: Unit Tests
         run: |
           yarn test
+        env:
+          CI: true
       - name: E2E Tests
         run: |
           yarn add netlify-cli
