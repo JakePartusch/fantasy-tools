@@ -12,4 +12,5 @@ before_script:
 
 script:
   - yarn test
+  - cypress install
   - cypress run
