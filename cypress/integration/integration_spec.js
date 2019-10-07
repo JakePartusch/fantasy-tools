@@ -2,49 +2,29 @@ describe('Test basic functionality', function() {
   it('visits the app', function() {
     cy.visit('http://localhost:3000');
     cy.contains('app');
-    cy.get('.header').contains('Enter ESPN League URL');
+    cy.get('header').contains('Fantasy Tools');
   });
-  it('should allow submission', function() {
-    cy.server()
-    cy.route('GET', '/apis/v3/**', 'fixture:scoreboard.json')
-    cy.get('input').type("https://fantasy.espn.com/football/team?leagueId=452354&seasonId=2018&teamId=5&fromTeamId=5");
-    cy.get('button').click();
-    cy.get(".header").contains('Power Rankings 2018');
+  describe('rankings simulator', () => {
+    beforeEach(() => {
+      cy.server();
+      cy.route('GET', 'https://fantasy.espn.com/apis/v3/**','fixture:response.json')
+    })
+    it('navigates to ranking from button click', () => {
+      cy.visit('http://localhost:3000');
+      cy.get('.rankings-simulator-btn').click();
+    });
+    it('loads team data', () => {
+      cy.visit('http://localhost:3000/rankings');
+      cy.get('input').type('https://fantasy.espn.com/football/league?leagueId=452354');
+      cy.get('form').submit();
+      cy.get('tr').should('have.length', 13)
+    });
+    it('should rank the teams correctly', () => {
+      cy.visit('http://localhost:3000/rankings');
+      cy.get('input').type('https://fantasy.espn.com/football/league?leagueId=452354');
+      cy.get('form').submit();
+      cy.get('tbody tr').first().should('contain', 'Grover Circle Clevelands')
+      cy.get('tbody tr').first().get('.simulated-record-cell').should('contain', '88 - 44')
+    })
   });
-  it('should contain 13 teams', function() {
-    cy.get('tr').should('have.length', 14)
-  });
-  it('should contain 3 columns per row', () => {
-    cy.get('td').should('have.length', 39)
-  });
-  it('should contain data in the first cell', () => {
-    cy.get('td').first().contains("Partusch")
-  });
-  it('should click the button', () => {
-    cy.get('button').click();
-  });
-  it('should still contain 14 teams', () => {
-    cy.get('tr').should('have.length', 14)
-  });
-  it('should contain 17 columns per row', () => {
-    cy.get('td').should('have.length', 208)
-  });
-  it('should contain data in the first cell', () => {
-    cy.get('td').first().contains("Partusch")
-  });
-  it('should allow user to go back to the landing page', function() {
-    cy.get('a').click();
-    cy.get('.header').contains('Enter ESPN League URL');
-  });
-  it('should handle a bad input url', () => {
-    cy.get('input').type("https://fantasy.espn.com/football/team?leagueId=452354&seasonId=2018&teamId=5&fromTeamId=5");
-    cy.get('button').click();
-    cy.get('.negative').contains("We're sorry, something went wrong. Please try again.");
-  });
-  it('should handle really bad input', () => {
-    cy.get('input').type("blah");
-    cy.get('button').click();
-    cy.get('.negative').contains("We're sorry, something went wrong. Please try again.");
-  });
-
 });

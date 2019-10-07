@@ -5,9 +5,20 @@ import { Typography } from '@material-ui/core';
 
 const Footer = () => {
   return (
-    <footer css={{ backgroundImage: `url(${WaveImg})`, backgroundSize: 'cover', marginTop: '-100px' }}>
-      <div css={{ minHeight: 300, display: 'flex', justifyContent: 'flex-end', alignItems: 'flex-end' }}>
-        <Typography css={{ margin: '0.5rem', color: '#fff' }}>© Jake Partusch. All rights reserved.</Typography>
+    <footer
+      css={{ backgroundImage: `url(${WaveImg})`, backgroundSize: 'cover', marginTop: '-100px' }}
+    >
+      <div
+        css={{
+          minHeight: 300,
+          display: 'flex',
+          justifyContent: 'flex-end',
+          alignItems: 'flex-end'
+        }}
+      >
+        <Typography css={{ margin: '0.5rem', color: '#fff' }}>
+          © Jake Partusch. All rights reserved.
+        </Typography>
       </div>
     </footer>
   );

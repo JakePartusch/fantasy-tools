@@ -11,7 +11,7 @@ import ThumbsUpDownIcon from '@material-ui/icons/ThumbsUpDown';
 const Home = () => {
   const history = useHistory();
   return (
-    <>
+    <React.Fragment>
       <header
         css={{
           minHeight: 288,
@@ -31,8 +31,8 @@ const Home = () => {
             component="p"
             variant="subtitle1"
           >
-            We strive to bring fantasy sports players a suite of tools to evaluate past performance and improve future
-            results with unique data-driven simulations.
+            We strive to bring fantasy sports players a suite of tools to evaluate past performance
+            and improve future results with unique data-driven simulations.
           </Typography>
         </div>
         <img css={{ maxWidth: '300px' }} alt="Football fans on coach" src={FansImg} />
@@ -40,7 +40,11 @@ const Home = () => {
       <section css={{ maxWidth: 960, margin: '3rem auto 0 auto' }}>
         <Grid container spacing={2}>
           <Grid item md={4} xs={12}>
-            <Button css={{ textTransform: 'none', padding: 0 }} onClick={() => history.push('/rankings')}>
+            <Button
+              className="rankings-simulator-btn"
+              css={{ textTransform: 'none', padding: 0 }}
+              onClick={() => history.push('/rankings')}
+            >
               <Card css={{ minHeight: 250 }} elevation={5}>
                 <CardContent>
                   <ListIcon color="primary" fontSize="large" />
@@ -48,7 +52,8 @@ const Home = () => {
                     Rankings Simulator
                   </Typography>
                   <Typography>
-                    We remove the randomness out of weekly matchups to give a better performance picture.
+                    We remove the randomness out of weekly matchups to give a better performance
+                    picture.
                   </Typography>
                 </CardContent>
               </Card>
@@ -86,7 +91,7 @@ const Home = () => {
           </Grid>
         </Grid>
       </section>
-    </>
+    </React.Fragment>
   );
 };
 

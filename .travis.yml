@@ -1,6 +1,6 @@
 language: node_js
 node_js:
-- stable
+  - stable
 cache:
   yarn: true
 
@@ -11,4 +11,5 @@ before_script:
   - yarn start -- --silent &
 
 script:
+  - yarn test
   - cypress run

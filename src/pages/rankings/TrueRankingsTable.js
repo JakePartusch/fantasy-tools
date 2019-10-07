@@ -2,7 +2,16 @@
 import { jsx } from '@emotion/core';
 import { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Table, TableBody, TableCell, TableHead, TableRow, Paper, Avatar, Typography } from '@material-ui/core';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
+  Paper,
+  Avatar,
+  Typography
+} from '@material-ui/core';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { getPowerRankings } from '../../api/FantasyFootballApiv2';
 import styled from '@emotion/styled';
@@ -57,7 +66,10 @@ const displayWeeklyHeaders = rankings => {
 const TeamName = ({ name, isLargeScreen }) => {
   return (
     <Typography
-      css={{ marginLeft: isLargeScreen ? '15px' : '', fontSize: isLargeScreen ? '1.25rem' : '0.85rem' }}
+      css={{
+        marginLeft: isLargeScreen ? '15px' : '',
+        fontSize: isLargeScreen ? '1.25rem' : '0.85rem'
+      }}
       variant="subtitle1"
       component="span"
     >
@@ -108,12 +120,20 @@ export default function TrueRankinsTable(props) {
         <Table>
           <TableHead>
             <TableRow>
-              <StyledTableCell css={{ minWidth: isLargeScreen ? '250px' : undefined }}>Team</StyledTableCell>
+              <StyledTableCell css={{ minWidth: isLargeScreen ? '250px' : undefined }}>
+                Team
+              </StyledTableCell>
               {isLargeScreen && displayWeeklyHeaders(rankings)}
-              <StyledTableCell align="center" css={{ minWidth: isLargeScreen ? '100px' : undefined }}>
+              <StyledTableCell
+                align="center"
+                css={{ minWidth: isLargeScreen ? '100px' : undefined }}
+              >
                 Simulated Record
               </StyledTableCell>
-              <StyledTableCell align="center" css={{ minWidth: isLargeScreen ? '100px' : undefined }}>
+              <StyledTableCell
+                align="center"
+                css={{ minWidth: isLargeScreen ? '100px' : undefined }}
+              >
                 ESPN Record
               </StyledTableCell>
             </TableRow>
@@ -128,12 +148,12 @@ export default function TrueRankinsTable(props) {
                   </div>
                 </StyledTableCell>
                 {isLargeScreen && displayWeeklyRecords(row, rankings.length)}
-                <StyledTableCell align="center">
+                <StyledTableCell align="center" className="simulated-record-cell">
                   <Typography variant="body1" css={{ fontWeight: '600' }}>
                     {row.totalWins} - {row.totalLosses}
                   </Typography>
                 </StyledTableCell>
-                <StyledTableCell align="center">
+                <StyledTableCell align="center" className="actual-record-cell">
                   <Typography variant="body1">
                     {row.actualRecord.wins} - {row.actualRecord.losses}
                   </Typography>
