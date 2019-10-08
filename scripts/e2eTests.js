@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-const exec = require("child_process").exec;
+const exec = require('child_process').exec;
 
 const promisifyExec = cmd => {
   console.log(cmd);
@@ -15,16 +15,14 @@ const promisifyExec = cmd => {
 };
 
 const main = async () => {
-  const deploySettings = JSON.parse(
-    await promisifyExec(`netlify deploy --json`)
-  );
+  const draftJson = await promisifyExec(`netlify deploy --json`);
+  console.log(draftJson);
+  const deploySettings = JSON.parse(draftJson);
   const { deploy_url } = deploySettings;
 
-  console.log("Deploy URL:", deploy_url);
+  console.log('Deploy URL:', deploy_url);
 
-  console.log(
-    await promisifyExec(`cypress run --config baseUrl='${deploy_url}'`)
-  );
+  console.log(await promisifyExec(`cypress run --config baseUrl='${deploy_url}'`));
 };
 
 main().catch(err => {
