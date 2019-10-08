@@ -26,6 +26,7 @@ jobs:
       - name: E2E Tests
         run: |
           yarn global add netlify-cli
+          yarn build
           yarn test:e2e
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
@@ -33,6 +34,7 @@ jobs:
       - name: Performance Tests
         run: |
           yarn global add netlify-cli
+          yarn build
           npm run test:performance
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
