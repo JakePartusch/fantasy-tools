@@ -14,27 +14,25 @@ jobs:
           node-version: 12.x
       - name: Install
         run: |
-          yarn install --frozen-lockfile
+          npm ci
       - name: Build
         run: |
-          yarn build
+          npm run build
       - name: Unit Tests
         run: |
-          yarn test
+          npm run test
         env:
           CI: true
       - name: E2E Tests
         run: |
-          yarn global add netlify-cli
-          yarn build
-          yarn test:e2e
+          npm install -g netlify-cli
+          npm run test:e2e
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
       - name: Performance Tests
         run: |
-          yarn global add netlify-cli
-          yarn build
+          npm install -g netlify-cli
           npm run test:performance
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
