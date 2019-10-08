@@ -25,14 +25,14 @@ jobs:
           CI: true
       - name: E2E Tests
         run: |
-          yarn add netlify-cli
+          yarn global add netlify-cli
           yarn test:e2e
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
       - name: Performance Tests
         run: |
-          yarn add netlify-cli
+          yarn global add netlify-cli
           npm run test:performance
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
