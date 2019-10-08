@@ -22,7 +22,7 @@ const main = async () => {
 
   console.log('Deploy URL:', deploy_url);
 
-  console.log(await promisifyExec(`cypress run --config baseUrl='${deploy_url}'`));
+  console.log(await promisifyExec(`cypress run --config baseUrl='${deploy_url}' --record --key ed319da6-c379-4a84-9315-f3077e72d1ae`));
 };
 
 main().catch(err => {
