@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import React from 'react';
-import { Link, useHistory, useLocation } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -28,11 +28,20 @@ const Navbar = () => {
         <IconButton edge="start" color="inherit" aria-label="menu" onClick={handleClick}>
           <MenuIcon />
         </IconButton>
-        <Menu id="simple-menu" anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose}>
+        <Menu
+          id="simple-menu"
+          anchorEl={anchorEl}
+          keepMounted
+          open={Boolean(anchorEl)}
+          onClose={handleClose}
+        >
           <MenuItem onClick={() => handleClose('/')}>Home</MenuItem>
           <MenuItem onClick={() => handleClose('/rankings')}>Rankings Simulator</MenuItem>
         </Menu>
-        <Link to="/" css={{ textDecoration: 'none', color: '#fff', display: 'flex', alignItems: 'center' }}>
+        <Link
+          to="/"
+          css={{ textDecoration: 'none', color: '#fff', display: 'flex', alignItems: 'center' }}
+        >
           <Typography variant="h5" component="div">
             Fantasy Tools
           </Typography>

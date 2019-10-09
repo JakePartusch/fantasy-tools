@@ -24,7 +24,12 @@ const App = () => {
         <div className="App">
           <Router>
             <div
-              css={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', minHeight: '100vh' }}
+              css={{
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'space-between',
+                minHeight: '100vh'
+              }}
             >
               <Navbar />
               <main>

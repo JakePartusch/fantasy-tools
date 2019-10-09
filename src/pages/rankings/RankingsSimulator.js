@@ -51,9 +51,10 @@ const Home = () => {
             component="p"
             variant="subtitle1"
           >
-            Tired of losing your matchup while scoring the second most points in your league? Do you always seem to be
-            paired against one of the top scoring teams? We'll eliminate the luck of the draw by simulating every
-            possible matchup for each week, so you can see how your team truly stacks up.
+            Tired of losing your matchup while scoring the second most points in your league? Do you
+            always seem to be paired against one of the top scoring teams? We'll eliminate the luck
+            of the draw by simulating every possible matchup for each week, so you can see how your
+            team truly stacks up.
           </Typography>
         </div>
         <img css={{ maxWidth: '300px' }} alt="Game day illustration" src={GameDayImg} />

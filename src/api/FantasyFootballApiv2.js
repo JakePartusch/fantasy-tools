@@ -72,7 +72,9 @@ export const getPowerRankings = async (leagueId, seasonId) => {
         ties: team.record.overall.ties
       },
       totalWins: wins.reduce((acc, x) => acc + x, 0),
-      totalLosses: Object.keys(weeklyResults).length * (data.teams.length - 1) - wins.reduce((acc, x) => acc + x, 0)
+      totalLosses:
+        Object.keys(weeklyResults).length * (data.teams.length - 1) -
+        wins.reduce((acc, x) => acc + x, 0)
     };
   });
 

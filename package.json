@@ -20,13 +20,12 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "start:lambda": "netlify-lambda serve src/lambda",
     "build": "react-scripts build",
-    "build:lambda": "netlify-lambda build src/lambda",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "cypress:open": "cypress open",
-    "cypress:run": "cypress run --record --key 43d3a003-12be-4dd0-b195-3afc8bac9cc8",
+    "test:performance": "./scripts/performanceEvaluation.js",
+    "test:e2e": "./scripts/e2eTests.js",
     "precommit": "lint-staged"
   },
   "lint-staged": {
