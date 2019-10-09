@@ -23,7 +23,7 @@ const main = async () => {
   console.log("Deploy URL:", deploy_url);
 
   console.log(
-    await promisifyExec(`npx @laas/lighthouse-ci ${deploy_url} --threshold=90`)
+    await promisifyExec(`npx @laas/lighthouse-ci ${deploy_url} --threshold=75`)
   );
 };
 
