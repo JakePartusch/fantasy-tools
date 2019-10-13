@@ -8,6 +8,8 @@ import { ThemeProvider, StylesProvider } from '@material-ui/styles';
 import { createMuiTheme } from '@material-ui/core';
 import Navbar from './common/Navbar';
 import Footer from './common/Footer';
+import ReactGA from 'react-ga';
+ReactGA.initialize('UA-109019699-1');
 
 const theme = createMuiTheme({
   typography: {

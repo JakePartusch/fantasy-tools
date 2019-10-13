@@ -1,12 +1,13 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from '@emotion/styled';
 import qs from 'query-string';
 import { Helmet } from 'react-helmet';
 import Table from './TrueRankingsTable';
 import { Typography, TextField, Button } from '@material-ui/core';
 import GameDayImg from './game-day.svg';
+import ReactGA from 'react-ga';
 
 const SubmitButton = styled(Button)({
   marginTop: '16px',
@@ -23,6 +24,10 @@ const Home = () => {
   const [espnUrl, setEspnUrl] = React.useState();
   const [leagueId, setLeagueId] = React.useState();
   const [seasonId, setSeasonId] = React.useState(2019);
+
+  useEffect(() => {
+    ReactGA.pageview(window.location.pathname + window.location.search);
+  }, []);
 
   const onSubmit = e => {
     e.preventDefault();

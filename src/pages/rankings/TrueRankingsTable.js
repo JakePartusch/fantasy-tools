@@ -16,6 +16,7 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { getPowerRankings } from '../../api/FantasyFootballApiv2';
 import styled from '@emotion/styled';
 import AlertDialog from './AlertDialog';
+import ReactGA from 'react-ga';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -99,9 +100,18 @@ export default function TrueRankinsTable(props) {
         if (leagueId && seasonId) {
           let rankings = await getPowerRankings(leagueId, seasonId);
           setRankings(rankings);
+          ReactGA.event({
+            category: 'User',
+            action: 'Searched Rankings - Success'
+          });
         }
       } catch (e) {
         console.error(e);
+        ReactGA.event({
+          category: 'User',
+          action: 'Searched Rankings - Failure',
+          value: `LeagueId: ${leagueId}, SeasonId: ${seasonId}`
+        });
         setShowAlert(true);
       }
       setLoading(false);
