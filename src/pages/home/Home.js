@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Typography, Card, CardContent, Button, Grid } from '@material-ui/core';
 import FansImg from './fans.svg';
@@ -11,6 +11,11 @@ import { Helmet } from 'react-helmet';
 
 const Home = () => {
   const history = useHistory();
+
+  useEffect(() => {
+    ReactGA.pageview(window.location.pathname + window.location.search);
+  }, []);
+
   return (
     <React.Fragment>
       <Helmet>

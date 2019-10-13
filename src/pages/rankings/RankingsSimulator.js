@@ -24,6 +24,10 @@ const Home = () => {
   const [leagueId, setLeagueId] = React.useState();
   const [seasonId, setSeasonId] = React.useState(2019);
 
+  useEffect(() => {
+    ReactGA.pageview(window.location.pathname + window.location.search);
+  }, []);
+
   const onSubmit = e => {
     e.preventDefault();
     const parsed = qs.parse(espnUrl.substring(espnUrl.indexOf('?'), espnUrl.length));

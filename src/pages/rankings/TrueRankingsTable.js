@@ -99,9 +99,18 @@ export default function TrueRankinsTable(props) {
         if (leagueId && seasonId) {
           let rankings = await getPowerRankings(leagueId, seasonId);
           setRankings(rankings);
+          ReactGA.event({
+            category: 'User',
+            action: 'Searched Rankings - Success'
+          });
         }
       } catch (e) {
         console.error(e);
+        ReactGA.event({
+          category: 'User',
+          action: 'Searched Rankings - Failure',
+          value: `LeagueId: ${leagueId}, SeasonId: ${seasonId}`
+        });
         setShowAlert(true);
       }
       setLoading(false);
