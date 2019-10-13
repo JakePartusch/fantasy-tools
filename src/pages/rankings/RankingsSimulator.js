@@ -1,12 +1,13 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from '@emotion/styled';
 import qs from 'query-string';
 import { Helmet } from 'react-helmet';
 import Table from './TrueRankingsTable';
 import { Typography, TextField, Button } from '@material-ui/core';
 import GameDayImg from './game-day.svg';
+import ReactGA from 'react-ga';
 
 const SubmitButton = styled(Button)({
   marginTop: '16px',

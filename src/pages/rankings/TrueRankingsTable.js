@@ -16,6 +16,7 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { getPowerRankings } from '../../api/FantasyFootballApiv2';
 import styled from '@emotion/styled';
 import AlertDialog from './AlertDialog';
+import ReactGA from 'react-ga';
 
 const useStyles = makeStyles(theme => ({
   root: {

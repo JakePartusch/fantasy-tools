@@ -8,6 +8,7 @@ import ListIcon from '@material-ui/icons/List';
 import GearIcon from '@material-ui/icons/Settings';
 import ThumbsUpDownIcon from '@material-ui/icons/ThumbsUpDown';
 import { Helmet } from 'react-helmet';
+import ReactGA from 'react-ga';
 
 const Home = () => {
   const history = useHistory();
