@@ -7,11 +7,19 @@ import FansImg from './fans.svg';
 import ListIcon from '@material-ui/icons/List';
 import GearIcon from '@material-ui/icons/Settings';
 import ThumbsUpDownIcon from '@material-ui/icons/ThumbsUpDown';
+import { Helmet } from 'react-helmet';
 
 const Home = () => {
   const history = useHistory();
   return (
     <React.Fragment>
+      <Helmet>
+        <title>Fantasy Tools | Home</title>
+        <meta
+          name="description"
+          content="A suite of tools to give your fantasy football team the advantage"
+        />
+      </Helmet>
       <header
         css={{
           minHeight: 288,

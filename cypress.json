@@ -1,4 +1,5 @@
 {
-  "baseUrl": "https://5d9d45ec2d2982369a9bb221--fantasy-football-power-rankings.netlify.com",
-  "projectId": "3b7apw"
+  "baseUrl": "http://localhost:3000",
+  "projectId": "3b7apw",
+  "chromeWebSecurity": false
 }

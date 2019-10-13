@@ -3,6 +3,7 @@ import { jsx } from '@emotion/core';
 import React from 'react';
 import styled from '@emotion/styled';
 import qs from 'query-string';
+import { Helmet } from 'react-helmet';
 import Table from './TrueRankingsTable';
 import { Typography, TextField, Button } from '@material-ui/core';
 import GameDayImg from './game-day.svg';
@@ -32,6 +33,13 @@ const Home = () => {
 
   return (
     <>
+      <Helmet>
+        <title>Fantasy Tools | Rankings Simulator</title>
+        <meta
+          name="description"
+          content="A tool to simulate every possible matchup against teams in your league."
+        />
+      </Helmet>
       <header
         css={{
           minHeight: 288,
