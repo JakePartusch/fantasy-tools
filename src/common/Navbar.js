@@ -36,7 +36,7 @@ const Navbar = () => {
           onClose={handleClose}
         >
           <MenuItem onClick={() => handleClose('/')}>Home</MenuItem>
-          <MenuItem onClick={() => handleClose('/rankings')}>Rankings Simulator</MenuItem>
+          <MenuItem onClick={() => handleClose('/standings')}>Standings Simulator</MenuItem>
         </Menu>
         <Link
           to="/"

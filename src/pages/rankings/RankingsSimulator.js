@@ -39,7 +39,7 @@ const Home = () => {
   return (
     <>
       <Helmet>
-        <title>Fantasy Tools | Rankings Simulator</title>
+        <title>Fantasy Tools | Standings Simulator</title>
         <meta
           name="description"
           content="A tool to simulate every possible matchup against teams in your league."
@@ -57,7 +57,7 @@ const Home = () => {
       >
         <div>
           <Typography variant="h1" css={{ fontWeight: 600 }}>
-            Rankings Simulator
+            Standings Simulator
           </Typography>
           <Typography
             css={{ padding: '20px', maxWidth: 600, fontSize: '18px', margin: 'auto' }}

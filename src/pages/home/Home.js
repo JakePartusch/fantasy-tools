@@ -9,6 +9,7 @@ import GearIcon from '@material-ui/icons/Settings';
 import ThumbsUpDownIcon from '@material-ui/icons/ThumbsUpDown';
 import { Helmet } from 'react-helmet';
 import ReactGA from 'react-ga';
+import ProgressUpdates from './ProgressUpdates';
 
 const Home = () => {
   const history = useHistory();
@@ -48,6 +49,18 @@ const Home = () => {
             We strive to bring fantasy sports players a suite of tools to evaluate past performance
             and improve future results with unique data-driven simulations.
           </Typography>
+          <Button
+            css={{
+              ':hover': {
+                transform: 'scale(1.01)'
+              }
+            }}
+            variant="contained"
+            color="primary"
+            onClick={() => history.push('/standings')}
+          >
+            Get Started!
+          </Button>
         </div>
         <img css={{ maxWidth: '300px' }} alt="Football fans on coach" src={FansImg} />
       </header>
@@ -57,13 +70,13 @@ const Home = () => {
             <Button
               className="rankings-simulator-btn"
               css={{ textTransform: 'none', padding: 0 }}
-              onClick={() => history.push('/rankings')}
+              onClick={() => history.push('/standings')}
             >
               <Card css={{ minHeight: 250 }} elevation={5}>
                 <CardContent>
                   <ListIcon color="primary" fontSize="large" />
                   <Typography css={{ marginBottom: '0.5rem' }} variant="h6" component="h2">
-                    Rankings Simulator
+                    Standings Simulator
                   </Typography>
                   <Typography>
                     We remove the randomness out of weekly matchups to give a better performance
@@ -105,6 +118,7 @@ const Home = () => {
           </Grid>
         </Grid>
       </section>
+      <ProgressUpdates />
     </React.Fragment>
   );
 };
