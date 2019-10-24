@@ -83,7 +83,7 @@ const StyledTableCell = styled(TableCell)({
   padding: '14px'
 });
 
-export default function TrueRankinsTable(props) {
+export default function TrueRankingsTable(props) {
   const classes = useStyles();
 
   const isLargeScreen = useMediaQuery('(min-width:960px)');
@@ -144,6 +144,12 @@ export default function TrueRankinsTable(props) {
                 align="center"
                 css={{ minWidth: isLargeScreen ? '100px' : undefined }}
               >
+                Simulated Record by Week
+              </StyledTableCell>
+              <StyledTableCell
+                align="center"
+                css={{ minWidth: isLargeScreen ? '100px' : undefined }}
+              >
                 ESPN Record
               </StyledTableCell>
             </TableRow>
@@ -161,6 +167,11 @@ export default function TrueRankinsTable(props) {
                 <StyledTableCell align="center" className="simulated-record-cell">
                   <Typography variant="body1" css={{ fontWeight: '600' }}>
                     {row.totalWins} - {row.totalLosses}
+                  </Typography>
+                </StyledTableCell>
+                <StyledTableCell align="center" className="simulated-record-cell">
+                  <Typography variant="body1">
+                    {row.totalSimWeekWins} - {row.totalSimWeekLosses}
                   </Typography>
                 </StyledTableCell>
                 <StyledTableCell align="center" className="actual-record-cell">

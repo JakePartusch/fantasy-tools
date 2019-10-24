@@ -52,6 +52,17 @@ export const getPowerRankings = async (leagueId, seasonId) => {
     return week.scores.sort((a, b) => a.score - b.score);
   });
 
+  //Function to keep track of simulated week wins total
+  const getSimWeekWins = (totalSimWeekWins, weekWins) => {
+    const weekLosses = data.teams.length - weekWins - 1;
+
+    if (weekWins > weekLosses) {
+      return totalSimWeekWins + 1;
+    } else {
+      return totalSimWeekWins;
+    }
+  };
+
   //Map wins and scores onto team data
   const teams = data.teams.map(team => {
     const wins = sortedWeeklyScores.map(week => {
@@ -74,7 +85,9 @@ export const getPowerRankings = async (leagueId, seasonId) => {
       totalWins: wins.reduce((acc, x) => acc + x, 0),
       totalLosses:
         Object.keys(weeklyResults).length * (data.teams.length - 1) -
-        wins.reduce((acc, x) => acc + x, 0)
+        wins.reduce((acc, x) => acc + x, 0),
+      totalSimWeekWins: wins.reduce(getSimWeekWins, 0),
+      totalSimWeekLosses: Object.keys(weeklyResults).length - wins.reduce(getSimWeekWins, 0)
     };
   });
 
