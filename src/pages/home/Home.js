@@ -92,15 +92,10 @@ const Home = () => {
               <Card css={{ minHeight: 250, width: '100%' }} elevation={4}>
                 <CardContent>
                   <GearIcon color="primary" fontSize="large" />
-                  <Typography variant="h6" component="h2" noWrap>
+                  <Typography variant="h6" component="h2">
                     Playoff Machine
                   </Typography>
-                  <Typography
-                    css={{ marginBottom: '0.5rem' }}
-                    component="div"
-                    variant="subtitle1"
-                    noWrap
-                  >
+                  <Typography css={{ marginBottom: '0.5rem' }} component="div" variant="subtitle1">
                     (Coming Soon)
                   </Typography>
                   <Typography>
