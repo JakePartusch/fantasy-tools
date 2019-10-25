@@ -6,9 +6,11 @@ import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 import './App.css';
 import { ThemeProvider, StylesProvider } from '@material-ui/styles';
 import { createMuiTheme } from '@material-ui/core';
+import ReactGA from 'react-ga';
 import Navbar from './common/Navbar';
 import Footer from './common/Footer';
-import ReactGA from 'react-ga';
+import { useAuth0 } from './react-auth0-spa';
+import { useEffect } from 'react';
 ReactGA.initialize('UA-109019699-1');
 
 const theme = createMuiTheme({
@@ -23,6 +25,21 @@ const theme = createMuiTheme({
 });
 
 const App = () => {
+  const { loading, getIdTokenClaims } = useAuth0();
+
+  useEffect(() => {
+    const getTokens = async () => {
+      const tokens = await getIdTokenClaims();
+      console.log(tokens);
+    };
+    if (!loading && getIdTokenClaims) {
+      getTokens();
+    }
+  }, [loading, getIdTokenClaims]);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
   return (
     <ThemeProvider theme={theme}>
       <StylesProvider injectFirst>
