@@ -23,6 +23,12 @@ functions:
       - http:
           path: /user/email
           method: post
+  userSignup:
+    handler: handler.createUser
+    events:
+      - http:
+          path: /user
+          method: post
 resources:
   Resources:
     EmailTable:
