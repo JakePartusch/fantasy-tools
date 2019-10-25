@@ -65,14 +65,15 @@ const Home = () => {
         <img css={{ maxWidth: '300px' }} alt="Football fans on coach" src={FansImg} />
       </header>
       <section css={{ maxWidth: 960, margin: '3rem auto 0 auto' }}>
-        <Grid container spacing={2}>
-          <Grid item md={4} xs={12}>
+        <Grid container spacing={2} justify={'center'}>
+          <Grid item md={4} xs={10}>
             <Button
               className="rankings-simulator-btn"
+              fullWidth={true}
               css={{ textTransform: 'none', padding: 0 }}
               onClick={() => history.push('/standings')}
             >
-              <Card css={{ minHeight: 250 }} elevation={5}>
+              <Card css={{ minHeight: 250, width: '100%' }} elevation={5}>
                 <CardContent>
                   <ListIcon color="primary" fontSize="large" />
                   <Typography css={{ marginBottom: '0.5rem' }} variant="h6" component="h2">
@@ -86,35 +87,40 @@ const Home = () => {
               </Card>
             </Button>
           </Grid>
-          <Grid item md={4} xs={12}>
-            <Card css={{ minHeight: 250 }} elevation={4}>
-              <CardContent>
-                <GearIcon color="primary" fontSize="large" />
-                <Typography variant="h6" component="h2">
-                  Playoff Machine
-                </Typography>
-                <Typography css={{ marginBottom: '0.5rem' }} component="div" variant="subtitle1">
-                  (Coming Soon)
-                </Typography>
-                <Typography>
-                  We'll let you know exactly which games you need to win to get into the big dance.
-                </Typography>
-              </CardContent>
-            </Card>
+          <Grid item md={4} xs={10}>
+            <Button disabled={true} fullWidth={true} css={{ textTransform: 'none', padding: 0 }}>
+              <Card css={{ minHeight: 250, width: '100%' }} elevation={4}>
+                <CardContent>
+                  <GearIcon color="primary" fontSize="large" />
+                  <Typography variant="h6" component="h2">
+                    Playoff Machine
+                  </Typography>
+                  <Typography css={{ marginBottom: '0.5rem' }} component="div" variant="subtitle1">
+                    (Coming Soon)
+                  </Typography>
+                  <Typography>
+                    We'll let you know exactly which games you need to win to get into the big
+                    dance.
+                  </Typography>
+                </CardContent>
+              </Card>
+            </Button>
           </Grid>
-          <Grid item md={4} xs={12}>
-            <Card css={{ minHeight: 250 }} elevation={4}>
-              <CardContent>
-                <ThumbsUpDownIcon color="primary" fontSize="large" />
-                <Typography variant="h6" component="h2">
-                  Trade Analyzer
-                </Typography>
-                <Typography css={{ marginBottom: '0.5rem' }} component="div" variant="subtitle1">
-                  (Coming Soon)
-                </Typography>
-                <Typography>Optimize your trades with our AI tool</Typography>
-              </CardContent>
-            </Card>
+          <Grid item md={4} xs={10}>
+            <Button disabled={true} fullWidth={true} css={{ textTransform: 'none', padding: 0 }}>
+              <Card css={{ minHeight: 250, width: '100%' }} elevation={4}>
+                <CardContent>
+                  <ThumbsUpDownIcon color="primary" fontSize="large" />
+                  <Typography variant="h6" component="h2">
+                    Trade Analyzer
+                  </Typography>
+                  <Typography css={{ marginBottom: '0.5rem' }} component="div" variant="subtitle1">
+                    (Coming Soon)
+                  </Typography>
+                  <Typography>Optimize your trades with our AI tool</Typography>
+                </CardContent>
+              </Card>
+            </Button>
           </Grid>
         </Grid>
       </section>
