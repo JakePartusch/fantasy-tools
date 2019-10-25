@@ -10,6 +10,7 @@ import ReactGA from 'react-ga';
 import Navbar from './common/Navbar';
 import Footer from './common/Footer';
 import { useAuth0 } from './react-auth0-spa';
+import { useEffect } from 'react';
 ReactGA.initialize('UA-109019699-1');
 
 const theme = createMuiTheme({
@@ -24,7 +25,17 @@ const theme = createMuiTheme({
 });
 
 const App = () => {
-  const { loading } = useAuth0();
+  const { loading, getIdTokenClaims } = useAuth0();
+
+  useEffect(() => {
+    const getTokens = async () => {
+      const tokens = await getIdTokenClaims();
+      console.log(tokens);
+    };
+    if (!loading && getIdTokenClaims) {
+      getTokens();
+    }
+  }, [loading, getIdTokenClaims]);
 
   if (loading) {
     return <div>Loading...</div>;
