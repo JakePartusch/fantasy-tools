@@ -70,7 +70,7 @@ const Home = () => {
             <Button
               className="rankings-simulator-btn"
               fullWidth={true}
-              css={{ textTransform: 'none', padding: 0 }}
+              css={{ textTransform: 'none' }}
               onClick={() => history.push('/standings')}
             >
               <Card css={{ minHeight: 250, width: '100%' }} elevation={5}>
@@ -88,7 +88,7 @@ const Home = () => {
             </Button>
           </Grid>
           <Grid item md={4} xs={10}>
-            <Button disabled={true} fullWidth={true} css={{ textTransform: 'none', padding: 0 }}>
+            <Button disabled={true} fullWidth={true} css={{ textTransform: 'none' }}>
               <Card css={{ minHeight: 250, width: '100%' }} elevation={4}>
                 <CardContent>
                   <GearIcon color="primary" fontSize="large" />
@@ -107,7 +107,7 @@ const Home = () => {
             </Button>
           </Grid>
           <Grid item md={4} xs={10}>
-            <Button disabled={true} fullWidth={true} css={{ textTransform: 'none', padding: 0 }}>
+            <Button disabled={true} fullWidth={true} css={{ textTransform: 'none' }}>
               <Card css={{ minHeight: 250, width: '100%' }} elevation={4}>
                 <CardContent>
                   <ThumbsUpDownIcon color="primary" fontSize="large" />
