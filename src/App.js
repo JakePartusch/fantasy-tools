@@ -11,6 +11,7 @@ import Navbar from './common/Navbar';
 import Footer from './common/Footer';
 import { useAuth0 } from './react-auth0-spa';
 import { useEffect } from 'react';
+import Axios from 'axios';
 ReactGA.initialize('UA-109019699-1');
 
 const theme = createMuiTheme({
@@ -31,6 +32,9 @@ const App = () => {
     const getTokens = async () => {
       const tokens = await getIdTokenClaims();
       console.log(tokens);
+      if (tokens) {
+        await Axios.get('/dev/user', { headers: { Authorization: `Bearer ${tokens.__raw}` } });
+      }
     };
     if (!loading && getIdTokenClaims) {
       getTokens();

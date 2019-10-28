@@ -6,6 +6,7 @@ provider:
   name: aws
   runtime: nodejs10.x
   environment:
+    AUTH0_CLIENT_PUBLIC_KEY: ${file(./fantasy-tools.pem)}
     DYNAMODB_TABLE: ${self:service}-${self:provider.stage}
   iamRoleStatements:
     - Effect: Allow
@@ -14,6 +15,7 @@ provider:
         - dynamodb:UpdateItem
         - dynamodb:PutItem
         - dynamodb:DeleteItem
+        - dynamodb:Scan
       Resource: 'arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/${self:provider.environment.DYNAMODB_TABLE}'
 
 functions:
@@ -29,6 +31,15 @@ functions:
       - http:
           path: /user
           method: post
+  getUser:
+    handler: handler.getUser
+    events:
+      - http:
+          path: /user
+          method: get
+          authorizer: authorizer
+  authorizer:
+    handler: authorizer.authorizer
 resources:
   Resources:
     EmailTable:
