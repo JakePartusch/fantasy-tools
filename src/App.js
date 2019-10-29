@@ -8,6 +8,7 @@ import { ThemeProvider, StylesProvider } from '@material-ui/styles';
 import { createMuiTheme } from '@material-ui/core';
 import Navbar from './common/Navbar';
 import Footer from './common/Footer';
+import ScrollToTop from './common/ScrollToTop';
 import ReactGA from 'react-ga';
 ReactGA.initialize('UA-109019699-1');
 
@@ -28,6 +29,7 @@ const App = () => {
       <StylesProvider injectFirst>
         <div className="App">
           <Router>
+            <ScrollToTop />
             <div
               css={{
                 display: 'flex',
