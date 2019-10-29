@@ -12,6 +12,7 @@ import Footer from './common/Footer';
 import { useAuth0 } from './react-auth0-spa';
 import { useEffect } from 'react';
 import Axios from 'axios';
+import ScrollToTop from './common/ScrollToTop';
 ReactGA.initialize('UA-109019699-1');
 
 const theme = createMuiTheme({
@@ -49,6 +50,7 @@ const App = () => {
       <StylesProvider injectFirst>
         <div className="App">
           <Router>
+            <ScrollToTop />
             <div
               css={{
                 display: 'flex',
