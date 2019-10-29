@@ -1,42 +1,20 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
-import React from 'react';
-import { Link, useHistory } from 'react-router-dom';
-import { AppBar, Toolbar, Typography, IconButton, MenuItem, Menu, Button } from '@material-ui/core';
-import MenuIcon from '@material-ui/icons/Menu';
+import { Link } from 'react-router-dom';
+import { AppBar, Toolbar, Typography, Button } from '@material-ui/core';
 
 import { useAuth0 } from '../react-auth0-spa';
+import NavigationMenu from './NavigationMenu';
+import AccountMenu from './AccountMenu';
 
 const Navbar = () => {
-  const history = useHistory();
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
+  const { isAuthenticated, loginWithRedirect } = useAuth0();
 
-  const handleClick = event => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = path => {
-    setAnchorEl(null);
-    history.push(path);
-  };
   return (
     <AppBar position="static">
       <Toolbar css={{ justifyContent: 'space-between' }}>
         <div css={{ display: 'flex' }}>
-          <IconButton edge="start" color="inherit" aria-label="menu" onClick={handleClick}>
-            <MenuIcon />
-          </IconButton>
-          <Menu
-            id="simple-menu"
-            anchorEl={anchorEl}
-            keepMounted
-            open={Boolean(anchorEl)}
-            onClose={handleClose}
-          >
-            <MenuItem onClick={() => handleClose('/')}>Home</MenuItem>
-            <MenuItem onClick={() => handleClose('/standings')}>Standings Simulator</MenuItem>
-          </Menu>
+          <NavigationMenu />
           <Link
             to="/"
             css={{ textDecoration: 'none', color: '#fff', display: 'flex', alignItems: 'center' }}
@@ -52,11 +30,7 @@ const Navbar = () => {
               Log in
             </Button>
           )}
-          {isAuthenticated && (
-            <Button color="inherit" onClick={() => logout()}>
-              Log out
-            </Button>
-          )}
+          {isAuthenticated && <AccountMenu />}
         </div>
       </Toolbar>
     </AppBar>
