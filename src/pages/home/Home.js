@@ -65,7 +65,7 @@ const Home = () => {
         <img css={{ maxWidth: '300px' }} alt="Football fans on coach" src={FansImg} />
       </header>
       <section css={{ maxWidth: 960, margin: '3rem auto 0 auto' }}>
-        <Grid container spacing={2} justify={'center'}>
+        <Grid container spacing={2} justify={'center'} css={{ width: '100%' }}>
           <Grid item md={4} xs={10}>
             <Button
               className="rankings-simulator-btn"

@@ -39,7 +39,7 @@ const ProgressUpdates = () => {
     }
   };
   return (
-    <section css={{ maxWidth: 960, margin: '5rem auto 0 auto' }}>
+    <section css={{ maxWidth: 960, margin: '5rem auto 0 auto', padding: '0.5rem' }}>
       <Typography variant="h2">Get Progress Updates</Typography>
       <Typography variant="body1" css={{ margin: '2rem 0' }}>
         Enter your email to get notified about new features{' '}
@@ -92,7 +92,7 @@ const ProgressUpdates = () => {
           'aria-describedby': 'message-id'
         }}
         message={
-          <div>
+          <div role="alert">
             <CheckCircleIcon />
             <span css={{ marginLeft: '0.5rem' }} id="message-id">
               Thank you!
