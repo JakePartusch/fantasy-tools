@@ -20,26 +20,54 @@ provider:
 
 functions:
   addEmail:
-    handler: handler.addEmail
+    handler: src/handler.addEmail
     events:
       - http:
           path: /user/email
           method: post
   userSignup:
-    handler: handler.createUser
+    handler: src/handler.createUser
     events:
       - http:
           path: /user
           method: post
+  syncAccount:
+    handler: src/handler.syncAccount
+    events:
+      - http:
+          path: /user/accountSync
+          method: post
+          authorizer: authorizer
+  fetchSyncedAccountAuthentication:
+    handler: src/handler.fetchSyncedAccountAuthentication
+    events:
+      - http:
+          path: /user/accountSync
+          method: get
+          authorizer: authorizer
   getUser:
-    handler: handler.getUser
+    handler: src/handler.getUser
     events:
       - http:
           path: /user
           method: get
           authorizer: authorizer
+  fetchLeagueData:
+    handler: src/handler.fetchLeague
+    events:
+      - http:
+          path: /leagues/{leagueId}/{seasonId}
+          method: get
+          authorizer: authorizer
+  fetchLeagues:
+    handler: src/handler.fetchLeagues
+    events:
+      - http:
+          path: /leagues
+          method: get
+          authorizer: authorizer
   authorizer:
-    handler: authorizer.authorizer
+    handler: src/handler.authorizer
 resources:
   Resources:
     EmailTable:
