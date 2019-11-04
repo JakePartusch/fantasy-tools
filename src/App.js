@@ -32,7 +32,6 @@ const App = () => {
   useEffect(() => {
     const getTokens = async () => {
       const tokens = await getIdTokenClaims();
-      console.log(tokens);
       if (tokens) {
         await Axios.get('/dev/user', { headers: { Authorization: `Bearer ${tokens.__raw}` } });
       }
