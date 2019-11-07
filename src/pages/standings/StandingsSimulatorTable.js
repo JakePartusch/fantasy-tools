@@ -20,6 +20,7 @@ import { getPowerRankings } from '../../api/FantasyFootballApiv2';
 import styled from '@emotion/styled';
 import AlertDialog from './AlertDialog';
 import ReactGA from 'react-ga';
+import { useAuth0 } from '../../react-auth0-spa';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -98,13 +99,15 @@ export default function TrueRankinsTable(props) {
   const [showAlert, setShowAlert] = useState(false);
   const [colorBlindMode, setColorBlindMode] = useState(false);
   const { leagueId, seasonId = 2019 } = props;
+  const { isAuthenticated, getIdTokenClaims } = useAuth0();
 
   useEffect(() => {
     const fetchRankings = async () => {
       setLoading(true);
       try {
         if (leagueId && seasonId) {
-          let rankings = await getPowerRankings(leagueId, seasonId);
+          const tokens = await getIdTokenClaims();
+          let rankings = await getPowerRankings(leagueId, seasonId, isAuthenticated, tokens);
           setRankings(rankings);
           ReactGA.event({
             category: 'User',
@@ -123,7 +126,7 @@ export default function TrueRankinsTable(props) {
       setLoading(false);
     };
     fetchRankings();
-  }, [leagueId, seasonId]);
+  }, [leagueId, seasonId, isAuthenticated]);
 
   if (!leagueId || loading) {
     return null;
