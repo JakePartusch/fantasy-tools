@@ -27,7 +27,7 @@ const useStyles = makeStyles(theme => ({
     marginTop: theme.spacing(3),
     overflowX: 'auto',
     margin: 'auto',
-    maxWidth: 960
+    maxWidth: 1200
   }
 }));
 
@@ -126,7 +126,7 @@ export default function TrueRankinsTable(props) {
       setLoading(false);
     };
     fetchRankings();
-  }, [leagueId, seasonId, isAuthenticated]);
+  }, [leagueId, seasonId, isAuthenticated, getIdTokenClaims]);
 
   if (!leagueId || loading) {
     return null;
