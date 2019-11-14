@@ -9,9 +9,17 @@ axios.defaults.jar = cookieJar;
 axios.defaults.withCredentials = true;
 
 export const getPowerRankings = async (leagueId, seasonId, isAuthenticated, tokens) => {
-  const remoteURL = `https://fantasy.espn.com/apis/v3/games/ffl/seasons/${seasonId}/segments/0/leagues/${leagueId}?view=mMatchupScore&view=mStatus&view=mSettings&view=mTeam&view=modular&view=mNav`;
-  const url = isAuthenticated ? `/dev/leagues/${leagueId}/${seasonId}` : remoteURL;
-  const { data } = await axios.get(url, { headers: { Authorization: `Bearer ${tokens.__raw}` } });
+  let data;
+  if (isAuthenticated) {
+    const url = `/dev/leagues/${leagueId}/${seasonId}`;
+    const response = await axios.get(url, { headers: { Authorization: `Bearer ${tokens.__raw}` } });
+    data = response.data;
+  } else {
+    const remoteURL = `https://fantasy.espn.com/apis/v3/games/ffl/seasons/${seasonId}/segments/0/leagues/${leagueId}?view=mMatchupScore&view=mStatus&view=mSettings&view=mTeam&view=modular&view=mNav`;
+    const response = await axios.get(remoteURL);
+    data = response.data;
+  }
+
   //Grab all of the scores from each of the games play in the regular season
   const weeklyResults = data.schedule
     .filter(game => game.playoffTierType === 'NONE' && game.home.totalPoints > 0)
