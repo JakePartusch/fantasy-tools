@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import Home from './pages/home/Home';
-import RankingsSimulator from './pages/rankings/RankingsSimulator';
+import RankingsSimulator from './pages/standings/StandingsSimulator';
 import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 import './App.css';
 import { ThemeProvider, StylesProvider } from '@material-ui/styles';

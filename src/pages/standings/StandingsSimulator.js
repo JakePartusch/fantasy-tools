@@ -1,39 +1,49 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import React, { useEffect } from 'react';
-import styled from '@emotion/styled';
 import qs from 'query-string';
+import axios from 'axios';
 import { Helmet } from 'react-helmet';
-import Table from './TrueRankingsTable';
-import { Typography, TextField, Button } from '@material-ui/core';
+import Table from './StandingsSimulatorTable';
+import { Typography } from '@material-ui/core';
 import GameDayImg from './game-day.svg';
 import ReactGA from 'react-ga';
-
-const SubmitButton = styled(Button)({
-  marginTop: '16px',
-  marginBottom: '8px',
-  marginLeft: '16px',
-  height: '53px',
-  '@media(max-width: 600px)': {
-    margin: 0,
-    width: '100%'
-  }
-});
+import { useAuth0 } from '../../react-auth0-spa';
+import StandingsForm from './StandingsForm';
 
 const Home = () => {
-  const [espnUrl, setEspnUrl] = React.useState();
   const [leagueId, setLeagueId] = React.useState();
   const [seasonId, setSeasonId] = React.useState(2019);
+  const [leagues, setLeagues] = React.useState([]);
+  const { isAuthenticated, getIdTokenClaims } = useAuth0();
 
   useEffect(() => {
     ReactGA.pageview(window.location.pathname + window.location.search);
   }, []);
 
-  const onSubmit = e => {
-    e.preventDefault();
-    const parsed = qs.parse(espnUrl.substring(espnUrl.indexOf('?'), espnUrl.length));
-    setLeagueId(parsed.leagueId);
-    setSeasonId(parsed.seasonId);
+  useEffect(() => {
+    const fetchLeagues = async () => {
+      const tokens = await getIdTokenClaims();
+      const { data } = await axios.get('/dev/leagues', {
+        headers: { Authorization: `Bearer ${tokens.__raw}` }
+      });
+      setLeagues(data.preferences);
+    };
+    if (isAuthenticated) {
+      fetchLeagues();
+    }
+  }, [getIdTokenClaims, isAuthenticated]);
+
+  const onSubmit = values => {
+    const { espnUrl, league, season } = values;
+    if (espnUrl) {
+      const parsed = qs.parse(espnUrl.substring(espnUrl.indexOf('?'), espnUrl.length));
+      setLeagueId(parsed.leagueId);
+      setSeasonId(parsed.seasonId);
+    } else {
+      setLeagueId(league);
+      setSeasonId(season);
+    }
   };
 
   return (
@@ -74,22 +84,7 @@ const Home = () => {
       </header>
       <section css={{ background: '#f8f9fa' }}>
         <div css={{ maxWidth: 960, padding: '32px', margin: 'auto' }}>
-          <form onSubmit={onSubmit}>
-            <div css={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center' }}>
-              <TextField
-                css={{ backgroundColor: '#fff', flexGrow: 1 }}
-                id="outlined-required"
-                label="ESPN League Homepage URL"
-                placeholder="https://fantasy.espn.com/football/league?leagueId=1234567"
-                onChange={e => setEspnUrl(e.target.value)}
-                margin="normal"
-                variant="outlined"
-              />
-              <SubmitButton type="submit" variant="contained" color="primary">
-                Calculate
-              </SubmitButton>
-            </div>
-          </form>
+          <StandingsForm onSubmit={onSubmit} isAuthenticated={isAuthenticated} leagues={leagues} />
         </div>
       </section>
       <section>
