@@ -137,19 +137,21 @@ export default function TrueRankinsTable(props) {
       <AlertDialog open={showAlert} handleClose={() => setShowAlert(false)} />
       {rankings.length > 0 && (
         <React.Fragment>
-          <Grid container direction="row-reverse" justify="flex-start" alignItems="center">
-            <FormControlLabel
-              control={
-                <Switch
-                  checked={colorBlindMode}
-                  onChange={() => setColorBlindMode(!colorBlindMode)}
-                  value="colorBlindMode"
-                  color="primary"
-                />
-              }
-              label="Color Blind Mode"
-            />
-          </Grid>
+          {isLargeScreen && (
+            <Grid container direction="row-reverse" justify="flex-start" alignItems="center">
+              <FormControlLabel
+                control={
+                  <Switch
+                    checked={colorBlindMode}
+                    onChange={() => setColorBlindMode(!colorBlindMode)}
+                    value="colorBlindMode"
+                    color="primary"
+                  />
+                }
+                label="High Contrast Mode"
+              />
+            </Grid>
+          )}
           <Table>
             <TableHead>
               <TableRow>
