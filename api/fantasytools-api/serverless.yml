@@ -5,8 +5,10 @@ org: jakepartusch
 provider:
   name: aws
   runtime: nodejs10.x
+  stage: ${opt:stage, 'dev'}
   environment:
-    AUTH0_CLIENT_PUBLIC_KEY: ${file(./fantasy-tools.pem)}
+    AUTH0_CLIENT_ID: ${file(./src/config/config.${self:provider.stage}.json):AUTH0_CLIENT_ID}
+    AUTH0_CLIENT_PUBLIC_KEY: ${file(./src/config/fantasy-tools.${self:provider.stage}.pem)}
     DYNAMODB_TABLE: ${self:service}-${self:provider.stage}
   iamRoleStatements:
     - Effect: Allow

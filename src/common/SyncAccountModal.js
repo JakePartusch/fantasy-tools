@@ -27,7 +27,7 @@ const SyncAccountModal = ({ open, handleClose }) => {
           onSubmit={async values => {
             const tokens = await getIdTokenClaims();
             await axios.post(
-              '/dev/user/accountSync',
+              '/api/user/accountSync',
               { ...values, type: 'ESPN' },
               { headers: { Authorization: `Bearer ${tokens.__raw}` } }
             );

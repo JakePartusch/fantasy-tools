@@ -11,7 +11,7 @@ axios.defaults.withCredentials = true;
 export const getPowerRankings = async (leagueId, seasonId, isAuthenticated, tokens) => {
   let data;
   if (isAuthenticated) {
-    const url = `/dev/leagues/${leagueId}/${seasonId}`;
+    const url = `/api/leagues/${leagueId}/${seasonId}`;
     const response = await axios.get(url, { headers: { Authorization: `Bearer ${tokens.__raw}` } });
     data = response.data;
   } else {

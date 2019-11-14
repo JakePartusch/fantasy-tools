@@ -24,7 +24,7 @@ const Home = () => {
   useEffect(() => {
     const fetchLeagues = async () => {
       const tokens = await getIdTokenClaims();
-      const { data } = await axios.get('/dev/leagues', {
+      const { data } = await axios.get('/api/leagues', {
         headers: { Authorization: `Bearer ${tokens.__raw}` }
       });
       setLeagues(data.preferences);
