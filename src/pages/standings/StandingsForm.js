@@ -5,6 +5,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { Formik, Form } from 'formik';
 import { TextField, Button, MenuItem } from '@material-ui/core';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 const SubmitButton = styled(Button)({
   marginTop: '16px',
@@ -18,6 +19,7 @@ const SubmitButton = styled(Button)({
 });
 
 const StandingsForm = ({ isAuthenticated, onSubmit, leagues }) => {
+  const isMobile = useMediaQuery('(max-width:600px)');
   const handleSubmit = values => {
     onSubmit(values);
   };
@@ -37,6 +39,7 @@ const StandingsForm = ({ isAuthenticated, onSubmit, leagues }) => {
               <>
                 <TextField
                   css={{ backgroundColor: '#fff', minWidth: 250 }}
+                  fullWidth={isMobile}
                   select
                   id="league"
                   name="league"
@@ -56,7 +59,12 @@ const StandingsForm = ({ isAuthenticated, onSubmit, leagues }) => {
                   })}
                 </TextField>
                 <TextField
-                  css={{ backgroundColor: '#fff', minWidth: 150, marginLeft: '0.5rem' }}
+                  css={{
+                    backgroundColor: '#fff',
+                    minWidth: 150,
+                    marginLeft: isMobile ? 0 : '0.5rem'
+                  }}
+                  fullWidth={isMobile}
                   select
                   id="season"
                   name="season"
