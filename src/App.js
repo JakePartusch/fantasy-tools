@@ -33,7 +33,7 @@ const App = () => {
     const getTokens = async () => {
       const tokens = await getIdTokenClaims();
       if (tokens) {
-        await Axios.get('/dev/user', { headers: { Authorization: `Bearer ${tokens.__raw}` } });
+        await Axios.get('/api/user', { headers: { Authorization: `Bearer ${tokens.__raw}` } });
       }
     };
     if (!loading && getIdTokenClaims) {

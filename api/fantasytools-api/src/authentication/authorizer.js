@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken")
-const AUTH0_CLIENT_ID = "TgWF1KpB5VYAO05sAHC1Wsi4XXOdf6c4"
+const AUTH0_CLIENT_ID = process.env.AUTH0_CLIENT_ID;
 const AUTH0_CLIENT_PUBLIC_KEY = process.env.AUTH0_CLIENT_PUBLIC_KEY;
 
 const generatePolicy = (principalId, email) => {

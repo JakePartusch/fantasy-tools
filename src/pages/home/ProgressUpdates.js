@@ -25,7 +25,7 @@ const ProgressUpdates = () => {
   const onSubmit = async e => {
     e.preventDefault();
     try {
-      await axios.post('/dev/user/email', { email });
+      await axios.post('/api/user/email', { email });
       setEmail('');
       setShowSuccess(true);
       setTimeout(() => setShowSuccess(false), 6000);
