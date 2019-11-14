@@ -1,3 +1,2 @@
-# Redirects from what the browser requests to what we serve
-/dev/user/email     https://7kzk3mcrg1.execute-api.us-east-1.amazonaws.com/dev/user/email       200
+/dev/*              https://7kzk3mcrg1.execute-api.us-east-1.amazonaws.com/dev/:splat:          200
 /*                  /index.html                                                                 200
