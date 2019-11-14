@@ -2,6 +2,6 @@
 /api/user/email         https://pirymf1c11.execute-api.us-east-1.amazonaws.com/prod/user/email       200
 /api/user/accountSync   https://pirymf1c11.execute-api.us-east-1.amazonaws.com/prod/user/accountSync 200
 /api/user               https://pirymf1c11.execute-api.us-east-1.amazonaws.com/prod/user             200
+/api/leagues/*          https://pirymf1c11.execute-api.us-east-1.amazonaws.com/prod/leagues/:splat   200
 /api/leagues            https://pirymf1c11.execute-api.us-east-1.amazonaws.com/prod/leagues          200
-/api/leagues/*          https://pirymf1c11.execute-api.us-east-1.amazonaws.com/prod/leagues/*        200
 /*                      /index.html                                                                  200
