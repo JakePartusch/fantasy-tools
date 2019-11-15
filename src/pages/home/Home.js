@@ -62,7 +62,9 @@ const Home = () => {
             Get Started!
           </Button>
         </div>
-        <img css={{ maxWidth: '300px' }} alt="Football fans on coach" src={FansImg} />
+        <div css={{ width: 300, height: 270 }}>
+          <img css={{ maxWidth: '100%' }} alt="Football fans on coach" src={FansImg} />
+        </div>
       </header>
       <section css={{ maxWidth: 960, margin: '3rem auto 0 auto' }}>
         <Grid container spacing={2} justify={'center'}>

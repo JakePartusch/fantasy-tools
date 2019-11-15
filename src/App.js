@@ -2,13 +2,14 @@
 import { jsx } from '@emotion/core';
 import Home from './pages/home/Home';
 import RankingsSimulator from './pages/standings/StandingsSimulator';
-import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom';
 import './App.css';
 import { ThemeProvider, StylesProvider } from '@material-ui/styles';
 import { createMuiTheme } from '@material-ui/core';
 import ReactGA from 'react-ga';
 import Navbar from './common/Navbar';
 import Footer from './common/Footer';
+import FullPageLoader from './common/FullPageLoader';
 import { useAuth0 } from './react-auth0-spa';
 import { useEffect } from 'react';
 import Axios from 'axios';
@@ -42,7 +43,7 @@ const App = () => {
   }, [loading, getIdTokenClaims]);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <FullPageLoader />;
   }
   return (
     <ThemeProvider theme={theme}>
@@ -60,9 +61,11 @@ const App = () => {
             >
               <Navbar />
               <main>
-                <Route exact path="/" component={Home} />
-                <Route exact path="/standings" component={RankingsSimulator} />
-                <Redirect to="/" />
+                <Switch>
+                  <Route exact path="/" component={Home} />
+                  <Route path="/standings" component={RankingsSimulator} />
+                  <Redirect to="/" />
+                </Switch>
               </main>
               <Footer />
             </div>

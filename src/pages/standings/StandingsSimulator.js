@@ -80,7 +80,9 @@ const Home = () => {
             team truly stacks up.
           </Typography>
         </div>
-        <img css={{ maxWidth: '300px' }} alt="Game day illustration" src={GameDayImg} />
+        <div css={{ width: 300, height: 270 }}>
+          <img css={{ maxWidth: '100%' }} alt="Game day illustration" src={GameDayImg} />
+        </div>
       </header>
       <section css={{ background: '#f8f9fa' }}>
         <div css={{ maxWidth: 960, padding: '32px', margin: 'auto' }}>
