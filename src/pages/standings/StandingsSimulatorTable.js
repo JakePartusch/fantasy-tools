@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {
   Table,
@@ -16,11 +16,7 @@ import {
   Grid
 } from '@material-ui/core';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
-import { getPowerRankings } from '../../api/FantasyFootballApiv2';
 import styled from '@emotion/styled';
-import AlertDialog from './AlertDialog';
-import ReactGA from 'react-ga';
-import { useAuth0 } from '../../react-auth0-spa';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -91,50 +87,17 @@ const StyledTableCell = styled(TableCell)({
 
 export default function TrueRankinsTable(props) {
   const classes = useStyles();
-
   const isLargeScreen = useMediaQuery('(min-width:960px)');
-
-  const [rankings, setRankings] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [showAlert, setShowAlert] = useState(false);
   const [colorBlindMode, setColorBlindMode] = useState(false);
-  const { leagueId, seasonId = 2019 } = props;
-  const { isAuthenticated, getIdTokenClaims } = useAuth0();
 
-  useEffect(() => {
-    const fetchRankings = async () => {
-      setLoading(true);
-      try {
-        if (leagueId && seasonId) {
-          const tokens = await getIdTokenClaims();
-          let rankings = await getPowerRankings(leagueId, seasonId, isAuthenticated, tokens);
-          setRankings(rankings);
-          ReactGA.event({
-            category: 'User',
-            action: 'Searched Rankings - Success'
-          });
-        }
-      } catch (e) {
-        console.error(e);
-        ReactGA.event({
-          category: 'User',
-          action: 'Searched Rankings - Failure',
-          value: `LeagueId: ${leagueId}, SeasonId: ${seasonId}`
-        });
-        setShowAlert(true);
-      }
-      setLoading(false);
-    };
-    fetchRankings();
-  }, [leagueId, seasonId, isAuthenticated, getIdTokenClaims]);
+  const { rankings } = props;
 
-  if (!leagueId || loading) {
+  if (!rankings) {
     return null;
   }
 
   return (
     <Paper className={classes.root}>
-      <AlertDialog open={showAlert} handleClose={() => setShowAlert(false)} />
       {rankings.length > 0 && (
         <React.Fragment>
           {isLargeScreen && (

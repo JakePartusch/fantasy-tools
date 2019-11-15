@@ -4,7 +4,7 @@ import { jsx } from '@emotion/core';
 import React from 'react';
 import styled from '@emotion/styled';
 import { Formik, Form } from 'formik';
-import { TextField, Button, MenuItem } from '@material-ui/core';
+import { TextField, Button, MenuItem, CircularProgress } from '@material-ui/core';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 const SubmitButton = styled(Button)({
@@ -18,7 +18,7 @@ const SubmitButton = styled(Button)({
   }
 });
 
-const StandingsForm = ({ isAuthenticated, onSubmit, leagues }) => {
+const StandingsForm = ({ isAuthenticated, onSubmit, leagues, loading }) => {
   const isMobile = useMediaQuery('(max-width:600px)');
   const handleSubmit = values => {
     onSubmit(values);
@@ -38,7 +38,7 @@ const StandingsForm = ({ isAuthenticated, onSubmit, leagues }) => {
             {isAuthenticated ? (
               <>
                 <TextField
-                  css={{ backgroundColor: '#fff', minWidth: 250 }}
+                  css={{ backgroundColor: '#fff', textAlign: 'left', minWidth: 250 }}
                   fullWidth={isMobile}
                   select
                   id="league"
@@ -61,8 +61,10 @@ const StandingsForm = ({ isAuthenticated, onSubmit, leagues }) => {
                 <TextField
                   css={{
                     backgroundColor: '#fff',
+                    textAlign: 'left',
                     minWidth: 150,
-                    marginLeft: isMobile ? 0 : '0.5rem'
+                    marginLeft: isMobile ? 0 : '0.5rem',
+                    marginTop: isMobile && '0'
                   }}
                   fullWidth={isMobile}
                   select
@@ -81,8 +83,13 @@ const StandingsForm = ({ isAuthenticated, onSubmit, leagues }) => {
                     2018
                   </MenuItem>
                 </TextField>
-                <SubmitButton type="submit" variant="contained" color="primary">
-                  Submit
+                <SubmitButton
+                  css={{ minWidth: 110 }}
+                  type="submit"
+                  variant="contained"
+                  color="primary"
+                >
+                  {loading ? <CircularProgress color="inherit" /> : 'Submit'}
                 </SubmitButton>
               </>
             ) : (
@@ -98,8 +105,13 @@ const StandingsForm = ({ isAuthenticated, onSubmit, leagues }) => {
                   margin="normal"
                   variant="outlined"
                 />
-                <SubmitButton type="submit" variant="contained" color="primary">
-                  Calculate
+                <SubmitButton
+                  css={{ minWidth: 110 }}
+                  type="submit"
+                  variant="contained"
+                  color="primary"
+                >
+                  {loading ? <CircularProgress color="inherit" /> : 'Calculate'}
                 </SubmitButton>
               </>
             )}
