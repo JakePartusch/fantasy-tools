@@ -11,7 +11,7 @@ import Navbar from './common/Navbar';
 import Footer from './common/Footer';
 import FullPageLoader from './common/FullPageLoader';
 import { useAuth0 } from './react-auth0-spa';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Axios from 'axios';
 import ScrollToTop from './common/ScrollToTop';
 ReactGA.initialize('UA-109019699-1');
@@ -29,12 +29,16 @@ const theme = createMuiTheme({
 
 const App = () => {
   const { loading, getIdTokenClaims } = useAuth0();
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     const getTokens = async () => {
       const tokens = await getIdTokenClaims();
       if (tokens) {
-        await Axios.get('/api/user', { headers: { Authorization: `Bearer ${tokens.__raw}` } });
+        const response = await Axios.get('/api/user', {
+          headers: { Authorization: `Bearer ${tokens.__raw}` }
+        });
+        setUser(response.data);
       }
     };
     if (!loading && getIdTokenClaims) {
@@ -62,7 +66,7 @@ const App = () => {
               <Navbar />
               <main>
                 <Switch>
-                  <Route exact path="/" component={Home} />
+                  <Route exact path="/" render={() => <Home user={user} />} />
                   <Route path="/standings" component={RankingsSimulator} />
                   <Redirect to="/" />
                 </Switch>

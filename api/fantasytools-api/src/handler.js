@@ -1,6 +1,6 @@
 const { authorizer, fetchSyncedAccountAuthentication } = require('./authentication');
 const { fetchLeague, fetchLeagues } = require('./league');
-const { addEmail, createUser, getUser, syncAccount } = require('./user');
+const { addEmail, createUser, getUser, syncAccount, onboarding } = require('./user');
 
 module.exports = {
   authorizer,
@@ -10,5 +10,6 @@ module.exports = {
   addEmail,
   createUser,
   getUser,
-  syncAccount
-}
+  syncAccount,
+  onboarding
+};
