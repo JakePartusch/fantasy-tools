@@ -1,6 +1,7 @@
 # Redirects from what the browser requests to what we serve
 /api/user/email         https://pirymf1c11.execute-api.us-east-1.amazonaws.com/prod/user/email       200
 /api/user/accountSync   https://pirymf1c11.execute-api.us-east-1.amazonaws.com/prod/user/accountSync 200
+/api/user/onboarding    https://pirymf1c11.execute-api.us-east-1.amazonaws.com/prod/user/onboarding  200
 /api/user               https://pirymf1c11.execute-api.us-east-1.amazonaws.com/prod/user             200
 /api/leagues/*          https://pirymf1c11.execute-api.us-east-1.amazonaws.com/prod/leagues/:splat   200
 /api/leagues            https://pirymf1c11.execute-api.us-east-1.amazonaws.com/prod/leagues          200
