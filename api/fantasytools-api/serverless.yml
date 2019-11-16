@@ -54,6 +54,13 @@ functions:
           path: /user
           method: get
           authorizer: authorizer
+  onboarding:
+    handler: src/handler.onboarding
+    events:
+      - http:
+          path: /user/onboarding
+          method: post
+          authorizer: authorizer
   fetchLeagueData:
     handler: src/handler.fetchLeague
     events:
