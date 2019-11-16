@@ -1,5 +1,6 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
+// eslint-disable-next-line
 import React, { useEffect, useState, useRef } from 'react';
 import {
   Button,
@@ -114,7 +115,7 @@ const SyncAccountForm = ({ formRef, setSyncValues, syncError, handleClose }) => 
                 autoFocus
                 id="username"
                 label="Username"
-                type="text"
+                type="email"
                 margin="normal"
                 fullWidth
                 value={values.username}
@@ -188,6 +189,7 @@ export default function OnboardingFlow({ open, handleClose }) {
     <Dialog
       open={open}
       onClose={handleClose}
+      disableBackdropClick
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
       css={{
