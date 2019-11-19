@@ -1,11 +1,11 @@
-const DynamoDB = require('aws-sdk/clients/dynamodb');
-const uuidv4 = require('uuid/v4');
+import DynamoDB from 'aws-sdk/clients/dynamodb';
+import uuidv4 from 'uuid/v4';
 const dynamoDb = new DynamoDB.DocumentClient();
 
 const addEmail = async email => {
   await dynamoDb
     .put({
-      TableName: process.env.DYNAMODB_TABLE,
+      TableName: process.env.USERS_TABLE,
       Item: {
         id: uuidv4(),
         email

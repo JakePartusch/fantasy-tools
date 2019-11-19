@@ -1,14 +1,15 @@
-const DynamoDB = require('aws-sdk/clients/dynamodb');
+import DynamoDB from 'aws-sdk/clients/dynamodb';
 const dynamoDb = new DynamoDB.DocumentClient();
 
 const getUserByEmail = async email => {
   const response = await dynamoDb
-    .scan({
-      TableName: process.env.DYNAMODB_TABLE,
+    .query({
+      TableName: process.env.USERS_TABLE,
+      IndexName: 'emailIndex',
       ExpressionAttributeValues: {
         ':email': email
       },
-      FilterExpression: 'email = :email'
+      KeyConditionExpression: 'email = :email'
     })
     .promise();
   console.log(response);

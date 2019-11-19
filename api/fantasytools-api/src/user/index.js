@@ -1,14 +1,7 @@
-const { addEmail } = require('./addEmail');
-const { createUser } = require('./createUser');
-const { getUser, getUserByEmail } = require('./getUser');
-const { syncAccount } = require('./syncAccount');
-const { onboarding } = require('./onboarding');
+import { addEmail } from './addEmail';
+import { createUser } from './createUser';
+import { getUser, getUserByEmail } from './getUser';
+import { syncAccount } from './syncAccount';
+import { onboarding } from './onboarding';
 
-module.exports = {
-  addEmail,
-  createUser,
-  getUser,
-  getUserByEmail,
-  syncAccount,
-  onboarding
-};
+export { addEmail, createUser, getUser, getUserByEmail, syncAccount, onboarding };

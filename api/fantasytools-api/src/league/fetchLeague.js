@@ -1,5 +1,5 @@
-const axios = require('axios');
-const { getSyncedAccountCookiesByEmail } = require('../authentication');
+import axios from 'axios';
+import { getSyncedAccountCookiesByEmail } from '../authentication';
 
 const fetchLeague = async (email, leagueId, seasonId = '2019') => {
   const { s2, swid } = await getSyncedAccountCookiesByEmail(email);

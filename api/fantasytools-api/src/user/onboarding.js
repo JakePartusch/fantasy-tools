@@ -1,13 +1,13 @@
-const DynamoDB = require('aws-sdk/clients/dynamodb');
+import DynamoDB from 'aws-sdk/clients/dynamodb';
+import { getUserByEmail } from './getUser';
 const dynamoDb = new DynamoDB.DocumentClient();
-const { getUserByEmail } = require('./getUser');
 
 const onboarding = async email => {
   const user = await getUserByEmail(email);
   user.isOnboardingComplete = true;
   await dynamoDb
     .put({
-      TableName: process.env.DYNAMODB_TABLE,
+      TableName: process.env.USERS_TABLE,
       Item: user
     })
     .promise();

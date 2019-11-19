@@ -1,7 +1,4 @@
-const { fetchLeague } = require('./fetchLeague');
-const { fetchLeagues } = require('./fetchLeagues');
+import { fetchLeague } from './fetchLeague';
+import { fetchLeagues } from './fetchLeagues';
 
-module.exports = {
-  fetchLeague,
-  fetchLeagues
-};
+export { fetchLeague, fetchLeagues };

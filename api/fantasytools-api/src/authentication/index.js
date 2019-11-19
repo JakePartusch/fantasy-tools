@@ -1,8 +1,13 @@
-const { authorizer } = require('./authorizer');
-const { fetchSyncedAccountAuthentication, getSyncedAccountCookiesByEmail } = require('./fetchSyncedAccountAuthentication');
+import { authorizer } from './authorizer';
+import {
+  fetchSyncedAccountAuthentication,
+  getSyncedAccountCookiesByEmail,
+  loginToEspn
+} from './fetchSyncedAccountAuthentication';
 
-module.exports = {
+export {
   authorizer,
   fetchSyncedAccountAuthentication,
-  getSyncedAccountCookiesByEmail
+  getSyncedAccountCookiesByEmail,
+  loginToEspn
 };

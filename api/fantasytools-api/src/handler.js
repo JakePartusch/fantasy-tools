@@ -1,10 +1,11 @@
-const { authorizer, fetchSyncedAccountAuthentication } = require('./authentication');
-const { fetchLeague, fetchLeagues } = require('./league');
-const { addEmail, createUser, getUser, syncAccount, onboarding } = require('./user');
+import { authorizer, fetchSyncedAccountAuthentication, loginToEspn } from './authentication';
+import { fetchLeague, fetchLeagues } from './league';
+import { addEmail, createUser, getUser, syncAccount, onboarding } from './user';
 
-module.exports = {
+export {
   authorizer,
   fetchSyncedAccountAuthentication,
+  loginToEspn,
   fetchLeague,
   fetchLeagues,
   addEmail,
