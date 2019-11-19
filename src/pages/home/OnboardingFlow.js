@@ -158,7 +158,6 @@ export default function OnboardingFlow({ open, handleClose }) {
             { ...values, type: 'ESPN' },
             { headers: { Authorization: `Bearer ${tokens.__raw}` } }
           );
-          await axios.get('/api/leagues', { headers: { Authorization: `Bearer ${tokens.__raw}` } });
           setActiveStep(2);
         } catch (e) {
           console.error('Unable to sync account', e);

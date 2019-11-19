@@ -11,12 +11,14 @@ import StandingsForm from './StandingsForm';
 import StandingsHeader from './StandingsHeader';
 import AlerDialog from './AlertDialog';
 import { getPowerRankings } from '../../api/FantasyFootballApiv2';
+import FullPageLoader from '../../common/FullPageLoader';
 
 const Home = () => {
   const [showAlert, setShowAlert] = React.useState(false);
   const [rankings, setRankings] = React.useState();
   const [leagues, setLeagues] = React.useState([]);
   const [loading, setLoading] = React.useState(false);
+  const [pageLoading, setPageLoading] = React.useState(true);
   const { isAuthenticated, getIdTokenClaims } = useAuth0();
 
   useEffect(() => {
@@ -26,13 +28,20 @@ const Home = () => {
   useEffect(() => {
     const fetchLeagues = async () => {
       const tokens = await getIdTokenClaims();
-      const { data } = await axios.get('/api/leagues', {
-        headers: { Authorization: `Bearer ${tokens.__raw}` }
-      });
-      setLeagues(data.preferences);
+      try {
+        const { data } = await axios.get('/api/leagues', {
+          headers: { Authorization: `Bearer ${tokens.__raw}` }
+        });
+        setLeagues(data.preferences);
+      } catch (e) {
+        console.error('Unable to fetch leagues', e);
+      }
+      setPageLoading(false);
     };
     if (isAuthenticated) {
       fetchLeagues();
+    } else {
+      setPageLoading(false);
     }
   }, [getIdTokenClaims, isAuthenticated]);
 
@@ -70,6 +79,10 @@ const Home = () => {
     }
   };
 
+  if (pageLoading) {
+    return <FullPageLoader />;
+  }
+
   return (
     <>
       <AlerDialog open={showAlert} onClose={() => setShowAlert(false)} />
@@ -85,7 +98,7 @@ const Home = () => {
         <div css={{ maxWidth: 960, padding: '32px', margin: 'auto' }}>
           <StandingsForm
             onSubmit={onSubmit}
-            isAuthenticated={isAuthenticated}
+            isAuthenticated={isAuthenticated && leagues.length > 0}
             leagues={leagues}
             loading={loading}
           />
