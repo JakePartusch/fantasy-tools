@@ -1,7 +1,9 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import { AppBar, Toolbar, Typography, Button } from '@material-ui/core';
+import { AppBar, Toolbar, Typography, Button, useMediaQuery } from '@material-ui/core';
+import { ArrowForward } from '@material-ui/icons';
 
 import { useAuth0 } from '../react-auth0-spa';
 import NavigationMenu from './NavigationMenu';
@@ -9,6 +11,7 @@ import AccountMenu from './AccountMenu';
 
 const Navbar = () => {
   const { isAuthenticated, loginWithRedirect } = useAuth0();
+  const isLargeScreen = useMediaQuery('(min-width:960px)');
 
   return (
     <AppBar position="static">
@@ -26,9 +29,21 @@ const Navbar = () => {
         </div>
         <div>
           {!isAuthenticated && (
-            <Button color="inherit" onClick={() => loginWithRedirect({})}>
-              Log in
-            </Button>
+            <>
+              <Button
+                css={{ fontWeight: 400 }}
+                size="medium"
+                color="inherit"
+                onClick={() => loginWithRedirect({})}
+              >
+                Log in
+              </Button>
+              {isLargeScreen && (
+                <Button size="large" color="inherit" onClick={() => loginWithRedirect({})}>
+                  Sign up <ArrowForward fontSize="small" />
+                </Button>
+              )}
+            </>
           )}
           {isAuthenticated && <AccountMenu />}
         </div>
