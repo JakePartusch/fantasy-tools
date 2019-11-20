@@ -2,6 +2,7 @@ import KMS from 'aws-sdk/clients/kms';
 import axios from 'axios';
 import DynamoDB from 'aws-sdk/clients/dynamodb';
 import { getUserByEmail } from '../user';
+import dayjs from 'dayjs';
 const kmsClient = new KMS();
 const dynamoDb = new DynamoDB.DocumentClient();
 
@@ -14,14 +15,12 @@ const saveSession = async (user, sessionAttributes) => {
       lastUpdatedTimestamp: new Date().toISOString()
     }
   };
-  console.log('Saving Item', item);
   await dynamoDb
     .put({
       TableName: process.env.USERS_TABLE,
       Item: item
     })
     .promise();
-  console.log('Item saved');
 };
 
 const loginToEspn = async credentials => {
@@ -41,7 +40,10 @@ const loginToEspn = async credentials => {
 
 const getSyncedAccountCookiesByEmail = async email => {
   const user = await getUserByEmail(email);
-  if (user.session) {
+  if (
+    user.session &&
+    dayjs(user.session.lastUpdatedTimestamp).isAfter(dayjs().subtract(1, 'day'))
+  ) {
     console.log('Using cached Session');
     return user.session;
   }

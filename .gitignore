@@ -11,7 +11,7 @@
 # production
 /build
 /lambda
-/dist
+dist
 .cache
 
 # misc
