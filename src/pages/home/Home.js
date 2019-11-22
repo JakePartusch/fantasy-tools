@@ -14,7 +14,7 @@ import ProgressUpdates from './ProgressUpdates';
 import OnboardingFlow from './OnboardingFlow';
 import { useAuth0 } from '../../react-auth0-spa';
 
-const Home = ({ user }) => {
+const Home = ({ user, setUser }) => {
   const [onboarding, setOnboarding] = useState(false);
   const history = useHistory();
   const { getIdTokenClaims } = useAuth0();
@@ -31,6 +31,7 @@ const Home = ({ user }) => {
 
   const handleOnboardingComplete = async () => {
     setOnboarding(false);
+    setUser({ ...user, isOnboardingComplete: true });
     const tokens = await getIdTokenClaims();
     await axios.post('/api/user/onboarding', null, {
       headers: { Authorization: `Bearer ${tokens.__raw}` }
