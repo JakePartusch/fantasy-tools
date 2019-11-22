@@ -66,7 +66,7 @@ const App = () => {
               <Navbar />
               <main>
                 <Switch>
-                  <Route exact path="/" render={() => <Home user={user} />} />
+                  <Route exact path="/" render={() => <Home user={user} setUser={setUser} />} />
                   <Route path="/standings" component={RankingsSimulator} />
                   <Redirect to="/" />
                 </Switch>
