@@ -5,8 +5,11 @@ org: jakepartusch
 provider:
   name: aws
   runtime: nodejs10.x
+  stage: ${opt:stage, 'dev'}
   environment:
-    DYNAMODB_TABLE: ${self:service}-${self:provider.stage}
+    AUTH0_CLIENT_ID: ${file(./config/config.${self:provider.stage}.json):AUTH0_CLIENT_ID}
+    AUTH0_CLIENT_PUBLIC_KEY: ${file(./config/fantasy-tools.${self:provider.stage}.pem)}
+    USERS_TABLE: ${self:service}-users-${self:provider.stage}
   iamRoleStatements:
     - Effect: Allow
       Action:
@@ -14,7 +17,12 @@ provider:
         - dynamodb:UpdateItem
         - dynamodb:PutItem
         - dynamodb:DeleteItem
-      Resource: 'arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/${self:provider.environment.DYNAMODB_TABLE}'
+        - dynamodb:Scan
+      Resource: 'arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/${self:provider.environment.USERS_TABLE}'
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+      Resource: 'arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/${self:provider.environment.USERS_TABLE}/index/*'
 
 functions:
   addEmail:
@@ -23,18 +31,79 @@ functions:
       - http:
           path: /user/email
           method: post
+  userSignup:
+    handler: handler.createUser
+    events:
+      - http:
+          path: /user
+          method: post
+  syncAccount:
+    handler: handler.syncAccount
+    events:
+      - http:
+          path: /user/accountSync
+          method: post
+          authorizer: authorizer
+  fetchSyncedAccountAuthentication:
+    handler: handler.fetchSyncedAccountAuthentication
+    events:
+      - http:
+          path: /user/accountSync
+          method: get
+          authorizer: authorizer
+  getUser:
+    handler: handler.getUser
+    events:
+      - http:
+          path: /user
+          method: get
+          authorizer: authorizer
+  onboarding:
+    handler: handler.onboarding
+    events:
+      - http:
+          path: /user/onboarding
+          method: post
+          authorizer: authorizer
+  fetchLeagueData:
+    handler: handler.fetchLeague
+    events:
+      - http:
+          path: /leagues/{leagueId}/{seasonId}
+          method: get
+          authorizer: authorizer
+  fetchLeagues:
+    handler: handler.fetchLeagues
+    events:
+      - http:
+          path: /leagues
+          method: get
+          authorizer: authorizer
+  authorizer:
+    handler: handler.authorizer
 resources:
   Resources:
-    EmailTable:
+    UsersTable:
       Type: 'AWS::DynamoDB::Table'
       Properties:
+        TableName: ${self:provider.environment.USERS_TABLE}
         AttributeDefinitions:
           - AttributeName: id
+            AttributeType: S
+          - AttributeName: email
             AttributeType: S
         KeySchema:
           - AttributeName: id
             KeyType: HASH
-        ProvisionedThroughput:
-          ReadCapacityUnits: 1
-          WriteCapacityUnits: 1
-        TableName: ${self:provider.environment.DYNAMODB_TABLE}
+          - AttributeName: email
+            KeyType: RANGE
+        BillingMode: PAY_PER_REQUEST
+        GlobalSecondaryIndexes:
+          - IndexName: emailIndex
+            KeySchema:
+              - AttributeName: email
+                KeyType: HASH
+              - AttributeName: id
+                KeyType: RANGE
+            Projection:
+              ProjectionType: ALL

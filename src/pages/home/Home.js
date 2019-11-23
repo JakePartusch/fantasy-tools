@@ -1,7 +1,8 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import axios from 'axios';
 import { Typography, Card, CardContent, Button, Grid } from '@material-ui/core';
 import FansImg from './fans.svg';
 import ListIcon from '@material-ui/icons/List';
@@ -10,16 +11,36 @@ import ThumbsUpDownIcon from '@material-ui/icons/ThumbsUpDown';
 import { Helmet } from 'react-helmet';
 import ReactGA from 'react-ga';
 import ProgressUpdates from './ProgressUpdates';
+import OnboardingFlow from './OnboardingFlow';
+import { useAuth0 } from '../../react-auth0-spa';
 
-const Home = () => {
+const Home = ({ user, setUser }) => {
+  const [onboarding, setOnboarding] = useState(false);
   const history = useHistory();
+  const { getIdTokenClaims } = useAuth0();
 
   useEffect(() => {
     ReactGA.pageview(window.location.pathname + window.location.search);
   }, []);
 
+  useEffect(() => {
+    if (user) {
+      setOnboarding(!user.isOnboardingComplete);
+    }
+  }, [user]);
+
+  const handleOnboardingComplete = async () => {
+    setOnboarding(false);
+    setUser({ ...user, isOnboardingComplete: true });
+    const tokens = await getIdTokenClaims();
+    await axios.post('/api/user/onboarding', null, {
+      headers: { Authorization: `Bearer ${tokens.__raw}` }
+    });
+  };
+
   return (
     <React.Fragment>
+      <OnboardingFlow open={onboarding} handleClose={handleOnboardingComplete} />
       <Helmet>
         <title>Fantasy Tools | Home</title>
         <meta
@@ -62,7 +83,9 @@ const Home = () => {
             Get Started!
           </Button>
         </div>
-        <img css={{ maxWidth: '300px' }} alt="Football fans on coach" src={FansImg} />
+        <div css={{ width: 300, height: 270 }}>
+          <img css={{ maxWidth: '100%' }} alt="Football fans on coach" src={FansImg} />
+        </div>
       </header>
       <section css={{ maxWidth: 960, margin: '3rem auto 0 auto' }}>
         <Grid container spacing={2} justify={'center'} css={{ width: '100%' }}>

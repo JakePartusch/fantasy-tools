@@ -4,11 +4,20 @@
   "description": "",
   "main": "handler.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "deploy:prod": "cd dist &&  npm install --production  && serverless deploy --stage=prod",
+    "deploy:dev": "cd dist &&  npm install --production  && serverless deploy --stage=dev",
+    "build": "parcel build src/handler.js --target=node && cp serverless.yml dist && cp package.json dist && cp package-lock.json dist && cp -r src/config dist"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.19.0",
+    "dayjs": "^1.8.17",
+    "jsonwebtoken": "^8.5.1",
     "uuid": "^3.3.3"
+  },
+  "devDependencies": {
+    "parcel-bundler": "^1.12.4"
   }
 }

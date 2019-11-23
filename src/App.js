@@ -1,15 +1,19 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import Home from './pages/home/Home';
-import RankingsSimulator from './pages/rankings/RankingsSimulator';
-import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
+import RankingsSimulator from './pages/standings/StandingsSimulator';
+import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom';
 import './App.css';
 import { ThemeProvider, StylesProvider } from '@material-ui/styles';
 import { createMuiTheme } from '@material-ui/core';
+import ReactGA from 'react-ga';
 import Navbar from './common/Navbar';
 import Footer from './common/Footer';
+import FullPageLoader from './common/FullPageLoader';
+import { useAuth0 } from './react-auth0-spa';
+import { useEffect, useState } from 'react';
+import Axios from 'axios';
 import ScrollToTop from './common/ScrollToTop';
-import ReactGA from 'react-ga';
 ReactGA.initialize('UA-109019699-1');
 
 const theme = createMuiTheme({
@@ -24,6 +28,27 @@ const theme = createMuiTheme({
 });
 
 const App = () => {
+  const { loading, getIdTokenClaims } = useAuth0();
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const getTokens = async () => {
+      const tokens = await getIdTokenClaims();
+      if (tokens) {
+        const response = await Axios.get('/api/user', {
+          headers: { Authorization: `Bearer ${tokens.__raw}` }
+        });
+        setUser(response.data);
+      }
+    };
+    if (!loading && getIdTokenClaims) {
+      getTokens();
+    }
+  }, [loading, getIdTokenClaims]);
+
+  if (loading) {
+    return <FullPageLoader />;
+  }
   return (
     <ThemeProvider theme={theme}>
       <StylesProvider injectFirst>
@@ -40,9 +65,11 @@ const App = () => {
             >
               <Navbar />
               <main>
-                <Route exact path="/" component={Home} />
-                <Route exact path="/standings" component={RankingsSimulator} />
-                <Redirect to="/" />
+                <Switch>
+                  <Route exact path="/" render={() => <Home user={user} setUser={setUser} />} />
+                  <Route path="/standings" component={RankingsSimulator} />
+                  <Redirect to="/" />
+                </Switch>
               </main>
               <Footer />
             </div>

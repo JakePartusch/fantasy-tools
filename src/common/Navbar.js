@@ -1,51 +1,52 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import React from 'react';
-import { Link, useHistory } from 'react-router-dom';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
+import { Link } from 'react-router-dom';
+import { AppBar, Toolbar, Typography, Button, useMediaQuery } from '@material-ui/core';
+import { ArrowForward } from '@material-ui/icons';
+
+import { useAuth0 } from '../react-auth0-spa';
+import NavigationMenu from './NavigationMenu';
+import AccountMenu from './AccountMenu';
 
 const Navbar = () => {
-  const history = useHistory();
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const { isAuthenticated, loginWithRedirect } = useAuth0();
+  const isLargeScreen = useMediaQuery('(min-width:960px)');
 
-  const handleClick = event => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = path => {
-    setAnchorEl(null);
-    history.push(path);
-  };
   return (
     <AppBar position="static">
-      <Toolbar>
-        <IconButton edge="start" color="inherit" aria-label="menu" onClick={handleClick}>
-          <MenuIcon />
-        </IconButton>
-        <Menu
-          id="simple-menu"
-          anchorEl={anchorEl}
-          keepMounted
-          open={Boolean(anchorEl)}
-          onClose={handleClose}
-        >
-          <MenuItem onClick={() => handleClose('/')}>Home</MenuItem>
-          <MenuItem onClick={() => handleClose('/standings')}>Standings Simulator</MenuItem>
-        </Menu>
-        <Link
-          to="/"
-          css={{ textDecoration: 'none', color: '#fff', display: 'flex', alignItems: 'center' }}
-        >
-          <Typography variant="h5" component="div">
-            Fantasy Tools
-          </Typography>
-        </Link>
+      <Toolbar css={{ justifyContent: 'space-between' }}>
+        <div css={{ display: 'flex' }}>
+          <NavigationMenu />
+          <Link
+            to="/"
+            css={{ textDecoration: 'none', color: '#fff', display: 'flex', alignItems: 'center' }}
+          >
+            <Typography variant="h5" component="div">
+              Fantasy Tools
+            </Typography>
+          </Link>
+        </div>
+        <div>
+          {!isAuthenticated && (
+            <>
+              <Button
+                css={{ fontWeight: 400 }}
+                size="medium"
+                color="inherit"
+                onClick={() => loginWithRedirect({})}
+              >
+                Log in
+              </Button>
+              {isLargeScreen && (
+                <Button size="large" color="inherit" onClick={() => loginWithRedirect({})}>
+                  Sign up <ArrowForward fontSize="small" />
+                </Button>
+              )}
+            </>
+          )}
+          {isAuthenticated && <AccountMenu />}
+        </div>
       </Toolbar>
     </AppBar>
   );
