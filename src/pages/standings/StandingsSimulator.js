@@ -9,7 +9,7 @@ import StandingsSimulatorTable from './StandingsSimulatorTable';
 import { useAuth0 } from '../../react-auth0-spa';
 import StandingsForm from './StandingsForm';
 import StandingsHeader from './StandingsHeader';
-import AlerDialog from './AlertDialog';
+import AlertDialog from './AlertDialog';
 import { getPowerRankings } from '../../api/FantasyFootballApiv2';
 import FullPageLoader from '../../common/FullPageLoader';
 
@@ -82,10 +82,9 @@ const Home = () => {
   if (pageLoading) {
     return <FullPageLoader />;
   }
-
   return (
     <>
-      <AlerDialog open={showAlert} onClose={() => setShowAlert(false)} />
+      <AlertDialog open={showAlert} onClose={() => setShowAlert(false)} />
       <Helmet>
         <title>Fantasy Tools | Standings Simulator</title>
         <meta

@@ -51,11 +51,13 @@ const StandingsForm = ({ isAuthenticated, onSubmit, leagues, loading }) => {
                 >
                   {leagues.map(league => {
                     const leagueId = league.id.split(':')[1];
-                    return (
-                      <MenuItem key={leagueId} value={leagueId}>
-                        {`${league.metaData.entry.entryLocation} ${league.metaData.entry.entryNickname}`}
-                      </MenuItem>
-                    );
+                    if (leagueId && league.type.code === 'fantasy') {
+                      return (
+                        <MenuItem key={leagueId} value={leagueId}>
+                          {`${league.metaData.entry.entryLocation} ${league.metaData.entry.entryNickname}`}
+                        </MenuItem>
+                      );
+                    }
                   })}
                 </TextField>
                 <TextField
