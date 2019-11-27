@@ -2,6 +2,7 @@
 import { jsx } from '@emotion/core';
 // eslint-disable-next-line
 import React, { useEffect, useState, useRef } from 'react';
+import { useHistory } from 'react-router-dom';
 import {
   Button,
   Dialog,
@@ -38,7 +39,7 @@ const DotsMobileStepper = ({ activeStep, handleBack, handleNext, loading }) => {
             <CircularProgress size={24} />
           ) : (
             <>
-              {activeStep === 2 ? 'Finish' : 'Next'} <KeyboardArrowRight />
+              {activeStep === 2 ? 'Get Started!' : 'Next'} <KeyboardArrowRight />
             </>
           )}
         </Button>
@@ -59,7 +60,8 @@ const WelcomeStep = () => {
       <DialogTitle id="alert-dialog-title">Welcome!</DialogTitle>
       <DialogContent>
         <DialogContentText id="alert-dialog-description">
-          Let's get started by syncing your fantasy football account with Fantasy Tools
+          Let's get started by syncing your fantasy football account with Fantasy Tools. We'll then
+          automatically integrate each of your leagues directly with our simulation tools.
         </DialogContentText>
         <div css={{ display: 'flex', justifyContent: 'center', height: 250 }}>
           <img css={{ maxWidth: '100%' }} alt="Synchronize to cloud" src={SyncImg} />
@@ -105,7 +107,6 @@ const SyncAccountForm = ({ formRef, setSyncValues, syncError, handleClose }) => 
             password: ''
           }}
           onSubmit={async values => {
-            console.log(values);
             setSyncValues(values);
           }}
         >
@@ -143,6 +144,7 @@ export default function OnboardingFlow({ open, handleClose }) {
   const [syncValues, setSyncValues] = useState({});
   const [loading, setLoading] = useState(false);
   const [syncError, setSyncError] = useState(null);
+  const history = useHistory();
   const formRef = useRef(null);
   const { getIdTokenClaims } = useAuth0();
 
@@ -176,6 +178,7 @@ export default function OnboardingFlow({ open, handleClose }) {
     } else {
       if (activeStep === 2) {
         handleClose();
+        history.push('/standings');
       }
       setActiveStep(prevActiveStep => prevActiveStep + 1);
     }

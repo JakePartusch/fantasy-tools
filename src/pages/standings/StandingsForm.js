@@ -51,7 +51,11 @@ const StandingsForm = ({ isAuthenticated, onSubmit, leagues, loading }) => {
                 >
                   {leagues.map(league => {
                     const leagueId = league.id.split(':')[1];
-                    if (leagueId && league.type.code === 'fantasy') {
+                    if (
+                      leagueId &&
+                      league.type.code === 'fantasy' &&
+                      league.metaData.entry.abbrev === 'FFL'
+                    ) {
                       return (
                         <MenuItem key={leagueId} value={leagueId}>
                           {`${league.metaData.entry.entryLocation} ${league.metaData.entry.entryNickname}`}

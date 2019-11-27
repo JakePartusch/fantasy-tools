@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+import './styles.css';
 import App from './App';
 import { Auth0Provider } from './react-auth0-spa';
 import qa_config from './auth_config.qa.json';
