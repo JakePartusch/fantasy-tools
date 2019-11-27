@@ -17,7 +17,7 @@ import { useAuth0 } from '../../react-auth0-spa';
 const Home = ({ user, setUser }) => {
   const [onboarding, setOnboarding] = useState(false);
   const history = useHistory();
-  const { getIdTokenClaims } = useAuth0();
+  const { getIdTokenClaims, isAuthenticated, loginWithRedirect } = useAuth0();
 
   useEffect(() => {
     ReactGA.pageview(window.location.pathname + window.location.search);
@@ -36,6 +36,14 @@ const Home = ({ user, setUser }) => {
     await axios.post('/api/user/onboarding', null, {
       headers: { Authorization: `Bearer ${tokens.__raw}` }
     });
+  };
+
+  const handleActionButtonClick = () => {
+    if (isAuthenticated) {
+      history.push('/standings');
+    } else {
+      loginWithRedirect({});
+    }
   };
 
   return (
@@ -72,15 +80,16 @@ const Home = ({ user, setUser }) => {
           </Typography>
           <Button
             css={{
+              padding: '8px 16px',
               ':hover': {
                 transform: 'scale(1.01)'
               }
             }}
             variant="contained"
             color="primary"
-            onClick={() => history.push('/standings')}
+            onClick={handleActionButtonClick}
           >
-            Get Started!
+            Get Started For Free!
           </Button>
         </div>
         <div css={{ width: 300, height: 270 }}>
@@ -96,16 +105,30 @@ const Home = ({ user, setUser }) => {
               css={{ textTransform: 'none' }}
               onClick={() => history.push('/standings')}
             >
-              <Card css={{ minHeight: 250, width: '100%' }} elevation={5}>
-                <CardContent>
+              <Card className="flex w-100" css={{ minHeight: 250 }} elevation={5}>
+                <CardContent className="flex flex-col items-center justify-center">
                   <ListIcon color="primary" fontSize="large" />
                   <Typography css={{ marginBottom: '0.5rem' }} variant="h6" component="h2">
                     Standings Simulator
                   </Typography>
-                  <Typography>
-                    We remove the randomness out of weekly matchups to give a better performance
-                    picture.
-                  </Typography>
+                  <div className="flex flex-col justify-between flex-grow">
+                    <Typography>
+                      We remove the randomness out of weekly matchups to give a better performance
+                      picture.
+                    </Typography>
+                    <Button
+                      css={{
+                        ':hover': {
+                          transform: 'scale(1.01)'
+                        }
+                      }}
+                      variant="outlined"
+                      color="primary"
+                      onClick={() => history.push('/standings')}
+                    >
+                      Try it out
+                    </Button>
+                  </div>
                 </CardContent>
               </Card>
             </Button>
