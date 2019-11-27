@@ -23,8 +23,8 @@
   },
   "scripts": {
     "build:styles": "postcss tailwind.css -o src/styles.css",
-    "prebuild": "yarn build:styles",
-    "prestart": "yarn build:styles",
+    "prebuild": "npm run build:styles",
+    "prestart": "npm run build:styles",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
