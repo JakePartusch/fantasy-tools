@@ -40,6 +40,9 @@ const loginToEspn = async credentials => {
 
 const getSyncedAccountCookiesByEmail = async email => {
   const user = await getUserByEmail(email);
+  if (!user.syncedAccount) {
+    throw new Error('No account synced');
+  }
   if (
     user.session &&
     dayjs(user.session.lastUpdatedTimestamp).isAfter(dayjs().subtract(1, 'day'))
