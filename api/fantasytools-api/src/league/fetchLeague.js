@@ -16,9 +16,22 @@ module.exports.fetchLeague = async event => {
   console.log(JSON.stringify(event));
   const { email } = event.requestContext.authorizer;
   const { leagueId, seasonId } = event.pathParameters;
-  const leagueData = await fetchLeague(email, leagueId, seasonId);
-  return {
-    statusCode: 200,
-    body: JSON.stringify(leagueData)
-  };
+  try {
+    const leagueData = await fetchLeague(email, leagueId, seasonId);
+    return {
+      statusCode: 200,
+      body: JSON.stringify(leagueData)
+    };
+  } catch (e) {
+    console.error('Unable to fetch leagues', e);
+    if (e.message === 'No account synced') {
+      return {
+        statusCode: 404
+      };
+    }
+
+    return {
+      statusCode: 500
+    };
+  }
 };

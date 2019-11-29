@@ -8,14 +8,27 @@ const cookieJar = new tough.CookieJar();
 axios.defaults.jar = cookieJar;
 axios.defaults.withCredentials = true;
 
+const getEspnRemoteUrl = (seasonId, leagueId) => {
+  return `https://fantasy.espn.com/apis/v3/games/ffl/seasons/${seasonId}/segments/0/leagues/${leagueId}?view=mMatchupScore&view=mStatus&view=mSettings&view=mTeam&view=modular&view=mNav`;
+};
+
 export const getPowerRankings = async (leagueId, seasonId, isAuthenticated, tokens) => {
   let data;
   if (isAuthenticated) {
     const url = `/api/leagues/${leagueId}/${seasonId}`;
-    const response = await axios.get(url, { headers: { Authorization: `Bearer ${tokens.__raw}` } });
-    data = response.data;
+    try {
+      const response = await axios.get(url, {
+        headers: { Authorization: `Bearer ${tokens.__raw}` }
+      });
+      data = response.data;
+    } catch (e) {
+      console.error('Unable to fetch data for authenticated user', e);
+      const remoteURL = getEspnRemoteUrl(seasonId, leagueId);
+      const response = await axios.get(remoteURL);
+      data = response.data;
+    }
   } else {
-    const remoteURL = `https://fantasy.espn.com/apis/v3/games/ffl/seasons/${seasonId}/segments/0/leagues/${leagueId}?view=mMatchupScore&view=mStatus&view=mSettings&view=mTeam&view=modular&view=mNav`;
+    const remoteURL = getEspnRemoteUrl(seasonId, leagueId);
     const response = await axios.get(remoteURL);
     data = response.data;
   }
