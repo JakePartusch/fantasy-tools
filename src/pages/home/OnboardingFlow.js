@@ -34,7 +34,7 @@ const DotsMobileStepper = ({ activeStep, handleBack, handleNext, loading }) => {
       position="static"
       activeStep={activeStep}
       nextButton={
-        <Button size="small" onClick={handleNext}>
+        <Button size="small" onClick={handleNext} className="focus:outline-none">
           {loading ? (
             <CircularProgress size={24} />
           ) : (

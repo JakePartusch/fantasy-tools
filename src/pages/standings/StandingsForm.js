@@ -94,6 +94,7 @@ const StandingsForm = ({ isAuthenticated, onSubmit, leagues, loading }) => {
                   type="submit"
                   variant="contained"
                   color="primary"
+                  className="focus:outline-none"
                 >
                   {loading ? <CircularProgress color="inherit" /> : 'Submit'}
                 </SubmitButton>
@@ -116,6 +117,7 @@ const StandingsForm = ({ isAuthenticated, onSubmit, leagues, loading }) => {
                   type="submit"
                   variant="contained"
                   color="primary"
+                  className="focus:outline-none"
                 >
                   {loading ? <CircularProgress color="inherit" /> : 'Calculate'}
                 </SubmitButton>
