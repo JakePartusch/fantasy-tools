@@ -23,7 +23,7 @@ const useStyles = makeStyles(theme => ({
     marginTop: theme.spacing(3),
     overflowX: 'auto',
     margin: 'auto',
-    maxWidth: 1200
+    maxWidth: 1400
   }
 }));
 
