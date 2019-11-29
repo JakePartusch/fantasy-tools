@@ -38,9 +38,13 @@ const loginToEspn = async credentials => {
   return authenticationResponse;
 };
 
-const getSyncedAccountCookiesByEmail = async email => {
+const getSyncedAccountCookiesByEmail = async (email, forceRefresh = false) => {
   const user = await getUserByEmail(email);
+  if (!user.syncedAccount) {
+    throw new Error('No account synced');
+  }
   if (
+    !forceRefresh && 
     user.session &&
     dayjs(user.session.lastUpdatedTimestamp).isAfter(dayjs().subtract(1, 'day'))
   ) {
