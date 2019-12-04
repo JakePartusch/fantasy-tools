@@ -31,6 +31,7 @@ const syncAccount = async (email, credentials) => {
   const encryptedCredentials = await kmsClient.encrypt(params).promise();
   user.syncedAccount = encryptedCredentials.CiphertextBlob.toString('base64');
   user.session = undefined;
+  user.isOnboardingComplete = true;
   await dynamoDb
     .put({
       TableName: process.env.USERS_TABLE,
