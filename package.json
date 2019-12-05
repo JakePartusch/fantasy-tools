@@ -17,7 +17,7 @@
     "react-helmet": "^5.2.1",
     "react-router": "^5.0.1",
     "react-router-dom": "^5.0.1",
-    "react-scripts": "3.2.0",
+    "react-scripts": "3.3.0",
     "tough-cookie": "^3.0.1",
     "valid-url": "^1.0.9"
   },
