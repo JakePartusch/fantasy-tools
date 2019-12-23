@@ -2,7 +2,7 @@
   "name": "fantasy-tools",
   "version": "0.1.0",
   "dependencies": {
-    "@3846masa/axios-cookiejar-support": "^0.5.0",
+    "@3846masa/axios-cookiejar-support": "^0.5.1",
     "@auth0/auth0-spa-js": "^1.5.0",
     "@emotion/core": "^10.0.22",
     "@emotion/styled": "^10.0.23",
