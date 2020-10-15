@@ -45,7 +45,7 @@ const Home = () => {
     }
   }, [getIdTokenClaims, isAuthenticated]);
 
-  const fetchRankings = async (leagueId, seasonId = '2019') => {
+  const fetchRankings = async (leagueId, seasonId = '2020') => {
     setLoading(true);
     try {
       if (leagueId && seasonId) {
