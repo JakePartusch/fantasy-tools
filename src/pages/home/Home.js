@@ -38,14 +38,6 @@ const Home = ({ user, setUser }) => {
     });
   };
 
-  const handleActionButtonClick = () => {
-    if (isAuthenticated) {
-      history.push('/standings');
-    } else {
-      loginWithRedirect({});
-    }
-  };
-
   return (
     <React.Fragment>
       <OnboardingFlow open={onboarding} handleClose={handleOnboardingComplete} />
@@ -87,9 +79,9 @@ const Home = ({ user, setUser }) => {
             }}
             variant="contained"
             color="primary"
-            onClick={handleActionButtonClick}
+            onClick={() => history.push('/standings')}
           >
-            Get Started For Free!
+            Get Started!
           </Button>
         </div>
         <div css={{ width: 300, height: 270 }}>

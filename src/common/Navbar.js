@@ -27,26 +27,6 @@ const Navbar = () => {
             </Typography>
           </Link>
         </div>
-        <div>
-          {!isAuthenticated && (
-            <>
-              <Button
-                css={{ fontWeight: 400 }}
-                size="medium"
-                color="inherit"
-                onClick={() => loginWithRedirect({})}
-              >
-                Log in
-              </Button>
-              {isLargeScreen && (
-                <Button size="large" color="inherit" onClick={() => loginWithRedirect({})}>
-                  Sign up <ArrowForward fontSize="small" />
-                </Button>
-              )}
-            </>
-          )}
-          {isAuthenticated && <AccountMenu />}
-        </div>
       </Toolbar>
     </AppBar>
   );
