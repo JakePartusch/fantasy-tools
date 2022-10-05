@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { getSyncedAccountCookiesByEmail } from '../authentication';
 
-const fetchLeague = async (email, leagueId, seasonId = '2021', forceRefresh = false) => {
+const fetchLeague = async (email, leagueId, seasonId = '2022', forceRefresh = false) => {
   const { s2, swid } = await getSyncedAccountCookiesByEmail(email, forceRefresh);
   const cookieString = `espn_s2=${s2}; swid=${swid}`;
   try {
